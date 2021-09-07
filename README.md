@@ -5,9 +5,10 @@
 
 Até o momento:
 
-* Multi-logins -> Users e Admins
+* Criada duas tabelas no Banco de Dados para Users e Admins
 * Configuração do template do Dashboard para usuários 'admins'
-* Configuração do template Front-end 
-* Configuração de uma dashboard simples para os 'users'
+* Configuração do template Front-end Ecommerce
+* Configuração de uma dashboard simples para os clientes cadastrados
+* Próxima Etapa <- Dashboard -> == Aba com CRUD para Brands
 
 
