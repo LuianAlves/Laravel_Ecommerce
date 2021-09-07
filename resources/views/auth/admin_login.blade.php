@@ -11,54 +11,31 @@
                             <p class="text-white-50">Admin Login</p>
                         </div>
                         <div class="p-30 rounded30 box-shadowed b-2 b-dashed">
-                            <form method="POST" action="{{ isset($guard) ? url($guard.'/login') : route('login') }}">
+                            <form method="POST" action="{{ isset($guard) ? url($guard . '/login') : route('login') }}">
                                 @csrf
 
                                 <div class="form-group">
                                     <div class="input-group mb-3">
-
                                         <div class="input-group-prepend">
                                             <span class="input-group-text bg-transparent text-white"><i
                                                     class="ti-user"></i></span>
                                         </div>
-
-                                        <input type="email"
-                                            name="email"
-                                            id="email"
+                                        <input type="email" name="email" id="email"
                                             class="form-control pl-15 bg-transparent text-white plc-white"
-                                            :value="old('email')"
-                                            placeholder="Username"
-                                            required>
-                                    
-                                    
-                                    
-                                        </div>
-
-
+                                            :value="old('email')" placeholder="Username" required>
+                                    </div>
                                 </div>
-
-
                                 <div class="form-group">
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text  bg-transparent text-white"><i
                                                     class="ti-lock"></i></span>
                                         </div>
-
-
-                                        <input type="password"
-                                            name="password"
-                                            id="password"
+                                        <input type="password" name="password" id="password"
                                             class="form-control pl-15 bg-transparent text-white plc-white"
-                                            placeholder="Password"
-                                            autocomplete="current-password">
-                                    
-                                    
-                                    
-                                        </div>
+                                            placeholder="Password" autocomplete="current-password">
+                                    </div>
                                 </div>
-
-
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="checkbox text-white">
@@ -70,7 +47,7 @@
                                     <div class="col-6">
                                         <div class="fog-pwd text-right">
                                             <a href="{{ route('password.request') }}" class="text-white hover-info"><i
-                                                    class="ion ion-locked mr-1"></i>{{__('Forgot pwd?')}}</a><br>
+                                                    class="ion ion-locked mr-1"></i>{{ __('Forgot pwd?') }}</a><br>
                                         </div>
                                     </div>
                                     <!-- /.col -->
