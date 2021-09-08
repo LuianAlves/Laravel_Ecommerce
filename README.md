@@ -67,10 +67,7 @@ Até o momento:
 
         $user->save();
         
-        // Caso obtenha sucesso na gravação dos dados, retornará 'true' ...
+        // Caso obtenha sucesso na gravação dos dados, retornará 'true' 
      
-        
-        
-=======
 
 
