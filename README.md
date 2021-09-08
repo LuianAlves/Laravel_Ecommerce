@@ -9,6 +9,7 @@ Até o momento:
 * Configuração do template do Dashboard para usuários 'admins'
 * Configuração do template Front-end Ecommerce
 * Configuração de uma dashboard simples para os clientes cadastrados
-* Próxima Etapa | Backend | => Aba com CRUD para Brands
+* Aba com CRUD para Brands
+** Próxima Etapa | Backend | => Aba com CRUD para Categories e Sub-categories
 
 
