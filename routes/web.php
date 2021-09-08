@@ -6,9 +6,11 @@ use App\Models\User;
 
 // Frontend
 use App\Http\Controllers\Frontend\IndexController;
+
 // Backend
 use App\Http\Controllers\Backend\AdminProfileController;
 use App\Http\Controllers\Backend\BrandController;
+use App\Http\Controllers\Backend\CategoryController;
 
 
 /*
@@ -46,8 +48,22 @@ Route::prefix('brand')->group(function() {
     Route::get('/destroy/{id}', [BrandController::class, 'destroy'])->name('brand.destroy'); //destroy
 });
 
+// Admin Category
+Route::prefix('category')->group(function() {
+    Route::get('/view', [CategoryController::class, 'index'])->name('category.index'); // Index
+    Route::post('/store', [CategoryController::class, 'store'])->name('category.store'); // Store
+    Route::get('/edit/{id}', [CategoryController::class, 'edit'])->name('category.edit'); // Edit
+    Route::post('/update', [CategoryController::class, 'update'])->name('category.update'); // Update
+    Route::get('/destroy/{id}', [CategoryController::class, 'destroy'])->name('category.destroy'); // Destroy
+});
 
-// ============= Users Routes ======================================= 
+//------------------------------------------------
+/*
+----------
+=================== USERS =======================
+---------
+*/
+
 Route::middleware(['auth:sanctum,web', 'verified'])->get('/dashboard', function () {
     return view('app.profile.user_profile_home');
 })->name('profile.home');

@@ -9,46 +9,45 @@
 
                     <div class="box">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Add Brand</h3>
+                            <h3 class="box-title">Add Category</h3>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
                             <div class="row">
                                 <div class="col">
-                                    <form action="{{ route('brand.store') }}" method="post" enctype="multipart/form-data">
+                                    <form action="{{ route('category.store') }}" method="post">
                                         @csrf
 
                                         <div class="form-group">
-                                            <h5>{{ __('Brand Name English') }}<span class="text-danger"> *</span></h5>
+                                            <h5>{{ __('Category English') }}<span class="text-danger"> *</span></h5>
                                             <div class="controls">
-                                                <input type="text" name="brand_name_en" class="form-control">
-                                                @error('brand_name_en')
+                                                <input type="text" name="category_name_en" class="form-control">
+                                                @error('category_name_en')
                                                 <span class="text-danger">{{ $message }}</span>
                                                 @enderror
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <h5>{{ __('Brand Name Portuguese') }}<span class="text-danger"> *</span></h5>
+                                            <h5>{{ __('Category Portuguese') }}<span class="text-danger"> *</span></h5>
                                             <div class="controls">
-                                                <input type="text" name="brand_name_pt"  class="form-control">
-                                                @error('brand_name_pt')
+                                                <input type="text" name="category_name_pt"  class="form-control">
+                                                @error('category_name_pt')
                                                 <span class="text-danger">{{ $message }}</span>
                                                 @enderror
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <h5>{{ __('Brand Image') }}<span class="text-danger"> *</span></h5>
+                                            <h5>{{ __('Category Icon') }}<span class="text-danger"> *</span></h5>
                                             <div class="controls">
-                                                <input type="file" name="brand_image" class="form-control">
-                                                @error('brand_image')
+                                                <input type="text" name="category_icon" class="form-control">
+                                                @error('category_icon')
                                                 <span class="text-danger">{{ $message }}</span>
                                                 @enderror
                                             </div>
                                         </div>
                                         <br>
                                         <button type="submit"
-                                            class="font-weight-bold btn btn-primary btn-md mt-5"
-                                            value="Update">{{ __('Add Brand') }}</button>
+                                            class="font-weight-bold btn btn-primary btn-md float-right mt-5">{{ __('Add Category') }}</button>
                                     </form>
 
                                 </div>
@@ -68,7 +67,7 @@
 
                     <div class="box">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Brand List</h3>
+                            <h3 class="box-title">Category List</h3>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
@@ -76,22 +75,21 @@
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Brand En</th>
-                                            <th>Brand Pt</th>
-                                            <th>Image</th>
+                                            <th>Icon</th>
+                                            <th>Category En</th>
+                                            <th>Category Pt</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($brands as $brand)
+                                        @foreach ($category as $cat)
                                             <tr>
-                                                <td>{{ $brand->brand_name_en }}</td>
-                                                <td>{{ $brand->brand_name_pt }}</td>
-                                                <td title="{{ $brand->brand_name_en }} Image" class="bg-white"><img src="{{ asset($brand->brand_image) }}"
-                                                        style="width: 75px; height: 48px;"></td>
+                                                <td class="text-warning text-center"><span><i class="{{ $cat->category_icon }} fa-2x"></i></span></td>
+                                                <td>{{ $cat->category_name_en }}</td>
+                                                <td>{{ $cat->category_name_pt }}</td>
                                                 <td class="text-center">
-                                                    <a title="Edit Brand" href="{{ route('brand.edit', $brand->id) }}" class="btn btn-success btn-md"><i class="fa fa-pencil"></i></a>
-                                                    <a title="Delete Brand" href="{{ route('brand.destroy', $brand->id) }}" class="btn btn-danger btn-md"><i class="fa fa-trash"></i></a>
+                                                    <a title="Edit Category" href="{{ route('category.edit', $cat->id) }}" class="btn btn-success btn-md"><i class="fa fa-pencil"></i></a>
+                                                    <a title="Delete Category" href="{{ route('category.destroy', $cat->id) }}" class="btn btn-danger btn-md"><i class="fa fa-trash"></i></a>
                                                 </td>
                                             </tr>
                                         @endforeach
