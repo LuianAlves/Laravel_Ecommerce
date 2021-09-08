@@ -10,6 +10,6 @@ Até o momento:
 * Configuração do template Front-end Ecommerce
 * Configuração de uma dashboard simples para os clientes cadastrados
 * Aba com CRUD para Brands
-** Próxima Etapa | Backend | => Aba com CRUD para Categories e Sub-categories
+* Próxima Etapa | Backend | => Aba com CRUD para Categories e Sub-categories
 
 
