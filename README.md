@@ -12,4 +12,61 @@ Até o momento:
 * Aba com CRUD para Brands
 * Próxima Etapa | Backend | => Aba com CRUD para Categories e Sub-categories
 
+<hr>
+
+## Instalação do Projeto ...
+
+ #Instalando o Composer:
+ 
+     $ composer install --no-scripts
+     
+#Copie o arquivo .env.example
+
+    $ cp .env.example .env
+
+#Crie uma key para o projeto
+
+    $ php artisan key:generate
+
+#Configurar o arquivo .env com base no seu Banco de Dados e SMTP para recuperação de senhas 
+
+#Execute as migrations
+
+    $ php artisan migrate --seed
+    
+<hr>
+
+#Após executar as migrates e os seeders acesse a URL 
+            
+        /admin/login 
+        
+        usuario: admin@gmail.com
+        password: teste123
+
+
+##Caso tenha algum erro com este login e/ou senha
+
+#Criando um Login via Tinker
+
+    $ php artisan tinker
+
+#Acessando o user
+
+        $admin = new App\Models\Admin();
+
+#Definindo os dados de login
+
+        $user->name = 'Teste';
+        $user->email = 'teste@admin.com';
+        $user->password = bcrypt('teste123');
+
+#Adicionando ao Banco de Dados
+
+        $user->save();
+        
+        // Caso obtenha sucesso na gravação dos dados, retornará 'true' ...
+     
+        
+        
+
 
