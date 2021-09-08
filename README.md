@@ -44,7 +44,9 @@ Até o momento:
         password: teste123
 
 
-##Caso tenha algum erro com este login e/ou senha
+<hr>
+
+## Caso tenha algum erro com o Login e/ou Senha acima
 
 #Criando um Login via Tinker
 
