@@ -38,8 +38,8 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    {{-- <li class="{{ ($route == 'brand.index' ? 'active' : '')}}"><a href="{{ route('brand.index') }}"><i class="ti-more"></i>All Brands</a></li>    CASO QUEIRA DEIXAR O SUB-ITEM COMO ATIVO --}}
-                    <li><a href="{{ route('brand.index') }}"><i class="ti-more"></i>All Brands</a></li>
+                    <li class="{{ ($route == 'brand.index' ? 'active' : '')}}"><a href="{{ route('brand.index') }}"><i class="ti-more"></i>All Brands</a></li>    CASO QUEIRA DEIXAR O SUB-ITEM COMO ATIVO
+                    {{-- <li><a href="{{ route('brand.index') }}"><i class="ti-more"></i>All Brands</a></li> --}}
                 </ul>
             </li>
 
@@ -51,9 +51,9 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ route('category.index') }}"><i class="ti-more"></i>All Category</a></li>
-                    {{-- <li><a href="mailbox_compose.html"><i class="ti-more"></i>Compose</a></li>
-                    <li><a href="mailbox_read_mail.html"><i class="ti-more"></i>Read</a></li> --}}
+                    <li class="{{ ($route == 'category.index' ? 'active' : '')}}"><a href="{{ route('category.index') }}"><i class="ti-more"></i>All Category</a></li>
+                    <li class="{{ ($route == 'subcategory.index' ? 'active' : '')}}"><a href="{{route('subcategory.index')}}"><i class="ti-more"></i>All SubCategory</a></li>
+                    <li class="{{ ($route == 'sub_subcategory.index' ? 'active' : '')}}"><a href="{{route('sub_subcategory.index')}}"><i class="ti-more"></i>All Sub SubCategory</a></li>
                 </ul>
             </li>
 

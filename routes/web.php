@@ -11,6 +11,8 @@ use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Backend\AdminProfileController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\SubCategoryController;
+use App\Http\Controllers\Backend\SubSubCategoryController;
 
 
 /*
@@ -55,6 +57,21 @@ Route::prefix('category')->group(function() {
     Route::get('/edit/{id}', [CategoryController::class, 'edit'])->name('category.edit'); // Edit
     Route::post('/update', [CategoryController::class, 'update'])->name('category.update'); // Update
     Route::get('/destroy/{id}', [CategoryController::class, 'destroy'])->name('category.destroy'); // Destroy
+    
+// Admin SubCategory
+    Route::get('/sub/view', [SubCategoryController::class, 'index'])->name('subcategory.index'); // Index
+    Route::post('/sub/store', [SubCategoryController::class, 'store'])->name('subcategory.store'); // Store
+    Route::get('/sub/edit/{id}', [SubCategoryController::class, 'edit'])->name('subcategory.edit'); // Edit
+    Route::post('/sub/update', [SubCategoryController::class, 'update'])->name('subcategory.update'); // Update
+    Route::get('/sub/destroy/{id}', [SubCategoryController::class, 'destroy'])->name('subcategory.destroy'); // Destroy
+  
+// Admin Sub SubCategory
+    Route::get('/subcategory/ajax/{category_id}', [SubSubCategoryController::class, 'getSubCategory']); // AJAX PARA SELECT DE SUB CATEGORIAS
+    Route::get('/sub/sub/view', [SubSubCategoryController::class, 'index'])->name('sub_subcategory.index'); // Index
+    Route::post('/sub/sub/store', [SubSubCategoryController::class, 'store'])->name('sub_subcategory.store'); // Store
+    Route::get('/sub/sub/edit/{id}', [SubSubCategoryController::class, 'edit'])->name('sub_subcategory.edit'); // Edit
+    Route::post('/sub/sub/update', [SubSubCategoryController::class, 'update'])->name('sub_subcategory.update'); // Update
+    Route::get('/sub/sub/destroy/{id}', [SubSubCategoryController::class, 'destroy'])->name('sub_subcategory.destroy'); // Destroy
 });
 
 //------------------------------------------------
