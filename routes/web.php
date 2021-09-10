@@ -74,6 +74,13 @@ Route::prefix('category')->group(function() {
     Route::get('/sub/sub/destroy/{id}', [SubSubCategoryController::class, 'destroy'])->name('sub_subcategory.destroy'); // Destroy
 });
 
+// Admin Products
+Route::prefix('products')->group(function() {
+    Route::get('/view', [ProductController::class, 'index'])->name('product.index');
+});
+
+
+
 //------------------------------------------------
 /*
 ----------

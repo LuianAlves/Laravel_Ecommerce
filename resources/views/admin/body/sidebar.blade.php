@@ -60,6 +60,20 @@
             <li class="treeview">
                 <a href="#">
                     <i data-feather="file"></i>
+                    <span>Products</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-right pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu {{ $prefix == '/products' ? 'active' : ''}}">
+                    <li class="{{ $route == 'product.index' ? 'active' : ''}}"><a href="{{ route('product.index') }}"><i class="ti-more"></i>Add Products</a></li>
+                    <li><a href="invoice.html"><i class="ti-more"></i>Manage Products</a></li>
+                </ul>
+            </li>
+
+            <li class="treeview">
+                <a href="#">
+                    <i data-feather="file"></i>
                     <span>Pages</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-right pull-right"></i>
