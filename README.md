@@ -11,7 +11,8 @@ Até o momento:
 * Configuração de uma dashboard simples para os clientes cadastrados
 * Aba com CRUD para Brands
 * Aba com CRUD para Categories 
-* Próxima Etapa | Backend | => Aba com CRUD para Sub-Categories e Sub Sub-categories
+* Aba com CRUD para Sub-Categories e Sub Sub-categories
+* Próxima Etapa | Backend | => Aba com CRUD para Products
 
 <hr>
 
