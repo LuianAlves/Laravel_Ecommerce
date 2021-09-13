@@ -13,6 +13,7 @@ use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\SubSubCategoryController;
+use App\Http\Controllers\Backend\ProductController;
 
 
 /*
@@ -76,7 +77,9 @@ Route::prefix('category')->group(function() {
 
 // Admin Products
 Route::prefix('products')->group(function() {
+    Route::get('/sub_subcategory/ajax/{subcategory_id}', [ProductController::class, 'getSubSubCategory']); // AJAX PARA SELECT DE SUB CATEGORIAS
     Route::get('/view', [ProductController::class, 'index'])->name('product.index');
+    Route::get('/create', [ProductController::class, 'create'])->name('product.create');
 });
 
 

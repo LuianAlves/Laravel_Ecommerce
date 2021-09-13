@@ -38,7 +38,7 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li class="{{ ($route == 'brand.index' ? 'active' : '')}}"><a href="{{ route('brand.index') }}"><i class="ti-more"></i>All Brands</a></li>    CASO QUEIRA DEIXAR O SUB-ITEM COMO ATIVO
+                    <li class="{{ ($route == 'brand.index' ? 'active' : '')}}"><a href="{{ route('brand.index') }}"><i class="ti-more"></i>All Brands</a></li>    {-- CASO QUEIRA DEIXAR O SUB-ITEM COMO ATIVO --}}
                     {{-- <li><a href="{{ route('brand.index') }}"><i class="ti-more"></i>All Brands</a></li> --}}
                 </ul>
             </li>
@@ -57,7 +57,7 @@
                 </ul>
             </li>
 
-            <li class="treeview">
+            <li class="treeview {{ $prefix == '/products' ? 'active' : ''}}">
                 <a href="#">
                     <i data-feather="file"></i>
                     <span>Products</span>
@@ -66,7 +66,7 @@
                     </span>
                 </a>
                 <ul class="treeview-menu {{ $prefix == '/products' ? 'active' : ''}}">
-                    <li class="{{ $route == 'product.index' ? 'active' : ''}}"><a href="{{ route('product.index') }}"><i class="ti-more"></i>Add Products</a></li>
+                    <li class="{{ $route == 'product.create' ? 'active' : ''}}"><a href="{{ route('product.create') }}"><i class="ti-more"></i>Add Products</a></li>
                     <li><a href="invoice.html"><i class="ti-more"></i>Manage Products</a></li>
                 </ul>
             </li>
