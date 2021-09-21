@@ -71,12 +71,39 @@ $route = Route::current()->getName();
                     </span>
                 </a>
                 <ul class="treeview-menu {{ $prefix == '/products' ? 'active' : '' }}">
+                    <li class="{{ $route == 'product.index' ? 'active' : '' }}"><a
+                            href="{{ route('product.index') }}"><i class="ti-more"></i>Products</a></li>
                     <li class="{{ $route == 'product.create' ? 'active' : '' }}"><a
-                            href="{{ route('product.create') }}"><i class="ti-more"></i>Add Products</a></li>
-                    <li class="{{ $route == 'product.index' ? 'active' : '' }}"><a 
-                            href="{{ route('product.index') }}"><i class="ti-more"></i>Manage Products</a></li>
+                            href="{{ route('product.create') }}"><i class="ti-more"></i>Add Product</a></li>
                 </ul>
             </li>
+
+            {{-- Sliders --}}
+            <li class="treeview {{ $prefix == '/sliders' ? 'active' : '' }}">
+                <a href="#">
+                    <i data-feather="grid"></i>
+                    <span>Sliders</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-right pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu {{ $prefix == '/sliders' ? 'active' : '' }}">
+                    <li class="{{ $route == 'slider.index' ? 'active' : '' }}"><a
+                            href="{{ route('slider.index') }}"><i class="ti-more"></i>Sliders</a></li>
+                </ul>
+            </li>
+
+
+
+
+
+
+
+
+
+
+
+
 
             <li class="treeview">
                 <a href="#">
@@ -99,7 +126,7 @@ $route = Route::current()->getName();
 
             <li class="treeview">
                 <a href="#">
-                    <i data-feather="grid"></i>
+                    <i data-feather=""></i>
                     <span>Components</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-right pull-right"></i>
@@ -117,7 +144,7 @@ $route = Route::current()->getName();
                     <i data-feather="credit-card"></i>
                     <span>Cards</span>
                     <span class="pull-right-container">
-                        <i class="fa fa-angle-right pull-right"></i>
+
                     </span>
                 </a>
                 <ul class="treeview-menu">

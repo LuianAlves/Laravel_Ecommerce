@@ -13,7 +13,8 @@ Até o momento:
 * Aba com CRUD para Categories 
 * Aba com CRUD para Sub-Categories e Sub Sub-categories
 * Aba com CRUD para Products
-* Próxima Etapa | Backend/Frontend | => Aba com CRUD para Sliders do Template Front-end
+* Aba com CRUD para Sliders do Template Front-end
+* Próxima Etapa | Frontend | => Habilitando o Multi-Language do Site, Configurando Category, Sub Category e Sub SubCategory no Frontend
 
 <hr>
 
