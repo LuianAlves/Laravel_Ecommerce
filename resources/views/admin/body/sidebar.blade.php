@@ -1,6 +1,6 @@
 @php // Active no sidebar
-    $prefix = Request::route()->getPrefix();
-    $route = Route::current()->getName();
+$prefix = Request::route()->getPrefix();
+$route = Route::current()->getName();
 @endphp
 
 <aside class="main-sidebar">
@@ -9,7 +9,7 @@
 
         <div class="user-profile">
             <div class="ulogo">
-                <a href="{{ url('/admin/dashboard')}}">
+                <a href="{{ url('/admin/dashboard') }}">
                     <!-- logo for regular state and mobile devices -->
                     <div class="d-flex align-items-center justify-content-center">
                         <img src="{{ asset('backend/images/logo-dark.png') }}" alt="">
@@ -22,14 +22,14 @@
         <!-- sidebar menu-->
         <ul class="sidebar-menu" data-widget="tree">
 
-            <li class="{{ ($route == 'dashboard' ? 'active' : '')}}">
-                <a href="{{ url('/admin/dashboard')}}">
+            <li class="{{ $route == 'dashboard' ? 'active' : '' }}">
+                <a href="{{ url('/admin/dashboard') }}">
                     <i data-feather="pie-chart"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
-
-            <li class="treeview {{ ($prefix == '/brand' ? 'active' : '')}}">
+            {{-- Brand --}}
+            <li class="treeview {{ $prefix == '/brand' ? 'active' : '' }}">
                 <a href="#">
                     <i data-feather="message-circle"></i>
                     <span>Brands</span>
@@ -38,12 +38,12 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li class="{{ ($route == 'brand.index' ? 'active' : '')}}"><a href="{{ route('brand.index') }}"><i class="ti-more"></i>All Brands</a></li>    {-- CASO QUEIRA DEIXAR O SUB-ITEM COMO ATIVO --}}
-                    {{-- <li><a href="{{ route('brand.index') }}"><i class="ti-more"></i>All Brands</a></li> --}}
+                    <li class="{{ $route == 'brand.index' ? 'active' : '' }}"><a
+                            href="{{ route('brand.index') }}"><i class="ti-more"></i>All Brands</a></li>
                 </ul>
             </li>
-
-            <li class="treeview {{ $prefix == '/category' ? 'active' : ''}}">
+            {{-- Categories --}}
+            <li class="treeview {{ $prefix == '/category' ? 'active' : '' }}">
                 <a href="#">
                     <i data-feather="mail"></i> <span>Category</span>
                     <span class="pull-right-container">
@@ -51,13 +51,18 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li class="{{ ($route == 'category.index' ? 'active' : '')}}"><a href="{{ route('category.index') }}"><i class="ti-more"></i>All Category</a></li>
-                    <li class="{{ ($route == 'subcategory.index' ? 'active' : '')}}"><a href="{{route('subcategory.index')}}"><i class="ti-more"></i>All SubCategory</a></li>
-                    <li class="{{ ($route == 'sub_subcategory.index' ? 'active' : '')}}"><a href="{{route('sub_subcategory.index')}}"><i class="ti-more"></i>All Sub SubCategory</a></li>
+                    <li class="{{ $route == 'category.index' ? 'active' : '' }}"><a
+                            href="{{ route('category.index') }}"><i class="ti-more"></i>All Category</a></li>
+                    <li class="{{ $route == 'subcategory.index' ? 'active' : '' }}"><a
+                            href="{{ route('subcategory.index') }}"><i class="ti-more"></i>All SubCategory</a>
+                    </li>
+                    <li class="{{ $route == 'sub_subcategory.index' ? 'active' : '' }}"><a
+                            href="{{ route('sub_subcategory.index') }}"><i class="ti-more"></i>All Sub
+                            SubCategory</a></li>
                 </ul>
             </li>
-
-            <li class="treeview {{ $prefix == '/products' ? 'active' : ''}}">
+            {{-- Products --}}
+            <li class="treeview {{ $prefix == '/products' ? 'active' : '' }}">
                 <a href="#">
                     <i data-feather="file"></i>
                     <span>Products</span>
@@ -65,9 +70,11 @@
                         <i class="fa fa-angle-right pull-right"></i>
                     </span>
                 </a>
-                <ul class="treeview-menu {{ $prefix == '/products' ? 'active' : ''}}">
-                    <li class="{{ $route == 'product.create' ? 'active' : ''}}"><a href="{{ route('product.create') }}"><i class="ti-more"></i>Add Products</a></li>
-                    <li><a href="invoice.html"><i class="ti-more"></i>Manage Products</a></li>
+                <ul class="treeview-menu {{ $prefix == '/products' ? 'active' : '' }}">
+                    <li class="{{ $route == 'product.create' ? 'active' : '' }}"><a
+                            href="{{ route('product.create') }}"><i class="ti-more"></i>Add Products</a></li>
+                    <li class="{{ $route == 'product.index' ? 'active' : '' }}"><a 
+                            href="{{ route('product.index') }}"><i class="ti-more"></i>Manage Products</a></li>
                 </ul>
             </li>
 

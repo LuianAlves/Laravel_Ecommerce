@@ -12,7 +12,8 @@ Até o momento:
 * Aba com CRUD para Brands
 * Aba com CRUD para Categories 
 * Aba com CRUD para Sub-Categories e Sub Sub-categories
-* Próxima Etapa | Backend | => Aba com CRUD para Products
+* Aba com CRUD para Products
+* Próxima Etapa | Backend/Frontend | => Aba com CRUD para Sliders do Template Front-end
 
 <hr>
 

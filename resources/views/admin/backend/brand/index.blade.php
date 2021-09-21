@@ -88,7 +88,7 @@
                                                 <td>{{ $brand->brand_name_en }}</td>
                                                 <td>{{ $brand->brand_name_pt }}</td>
                                                 <td title="{{ $brand->brand_name_en }} Image" class="bg-white"><img src="{{ asset($brand->brand_image) }}"
-                                                        style="width: 75px; height: 48px;"></td>
+                                                        style="width: 60px; height: 48px;"></td>
                                                 <td class="text-center">
                                                     <a title="Edit Brand" href="{{ route('brand.edit', $brand->id) }}" class="btn btn-success btn-md"><i class="fa fa-pencil"></i></a>
                                                     <a title="Delete Brand" href="{{ route('brand.destroy', $brand->id) }}" class="btn btn-danger btn-md"><i class="fa fa-trash"></i></a>

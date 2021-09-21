@@ -16,8 +16,7 @@ class CreateMultiImagesTable extends Migration
         Schema::create('multi_images', function (Blueprint $table) {
             $table->id();
             $table->integer('product_id');
-            $table->string('photo_name_en');
-            $table->string('photo_name_pt');
+            $table->string('photo_name');
             $table->timestamps();
         });
     }

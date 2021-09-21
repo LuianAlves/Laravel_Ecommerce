@@ -78,8 +78,26 @@ Route::prefix('category')->group(function() {
 // Admin Products
 Route::prefix('products')->group(function() {
     Route::get('/sub_subcategory/ajax/{subcategory_id}', [ProductController::class, 'getSubSubCategory']); // AJAX PARA SELECT DE SUB CATEGORIAS
-    Route::get('/view', [ProductController::class, 'index'])->name('product.index');
-    Route::get('/create', [ProductController::class, 'create'])->name('product.create');
+
+    Route::get('/manage', [ProductController::class, 'index'])->name('product.index'); // Index
+    Route::get('/create', [ProductController::class, 'create'])->name('product.create'); // Create
+    Route::post('/store', [ProductController::class, 'store'])->name('product.store'); // Store
+    Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('product.edit'); // Edit
+    Route::post('/update', [ProductController::class, 'update'])->name('product.update'); // Update Infos
+    Route::get('/destroy/{id}', [ProductController::class, 'destroy'])->name('product.destroy'); // Destroy 
+        
+    // Images
+        Route::get('/edit/images/{id}', [ProductController::class, 'editImages'])->name('product.edit.images');          // Edit Images
+        Route::post('store/images', [ProductController::class, 'storeImages'])->name('product.store.images');            // Store Images
+        Route::post('/update/thumnail', [ProductController::class, 'updateThumnail'])->name('product.update.thumnail');  // Update Thumnail
+        Route::post('/update/images', [ProductController::class, 'updateImages'])->name('product.update.images');        // Update Multi Images
+        Route::get('/destroy/images/{id}', [ProductController::class, 'destroyImages'])->name('product.destroy.images'); // Destroy Images
+
+    // Status
+        Route::get('/inactive/{id}', [ProductController::class, 'inactive'])->name('product.inactive');
+        Route::get('/active/{id}', [ProductController::class, 'active'])->name('product.active');
+
+    
 });
 
 
