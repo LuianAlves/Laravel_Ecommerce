@@ -4,6 +4,13 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+
+use App\Models\Category;
+use App\Models\SubCategory;
+use App\Models\SubSubCategory;
+use App\Models\Slider;
+use App\Models\Product;
+
 use App\Models\User;
 use Auth;
 use Hash;
@@ -12,7 +19,11 @@ class IndexController extends Controller
 {
     // Index Page
     public function index() {
-        return view('app.index');
+        $products = Product::where('status', 1)->orderBy('id', 'DESC')->limit(6)->get(); 
+        $category = Category::orderBy('category_name_en', 'ASC')->get(); // Sidebar/Navbar
+        $sliders = Slider::where('status', 1)->orderBy('id', 'DESC')->limit(3)->get(); // Sliders
+
+        return view('app.index', compact('category', 'sliders', 'products'));
     }
 
     // Logout Profile

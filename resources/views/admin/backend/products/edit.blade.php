@@ -262,7 +262,7 @@
                                             <h5>{{ __('Product Discount Price') }}<span class="text-danger"> *</span>
                                             </h5>
                                             <div class="controls">
-                                                <input class="form-control" required type="number" name="discount_price"
+                                                <input class="form-control" type="number" name="discount_price"
                                                     value="{{ $products->discount_price }}">
                                                 @error('discount_price')
                                                     <span class="text-danger">{{ $message }}</span>

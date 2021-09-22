@@ -14,7 +14,8 @@ Até o momento:
 * Aba com CRUD para Sub-Categories e Sub Sub-categories
 * Aba com CRUD para Products
 * Aba com CRUD para Sliders do Template Front-end
-* Próxima Etapa | Frontend | => Habilitando o Multi-Language do Site, Configurando Category, Sub Category e Sub SubCategory no Frontend
+* Habilitando o Multi-Language do Site, Configurando Sidenav e Navbar no Frontend, Slides e Aba de Novos Produtos
+* Próxima Etapa | Frontend | => Configurar a Página de cada Produto + Detalhes
 
 <hr>
 

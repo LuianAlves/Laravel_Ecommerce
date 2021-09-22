@@ -9,7 +9,7 @@
                         <li><a href="#"><i class="icon fa fa-user"></i> @if (session()->get('language') == 'portuguese') Minha Conta @else My Account @endif </a></li>
                         <li><a href="#"><i class="icon fa fa-heart"></i> @if (session()->get('language') == 'portuguese') Favoritos @else Wishlist @endif</a></li>
                         <li><a href="#"><i class="icon fa fa-shopping-cart"></i> @if (session()->get('language') == 'portuguese') Carrinho @else My Cart @endif</a></li>
-                        <li><a href="#"><i class="icon fa fa-check"></i>@if (session()->get('language') == 'portuguese') Confira @else Checkout @endif</a></li>
+                        <li><a href="#"><i class="icon fa fa-check"></i>@if (session()->get('language') == 'portuguese') Finalizar @else Checkout @endif</a></li>
 
                         @auth
                             <li><a href="{{ url('/user/profile') }}"><i
@@ -73,29 +73,13 @@
                 </div>
                 <!-- /.logo-holder -->
 
-                <div class="col-xs-12 col-sm-12 col-md-7 top-search-holder">
+                <div class="col-xs-11 col-sm-11 col-md-6 top-search-holder">
                     <!-- /.contact-row -->
                     <!-- ============================================================= SEARCH AREA ============================================================= -->
                     <div class="search-area">
                         <form>
                             <div class="control-group">
-                                <ul class="categories-filter animate-dropdown">
-                                    <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown"
-                                            href="category.html">Categories <b class="caret"></b></a>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li class="menu-header">Computer</li>
-                                            <li role="presentation"><a role="menuitem" tabindex="-1"
-                                                    href="category.html">- Clothing</a></li>
-                                            <li role="presentation"><a role="menuitem" tabindex="-1"
-                                                    href="category.html">- Electronics</a></li>
-                                            <li role="presentation"><a role="menuitem" tabindex="-1"
-                                                    href="category.html">- Shoes</a></li>
-                                            <li role="presentation"><a role="menuitem" tabindex="-1"
-                                                    href="category.html">- Watches</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                                <input class="search-field" placeholder="Search here..." />
+                                <input class="search-field" placeholder="{{ session()->get('language') == 'portuguese' ? 'Pesquisar aqui...' : 'Search here...' }}" />
                                 <a class="search-button" href="#"></a>
                             </div>
                         </form>
@@ -105,7 +89,7 @@
                 </div>
                 <!-- /.top-search-holder -->
 
-                <div class="col-xs-12 col-sm-12 col-md-2 animate-dropdown top-cart-row">
+                <div class="col-xs-12 col-sm-12 col-md-3 animate-dropdown top-cart-row">
                     <!-- ============================================================= SHOPPING CART DROPDOWN ============================================================= -->
 
                     <div class="dropdown dropdown-cart"> <a href="#" class="dropdown-toggle lnk-cart"
@@ -114,8 +98,8 @@
                                 <div class="basket"> <i class="glyphicon glyphicon-shopping-cart"></i>
                                 </div>
                                 <div class="basket-item-count"><span class="count">2</span></div>
-                                <div class="total-price-basket"> <span class="lbl">cart -</span> <span
-                                        class="total-price"> <span class="sign">$</span><span
+                                <div class="total-price-basket"> <span class="lbl">{{ session()->get('language') == 'portuguese' ? 'Carrinho' : 'cart' }} -</span> <span
+                                        class="total-price"> <span class="sign">{{ session()->get('language') == 'portuguese' ? 'R$' : '$' }} </span><span
                                             class="value">600.00</span> </span> </div>
                             </div>
                         </a>
@@ -145,7 +129,7 @@
                                             :</span><span class='price'>$600.00</span> </div>
                                     <div class="clearfix"></div>
                                     <a href="checkout.html"
-                                        class="btn btn-upper btn-primary btn-block m-t-20">Checkout</a>
+                                        class="btn btn-upper btn-primary btn-block m-t-20">{{ session()->get('language') == 'portuguese' ? 'Finalizar' : 'Checkout' }}</a>
                                 </div>
                                 <!-- /.cart-total-->
 
@@ -182,7 +166,7 @@
                         <div class="nav-outer">
                             <ul class="nav navbar-nav">
                                 <li class="active dropdown yamm-fw"> <a href="{{ url('/') }}"
-                                        data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown">Home</a>
+                                        data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown">{{ session()->get('language') == 'portuguese' ? 'Ínicio' : 'Home'}}</a>
                                 </li>
 
                                 @php
@@ -191,23 +175,32 @@
 
                                 @foreach ($category as $cat)
                                     <li class="dropdown yamm mega-menu"> <a href="home.html" data-hover="dropdown"
-                                            class="dropdown-toggle" data-toggle="dropdown">{{ $cat->category_name_en }}</a>
+                                            class="dropdown-toggle" data-toggle="dropdown">{{ session()->get('language') == 'portuguese' ? $cat->category_name_pt : $cat->category_name_en }}</a>
                                         <ul class="dropdown-menu container">
                                             <li>
                                                 <div class="yamm-content ">
                                                     <div class="row">
-                                                        <div class="col-xs-12 col-sm-6 col-md-2 col-menu">
-                                                            <h2 class="title">Men</h2>
-                                                            <ul class="links">
-                                                                <li><a href="#">Dresses</a></li>
-                                                                <li><a href="#">Shoes </a></li>
-                                                                <li><a href="#">Jackets</a></li>
-                                                                <li><a href="#">Sunglasses</a></li>
-                                                                <li><a href="#">Sport Wear</a></li>
-                                                                <li><a href="#">Blazers</a></li>
-                                                                <li><a href="#">Shirts</a></li>
-                                                            </ul>
-                                                        </div>
+
+                                                        @php
+                                                            $subcategory = App\Models\SubCategory::where('category_id', $cat->id)->orderBy('subcategory_name_en', 'ASC')->get();  
+                                                        @endphp
+
+                                                        @foreach($subcategory as $subcat)
+                                                            <div class="col-xs-12 col-sm-6 col-md-2 col-menu">
+                                                                <h2 class="title">{{ session()->get('language') == 'portuguese' ? $subcat->subcategory_name_pt : $subcat->subcategory_name_en }}</h2>
+                                                                <ul class="links">
+
+                                                                    @php
+                                                                        $sub_subcategory = App\Models\SubSubCategory::where('subcategory_id', $subcat->id)->orderBy('sub_subcategory_name_en', 'ASC')->get();
+                                                                    @endphp
+
+                                                                    @foreach ($sub_subcategory as $subsubcat)
+                                                                        <li><a href="#">{{ session()->get('language') == 'portuguese' ? $subsubcat->sub_subcategory_name_pt : $subsubcat->sub_subcategory_name_en }}</a></li>
+                                                                    @endforeach
+
+                                                                </ul>
+                                                            </div>
+                                                        @endforeach   
                                                         <!-- /.col -->
 
                                                         <div class="col-xs-12 col-sm-6 col-md-4 col-menu banner-image">
@@ -222,7 +215,7 @@
                                         </ul>
                                     </li>
                                 @endforeach
-                                <li class="dropdown  navbar-right special-menu"> <a href="#">Todays offer</a> </li>
+                                <li class="dropdown  navbar-right special-menu"> <a href="#">{{ session()->get('language') == 'portuguese' ? 'Ofertas de Hoje' : 'Todays offer'}}</a> </li>
                             </ul>
                             <!-- /.navbar-nav -->
                             <div class="clearfix"></div>
