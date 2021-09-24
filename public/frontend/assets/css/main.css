@@ -3271,7 +3271,8 @@ header {
 }
 
 .product .product-image img {
-    width: 100%
+    width: 100%;
+    height: 150px;
 }
 
 .product .product-image .tag {
@@ -3385,7 +3386,7 @@ header {
 
 .product:hover .cart {
     opacity: 1;
-    top: 45%
+    top: 35%
 }
 
 .best-seller .product .product-info .name,

@@ -40,7 +40,7 @@ class ProductController extends Controller
 
         $image = $request->file('product_thumnail');
         $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
-        Image::make($image)->resize(1920, 1080)->save('upload/products/thumbnail/'.$name_gen);
+        Image::make($image)->resize(1080, 1215)->save('upload/products/thumbnail/'.$name_gen);
         $save_url = 'upload/products/thumbnail/'.$name_gen;
 
         $product_id = Product::insertGetId([
@@ -83,7 +83,7 @@ class ProductController extends Controller
 
             foreach ($images as $img) {
                 $make_name = hexdec(uniqid()). '.' .$img->getClientOriginalExtension();
-                Image::make($img)->resize(1920, 1080)->save('upload/products/multi_images/'.$make_name);
+                Image::make($img)->resize(1080, 1215)->save('upload/products/multi_images/'.$make_name);
                 $save_url_multi = 'upload/products/multi_images/'.$make_name;
 
                 MultiImages::insert([
@@ -212,7 +212,7 @@ class ProductController extends Controller
 
         foreach ($images as $img) {
             $make_name = hexdec(uniqid()). '.' .$img->getClientOriginalExtension();
-            Image::make($img)->resize(1920, 1080)->save('upload/products/multi_images/'.$make_name);
+            Image::make($img)->resize(1080, 1215)->save('upload/products/multi_images/'.$make_name);
             $save_url_multi = 'upload/products/multi_images/'.$make_name;
 
             MultiImages::insert([
@@ -238,7 +238,7 @@ class ProductController extends Controller
 
         $image = $request->file('product_thumnail');
         $name_gen = hexdec(uniqid()). '.' . $image->getClientOriginalExtension();
-        Image::make($image)->resize(1920, 1080)->save('upload/products/thumbnail/'.$name_gen);
+        Image::make($image)->resize(1080, 1215)->save('upload/products/thumbnail/'.$name_gen);
         $save_url = 'upload/products/thumbnail/'.$name_gen;
 
         Product::findOrFail($product_id)->update([
@@ -258,20 +258,30 @@ class ProductController extends Controller
     public function updateImages(Request $request) {
         $images = $request->multi_images;
 
-        foreach ($images as $id => $img) {
-            $delete_img = MultiImages::findOrFail($id);
-            unlink($delete_img->photo_name);
+        if($images != '') {
+            foreach ($images as $id => $img) {
+                $delete_img = MultiImages::findOrFail($id);
+                unlink($delete_img->photo_name);
 
-            $image = $request->file('multi_images');
-            $make_name = hexdec(uniqid()). '.' . $img->getClientOriginalExtension();
-            Image::make($img)->resize(1920, 1080)->save('upload/products/multi_images/'.$make_name);
-            $save_url = 'upload/products/multi_images/'.$make_name;
+                $image = $request->file('multi_images');
+                $make_name = hexdec(uniqid()). '.' . $img->getClientOriginalExtension();
+                Image::make($img)->resize(1080, 1215)->save('upload/products/multi_images/'.$make_name);
+                $save_url = 'upload/products/multi_images/'.$make_name;
 
-            MultiImages::where('id', $id)->update([
-                'photo_name' => $save_url,
-                'updated_at' => Carbon::now()
-            ]);
+                MultiImages::where('id', $id)->update([
+                    'photo_name' => $save_url,
+                    'updated_at' => Carbon::now()
+                ]);
+            }
         }
+        else {
+            $noti = array(
+                'message' => ('Add Image!'),
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($noti);
+        }
+
 
         $noti = array(
             'message' => ('Product Image Updated Successfully!'),

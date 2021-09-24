@@ -19,11 +19,16 @@ class IndexController extends Controller
 {
     // Index Page
     public function index() {
-        $products = Product::where('status', 1)->orderBy('id', 'DESC')->limit(6)->get(); 
+        $products = Product::where('status', 1)->orderBy('id', 'DESC')->limit(6)->get();
         $category = Category::orderBy('category_name_en', 'ASC')->get(); // Sidebar/Navbar
         $sliders = Slider::where('status', 1)->orderBy('id', 'DESC')->limit(3)->get(); // Sliders
 
-        return view('app.index', compact('category', 'sliders', 'products'));
+        $featured = Product::where('featured', 1)->orderBy('id', 'DESC')->limit(6)->get();
+        $hot_deals = Product::where('hot_deals', 1)->orderBy('discount_price', 'DESC')->limit(3)->get();
+        $special_offer = Product::where('special_offer', 1)->orderBy('discount_price', 'DESC')->limit(4)->get(); 
+        $special_deals = Product::where('special_deals', 1)->orderBy('discount_price', 'DESC')->limit(4)->get(); 
+
+        return view('app.index', compact('category', 'sliders', 'products', 'featured', 'hot_deals', 'special_offer', 'special_deals'));
     }
 
     // Logout Profile

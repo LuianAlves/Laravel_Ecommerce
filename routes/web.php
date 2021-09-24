@@ -7,6 +7,7 @@ use App\Models\User;
 // Frontend
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\LanguageController;
+use App\Http\Controllers\Frontend\ProductDetailsController;
 
 // Backend
 use App\Http\Controllers\Backend\AdminProfileController;
@@ -140,6 +141,9 @@ Route::get('/user/profile', [IndexController::class, 'Profile'])->name('user.pro
 Route::post('/user/profile/store', [IndexController::class, 'Store'])->name('user.profile.store'); 
 Route::get('/user/change/password', [IndexController::class, 'ChangePass'])->name('user.change.password'); 
 Route::post('/user/password/update', [IndexController::class, 'PassUpdate'])->name('user.password.update'); 
+
+// Product Details
+Route::get('/product/details/{id}/{slug}', [ProductDetailsController::class, 'index']);
 
 // Languages
 Route::get('/language/portuguese', [LanguageController::class, 'Portuguese'])->name('language.portuguese');
