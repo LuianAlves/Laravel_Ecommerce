@@ -20,7 +20,7 @@ class ProductController extends Controller
     // Index
     public function index()
     {
-        $products = Product::orderBy('status', 'DESC')->get();
+        $products = Product::orderBy('status', 'DESC')->orderBy('category_id', 'ASC')->get();
         return view('admin.backend.products.index', compact('products'));
     }
 

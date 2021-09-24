@@ -15,7 +15,10 @@ Até o momento:
 * Aba com CRUD para Products
 * Aba com CRUD para Sliders do Template Front-end
 * Habilitando o Multi-Language do Site, Configurando Sidenav e Navbar no Frontend, Slides e Aba de Novos Produtos
-* Próxima Etapa | Frontend | => Configurar a Página de cada Produto + Detalhes
+* Configurar a Página de cada Produto + Detalhes
+* Configurar os Cards hot_deals, freatured, special_offer, special_deals
+* Próxima Etapa | Frontend | => Criando Card Personalizado com uma Categoria de Produtos
+* Próxima Etapa | Frontend | => Criando view para as Tags de Produtos
 
 <hr>
 

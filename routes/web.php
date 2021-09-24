@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\LanguageController;
 use App\Http\Controllers\Frontend\ProductDetailsController;
+use App\Http\Controllers\Frontend\TagController;
 
 // Backend
 use App\Http\Controllers\Backend\AdminProfileController;
@@ -144,6 +145,9 @@ Route::post('/user/password/update', [IndexController::class, 'PassUpdate'])->na
 
 // Product Details
 Route::get('/product/details/{id}/{slug}', [ProductDetailsController::class, 'index']);
+
+// Tags
+Route::get('/product/tags/{tag}', [TagController::class, 'index']);
 
 // Languages
 Route::get('/language/portuguese', [LanguageController::class, 'Portuguese'])->name('language.portuguese');

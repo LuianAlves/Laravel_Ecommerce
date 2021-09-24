@@ -19,7 +19,7 @@
                                         <div class="form-group">
                                             <h5>{{ __('Brand Select') }}<span class="text-danger"> *</span></h5>
                                             <div class="controls">
-                                                <select class="form-control" name="brand_id" required>
+                                                <select class="form-control" name="brand_id">
                                                     <option selected disabled>Select Brand</option>
                                                     @foreach ($brands as $brand)
                                                         <option value="{{ $brand->id }}">{{ $brand->brand_name_en }}
@@ -72,7 +72,7 @@
                                         <div class="form-group">
                                             <h5>{{ __('Sub SubCategory') }}<span class="text-danger"> *</span></h5>
                                             <div class="controls">
-                                                <select required class="form-control" id="sub_subcategory_id"
+                                                <select class="form-control" id="sub_subcategory_id"
                                                     name="sub_subcategory_id">
                                                     <option selected disabled>Select Sub SubCategory</option>
                                                 </select>
@@ -198,7 +198,7 @@
                                         <div class="form-group">
                                             <h5>{{ __('Product Color En') }}<span class="text-danger"> *</span></h5>
                                             <div class="controls">
-                                                <input class="form-control" required type="text" name="product_color_en"
+                                                <input class="form-control" type="text" name="product_color_en"
                                                     value="Blue, Red, Green, Black, White" data-role="tagsinput">
                                                 @error('product_color_en')
                                                     <span class="text-danger">{{ $message }}</span>
@@ -210,7 +210,7 @@
                                         <div class="form-group">
                                             <h5>{{ __('Product Color Pt') }}<span class="text-danger"> *</span></h5>
                                             <div class="controls">
-                                                <input class="form-control" required type="text" name="product_color_pt"
+                                                <input class="form-control" type="text" name="product_color_pt"
                                                     value="Azul, Vermelho, Verde, Preto, Branco" data-role="tagsinput">
                                                 @error('product_color_pt')
                                                     <span class="text-danger">{{ $message }}</span>
@@ -240,7 +240,7 @@
                                             <h5>{{ __('Product Discount Price') }}<span class="text-danger"> *</span>
                                             </h5>
                                             <div class="controls">
-                                                <input class="form-control" required type="number" name="discount_price">
+                                                <input class="form-control" type="number" name="discount_price">
                                                 @error('discount_price')
                                                     <span class="text-danger">{{ $message }}</span>
                                                 @enderror

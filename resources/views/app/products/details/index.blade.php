@@ -31,21 +31,17 @@
                         <div class="sidebar-widget hot-deals wow fadeInUp outer-top-vs">
                             <h3 class="section-title">{{ session()->get('language') == 'portuguese' ? 'Somente Hoje' : 'hot deals'}}</h3>
                             <div class="owl-carousel sidebar-carousel custom-carousel owl-theme outer-top-xs">
-
-                                @php
-                                   $prods = App\Models\Product::where('hot_deals', 1)->orderBy('discount_price', 'DESC')->get(); 
-                                @endphp
-                                @foreach($prods as $pd)
+                                @foreach($hot_deals as $hd)
                                     <div class="item">
                                         <div class="products">
                                             <div class="hot-deal-wrapper">
                                                 <div class="image">
-                                                    <img src="{{ asset($pd->product_thumnail)}}" alt="">
+                                                    <img src="{{ asset($hd->product_thumnail)}}" alt="">
                                                 </div>
                                                 <div class="sale-offer-tag">
                                                     @php
-                                                        $amount = $pd->discount_price;
-                                                        $discount = ( $amount / $pd->selling_price ) * 100;
+                                                        $amount = $hd->discount_price;
+                                                        $discount = ( $amount / $hd->selling_price ) * 100;
                                                     @endphp
                                                     <span>
                                                         {{ round($discount, 1) }} %
@@ -56,18 +52,18 @@
                                             </div><!-- /.hot-deal-wrapper -->
 
                                             <div class="product-info text-left m-t-20">
-                                                <h3 class="name"><a href="detail.html">{{ $pd->product_name_en }}</a></h3>
+                                                <h3 class="name"><a href="{{ url('product/details/'.$hd->id.'/'.$hd->product_slug_en) }}">{{ session()->get('language') == 'portuguese' ? $hd->product_name_pt : $hd->product_name_en }}</a></h3>
                                                 <div class="rating rateit-small"></div>
 
                                                 <div class="product-price">
                                                     @php
-                                                        $amount = $pd->discount_price;
-                                                        $price = $pd->selling_price - $amount;
+                                                        $amount = $hd->discount_price;
+                                                        $price = $hd->selling_price - $amount;
                                                     @endphp
                                                     <span class="price">
                                                         {{ session()->get('language') == 'portuguese' ? 'R$' : '$' }} {{ $price }}
                                                     </span>
-                                                    <span class="price-before-discount">{{ session()->get('language') == 'portuguese' ? 'R$' : '$' }} {{ $pd->selling_price }}</span>
+                                                    <span class="price-before-discount">{{ session()->get('language') == 'portuguese' ? 'R$' : '$' }} {{ $hd->selling_price }}</span>
                                                 </div><!-- /.product-price -->
                                             </div><!-- /.product-info -->
 
@@ -86,7 +82,6 @@
                                         </div>
                                     </div>
                                 @endforeach 
-
                             </div><!-- /.sidebar-widget -->
                         </div>
                         <!-- ============================================== HOT DEALS: END ============================================== -->

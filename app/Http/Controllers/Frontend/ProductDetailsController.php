@@ -17,6 +17,8 @@ class ProductDetailsController extends Controller
         $images = MultiImages::where('product_id', $id)->get();
         $category = Category::where('id', $id)->get();
 
-        return view('app.products.details.index', compact('products', 'images', 'category'));
+        $hot_deals = Product::where('hot_deals', 1)->where('status', 1)->where('discount_price', '>', 0)->inRandomOrder()->limit(5)->get();
+
+        return view('app.products.details.index', compact('products', 'images', 'category', 'hot_deals'));
     }
 }

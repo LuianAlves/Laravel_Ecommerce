@@ -10,6 +10,7 @@ use App\Models\SubCategory;
 use App\Models\SubSubCategory;
 use App\Models\Slider;
 use App\Models\Product;
+use App\Models\Brand;
 
 use App\Models\User;
 use Auth;
@@ -23,12 +24,22 @@ class IndexController extends Controller
         $category = Category::orderBy('category_name_en', 'ASC')->get(); // Sidebar/Navbar
         $sliders = Slider::where('status', 1)->orderBy('id', 'DESC')->limit(3)->get(); // Sliders
 
-        $featured = Product::where('featured', 1)->orderBy('id', 'DESC')->limit(6)->get();
-        $hot_deals = Product::where('hot_deals', 1)->orderBy('discount_price', 'DESC')->limit(3)->get();
-        $special_offer = Product::where('special_offer', 1)->orderBy('discount_price', 'DESC')->limit(4)->get(); 
-        $special_deals = Product::where('special_deals', 1)->orderBy('discount_price', 'DESC')->limit(4)->get(); 
+        $featured = Product::where('featured', 1)->where('status', 1)->inRandomOrder()->limit(6)->get();
+        $hot_deals = Product::where('hot_deals', 1)->where('status', 1)->where('discount_price', '>', 0)->inRandomOrder()->limit(5)->get();
+        $special_offer = Product::where('special_offer', 1)->where('status', 1)->inRandomOrder()->limit(4)->get(); 
+        $special_deals = Product::where('special_deals', 1)->where('status', 1)->inRandomOrder()->limit(4)->get(); 
 
-        return view('app.index', compact('category', 'sliders', 'products', 'featured', 'hot_deals', 'special_offer', 'special_deals'));
+        // Cards com uma Categoria
+        $skip_cat = Category::skip(0)->first();
+        $skip_prod = Product::where('status', 1)->where('category_id', $skip_cat->id)->inRandomOrder()->limit(10)->get();  
+
+        $skip_cat_two = Category::skip(1)->first();
+        $skip_prod_two = Product::where('status', 1)->where('category_id', $skip_cat_two->id)->inRandomOrder()->limit(10)->get();  
+
+        $skip_bd = Brand::skip(4)->first();
+        $skip_bd_prod = Product::where('status', 1)->where('brand_id', $skip_bd->id)->inRandomOrder()->limit(10)->get();        
+
+        return view('app.index', compact('category', 'sliders', 'products', 'featured', 'hot_deals', 'special_offer', 'special_deals', 'skip_cat', 'skip_prod', 'skip_cat_two', 'skip_prod_two', 'skip_bd', 'skip_bd_prod'));
     }
 
     // Logout Profile
