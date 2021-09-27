@@ -25,9 +25,6 @@ class IndexController extends Controller
         $sliders = Slider::where('status', 1)->orderBy('id', 'DESC')->limit(3)->get(); // Sliders
 
         $featured = Product::where('featured', 1)->where('status', 1)->inRandomOrder()->limit(6)->get();
-        $hot_deals = Product::where('hot_deals', 1)->where('status', 1)->where('discount_price', '>', 0)->inRandomOrder()->limit(5)->get();
-        $special_offer = Product::where('special_offer', 1)->where('status', 1)->inRandomOrder()->limit(4)->get(); 
-        $special_deals = Product::where('special_deals', 1)->where('status', 1)->inRandomOrder()->limit(4)->get(); 
 
         // Cards com uma Categoria
         $skip_cat = Category::skip(0)->first();
@@ -39,7 +36,7 @@ class IndexController extends Controller
         $skip_bd = Brand::skip(4)->first();
         $skip_bd_prod = Product::where('status', 1)->where('brand_id', $skip_bd->id)->inRandomOrder()->limit(10)->get();        
 
-        return view('app.index', compact('category', 'sliders', 'products', 'featured', 'hot_deals', 'special_offer', 'special_deals', 'skip_cat', 'skip_prod', 'skip_cat_two', 'skip_prod_two', 'skip_bd', 'skip_bd_prod'));
+        return view('app.index', compact('category', 'sliders', 'products', 'featured', 'skip_cat', 'skip_prod', 'skip_cat_two', 'skip_prod_two', 'skip_bd', 'skip_bd_prod'));
     }
 
     // Logout Profile

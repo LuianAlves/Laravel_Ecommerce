@@ -165,8 +165,8 @@
                     <div class="navbar-collapse collapse" id="mc-horizontal-menu-collapse">
                         <div class="nav-outer">
                             <ul class="nav navbar-nav">
-                                <li class="active dropdown yamm-fw"> <a href="{{ url('/') }}"
-                                        data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown">{{ session()->get('language') == 'portuguese' ? 'Ínicio' : 'Home'}}</a>
+                                <li class="active"> 
+                                    <a href="{{ url('/') }}">{{ session()->get('language') == 'portuguese' ? 'Ínicio' : 'Home'}}</a>
                                 </li>
 
                                 @php
@@ -187,28 +187,37 @@
 
                                                         @foreach($subcategory as $subcat)
                                                             <div class="col-xs-12 col-sm-6 col-md-2 col-menu">
-                                                                <h2 class="title">{{ session()->get('language') == 'portuguese' ? $subcat->subcategory_name_pt : $subcat->subcategory_name_en }}</h2>
-                                                                <ul class="links">
 
-                                                                    @php
-                                                                        $sub_subcategory = App\Models\SubSubCategory::where('subcategory_id', $subcat->id)->orderBy('sub_subcategory_name_en', 'ASC')->get();
-                                                                    @endphp
+                                                                @if(session()->get('language') == 'portuguese')
+                                                                    <a href="{{ url('subcategory/product/'.$subcat->id.'/'.$subcat->subcategory_slug_pt) }}">
+                                                                @else
+                                                                    <a href="{{ url('subcategory/product/'.$subcat->id.'/'.$subcat->subcategory_slug_en) }}">
+                                                                @endif
+                                                                        <h2 class="title">
+                                                                            {{ session()->get('language') == 'portuguese' ? $subcat->subcategory_name_pt : $subcat->subcategory_name_en }}
+                                                                        </h2>
+                                                                    </a>
 
-                                                                    @foreach ($sub_subcategory as $subsubcat)
-                                                                        <li><a href="#">{{ session()->get('language') == 'portuguese' ? $subsubcat->sub_subcategory_name_pt : $subsubcat->sub_subcategory_name_en }}</a></li>
-                                                                    @endforeach
+                                                                @php
+                                                                    $sub_subcategory = App\Models\SubSubCategory::where('subcategory_id', $subcat->id)->orderBy('sub_subcategory_name_en', 'ASC')->get();
+                                                                @endphp
 
-                                                                </ul>
+                                                                @foreach ($sub_subcategory as $subsubcat)
+                                                                    <ul class="links">
+                                                                        <li>
+                                                                            @if(session()->get('language') == 'portuguese')
+                                                                                <a href="{{ url('subcategory/subsubcategory/product/'.$subsubcat->id.'/'.$subsubcat->sub_subcategory_slug_pt) }}">
+                                                                            @else    
+                                                                                <a href="{{ url('subcategory/subsubcategory/product/'.$subsubcat->id.'/'.$subsubcat->sub_subcategory_slug_en) }}">
+                                                                            @endif
+                                                                                    {{ session()->get('language') == 'portuguese' ? $subsubcat->sub_subcategory_name_pt : $subsubcat->sub_subcategory_name_en }}
+                                                                                </a>
+                                                                        </li>  
+                                                                    </ul>
+                                                                @endforeach
                                                             </div>
                                                         @endforeach   
-                                                        <!-- /.col -->
-
-                                                        <div class="col-xs-12 col-sm-6 col-md-4 col-menu banner-image">
-                                                            <img class="img-responsive"
-                                                                src="{{ asset('frontend/assets/images/banners/top-menu-banner.jpg') }}"
-                                                                alt="">
-                                                        </div>
-                                                        <!-- /.yamm-content -->
+                                                        
                                                     </div>
                                                 </div>
                                             </li>

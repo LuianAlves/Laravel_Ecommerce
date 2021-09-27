@@ -9,6 +9,7 @@ use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\LanguageController;
 use App\Http\Controllers\Frontend\ProductDetailsController;
 use App\Http\Controllers\Frontend\TagController;
+use App\Http\Controllers\Frontend\LinksController;
 
 // Backend
 use App\Http\Controllers\Backend\AdminProfileController;
@@ -148,6 +149,10 @@ Route::get('/product/details/{id}/{slug}', [ProductDetailsController::class, 'in
 
 // Tags
 Route::get('/product/tags/{tag}', [TagController::class, 'index']);
+
+//CategoriesLinks
+Route::get('/subcategory/product/{subcat_id}/{slug}', [LinksController::class, 'subCategory']);
+Route::get('/subcategory/subsubcategory/product/{subsubcat_id}/{slug}', [LinksController::class, 'subSubCategory']);
 
 // Languages
 Route::get('/language/portuguese', [LanguageController::class, 'Portuguese'])->name('language.portuguese');

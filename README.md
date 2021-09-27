@@ -5,20 +5,25 @@
 
 Até o momento:
 
-* Criada duas tabelas no Banco de Dados para Users e Admins
-* Configuração do template do Dashboard para usuários 'admins'
-* Configuração do template Front-end Ecommerce
-* Configuração de uma dashboard simples para os clientes cadastrados
-* Aba com CRUD para Brands
-* Aba com CRUD para Categories 
-* Aba com CRUD para Sub-Categories e Sub Sub-categories
-* Aba com CRUD para Products
-* Aba com CRUD para Sliders do Template Front-end
-* Habilitando o Multi-Language do Site, Configurando Sidenav e Navbar no Frontend, Slides e Aba de Novos Produtos
-* Configurar a Página de cada Produto + Detalhes
-* Configurar os Cards hot_deals, freatured, special_offer, special_deals
-* Próxima Etapa | Frontend | => Criando Card Personalizado com uma Categoria de Produtos
-* Próxima Etapa | Frontend | => Criando view para as Tags de Produtos
+* Criada duas tabelas no Banco de Dados para Users e Admins,
+* Configuração do template do Dashboard para usuários 'admins',
+* Configuração do template Front-end Ecommerce,
+* Configuração de uma dashboard simples para os clientes cadastrados,
+* Aba com CRUD para Brands,
+* Aba com CRUD para Categories, 
+* Aba com CRUD para Sub-Categories e Sub Sub-categories,
+* Aba com CRUD para Products,
+* Aba com CRUD para Sliders do Template Front-end,
+* Habilitando o Multi-Language do Site, Configurando Sidenav e Navbar no Frontend, Slides e Aba de Novos Produtos,
+* Configurar a Página de cada Produto + Detalhes,
+* Configurar os Cards hot_deals, freatured, special_offer, special_deals,
+* Criando uma rota para direcionar cara Produto para sua Página,
+* Card Personalizado com uma Categoria de Produtos,
+* view para as Tags de Produtos,
+* view para sub-categorias e sub-sub-categorias
+* select para cores e tamanhos dos produtos
+* Card na view Detalhes de Produtos para Produtos Relacionados com o da Página
+
 
 <hr>
 

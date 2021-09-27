@@ -9,12 +9,12 @@
     <div class="sidebar-widget-body outer-top-xs">
         <div class="tag-list"> 
             @if( session()->get('language') == 'portuguese')
-                @foreach($tags_pt as $tag)
-                    <a class="item" href="{{ url('product/tags/'.$tag->product_tag_pt) }}">{{ str_replace(',', ' ', $tag->product_tag_pt) }}</a> 
+                @foreach($tags_pt as $tag_pt)
+                    <a class="item" href="{{ url('product/tags/'.$tag_pt->product_tag_pt) }}">{{ str_replace(',', ' ', $tag_pt->product_tag_pt) }}</a> 
                 @endforeach 
             @else
-                @foreach($tags_en as $tag)
-                    <a class="item" href="{{ url('product/tags/'.$tag->product_tag_en) }}">{{ str_replace(',', ' ', $tag->product_tag_en) }}</a> 
+                @foreach($tags_en as $tag_en)
+                    <a class="item" href="{{ url('product/tags/'.$tag_en->product_tag_en) }}">{{ str_replace(',', ' ', $tag_en->product_tag_en) }}</a> 
                 @endforeach
             @endif
         </div>
