@@ -3,7 +3,7 @@
 
 ## Projeto ainda em desenvolvimento!
 
-# Existe alguns erros ainda não resolvidos por enquanto, para contornar-los leia mais abaixo.
+### Existe alguns erros ainda não resolvidos por enquanto, para contornar-los leia mais abaixo.
 
 Até o momento:
 
@@ -28,7 +28,7 @@ Até o momento:
 
 <hr>
 
-# Evite alguns erros: 
+### Evite alguns erros: 
 
 // Solução 01
 
@@ -39,7 +39,7 @@ Até o momento:
     - Adicione 4/5 Brands(Marcas) e 2/3 Categorias-SubCategorias-SubSubCategorias e então adicione alguns produtos 
 
 
-# Motivo: 
+### Motivo: 
 
 // Solução 02
 
