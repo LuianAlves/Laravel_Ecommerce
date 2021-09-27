@@ -41,23 +41,25 @@ Até o momento:
 
 # Motivo: 
 
-- Alguns cards estão configurados no IndexController para que mostre apenas as Categorias Filtradas, caso queira primeiramente acessar a Rota '127.0.0.1/8000', faça:
-
 // Solução 02
 
-        1° Acesse o app/Http/Frontend/IndexController e comente:
+- Alguns cards estão configurados no IndexController para que mostre apenas as Categorias Filtradas, 
+  caso queira acessar a Rota '127.0.0.1/8000' sem adicionar Marcas/Categorias/Produtos, faça:
+
+
+        1° Acesse app/Http/Frontend/IndexController e comente:
             [
-                $skip_cat
-                $skip_prod
+                $skip_cat = Category::skip(0)->first();
+                $skip_prod = Product::where('status', 1)->where('category_id', $skip_cat->id)->inRandomOrder()->limit(10)->get();  
 
-                $skip_cat_two
-                $skip_prod_two
+                $skip_cat_two = Category::skip(1)->first();
+                $skip_prod_two = Product::where('status', 1)->where('category_id', $skip_cat_two->id)->inRandomOrder()->limit(10)->get();  
 
-                $skip_bd
-                $skip_bd_prod 
+                $skip_bd = Brand::skip(4)->first();
+                $skip_bd_prod = Product::where('status', 1)->where('brand_id', $skip_bd->id)->inRandomOrder()->limit(10)->get(); 
             ]
 
-        -- Remova as mesma em Compact(...)
+        -- Remova as mesmas em Compact(...)
 
 
         2° Acesse resources/views/app/index.blade.php e comente as sections:
