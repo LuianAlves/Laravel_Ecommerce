@@ -3,6 +3,8 @@
 
 ## Projeto ainda em desenvolvimento!
 
+# Existe alguns erros ainda não resolvidos por enquanto, para contornar-los leia mais abaixo.
+
 Até o momento:
 
 * Criada duas tabelas no Banco de Dados para Users e Admins,
@@ -24,8 +26,50 @@ Até o momento:
 * select para cores e tamanhos dos produtos
 * Card na view Detalhes de Produtos para Produtos Relacionados com o da Página
 
+<hr>
+
+# Evite alguns erros: 
+
+// Solução 01
+
+    - Acesse Primeiramente a Rota 
+
+            /admin/login 
+            
+    - Adicione 4/5 Brands(Marcas) e 2/3 Categorias-SubCategorias-SubSubCategorias e então adicione alguns produtos 
+
+
+# Motivo: 
+
+- Alguns cards estão configurados no IndexController para que mostre apenas as Categorias Filtradas, caso queira primeiramente acessar a Rota '127.0.0.1/8000', faça:
+
+// Solução 02
+
+        1° Acesse o app/Http/Frontend/IndexController e comente:
+            [
+                $skip_cat
+                $skip_prod
+
+                $skip_cat_two
+                $skip_prod_two
+
+                $skip_bd
+                $skip_bd_prod 
+            ]
+
+        -- Remova as mesma em Compact(...)
+
+
+        2° Acesse resources/views/app/index.blade.php e comente as sections:
+
+        [
+            <!-- ========= 01 SKIP CATEGORY/PRODUCTS ============ -->,
+            <!-- ========= 02 SKIP CATEGORY/PRODUCTS ============ -->,
+            <!-- ========= 02 SKIP BRAND/PRODUCTS ============ -->
+        ]
 
 <hr>
+
 
 ## Instalação do Projeto ...
 
