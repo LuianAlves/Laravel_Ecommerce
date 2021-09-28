@@ -224,8 +224,7 @@ Home Shop
                                                             <div class="action">
                                                                 <ul class="list-unstyled">
                                                                     <li class="add-cart-button btn-group">
-                                                                        <button data-toggle="tooltip" class="btn btn-primary icon" type="button"
-                                                                            title="{{ session()->get('language') == 'portuguese' ? 'Carrinho' : 'Add to cart' }}">
+                                                                        <button class="btn btn-primary icon" type="button" data-toggle="modal" data-target="#addCart" id="{{$prod->id}}" onclick="productView(this.id)">
                                                                             <i class="fa fa-shopping-cart"></i> </button>
                                                                     </li>
                                                                     <li class="lnk wishlist"> <a data-toggle="tooltip" class="add-to-cart"
@@ -327,8 +326,7 @@ Home Shop
                                                                 <div class="action">
                                                                     <ul class="list-unstyled">
                                                                         <li class="add-cart-button btn-group">
-                                                                            <button data-toggle="tooltip" class="btn btn-primary icon" type="button"
-                                                                                title="{{ session()->get('language') == 'portuguese' ? 'Carrinho' : 'Add to cart' }}">
+                                                                            <button class="btn btn-primary icon" type="button" data-toggle="modal" data-target="#addCart" id="{{$prod->id}}" onclick="productView(this.id)">
                                                                                 <i class="fa fa-shopping-cart"></i>
                                                                             </button>
                                                                         </li>
@@ -432,8 +430,8 @@ Home Shop
                                                 <div class="action">
                                                     <ul class="list-unstyled">
                                                         <li class="add-cart-button btn-group">
-                                                            <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i
-                                                                    class="fa fa-shopping-cart"></i>
+                                                            <button class="btn btn-primary icon" type="button" data-toggle="modal" data-target="#addCart" id="{{$prod_featured->id}}" onclick="productView(this.id)"> 
+                                                                <i class="fa fa-shopping-cart"></i>
                                                             </button>
                                                             <button class="btn btn-primary cart-btn" type="button">{{ session()->get('language') == 'portuguese' ? 'Carrinho' : 'Add to cart' }}</button>
                                                         </li>
@@ -543,7 +541,7 @@ Home Shop
                                                 <div class="action">
                                                     <ul class="list-unstyled">
                                                         <li class="add-cart-button btn-group">
-                                                            <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i
+                                                            <button class="btn btn-primary icon" type="button" data-toggle="modal" data-target="#addCart" id="{{$skip->id}}" onclick="productView(this.id)"> <i
                                                                     class="fa fa-shopping-cart"></i>
                                                             </button>
                                                             <button class="btn btn-primary cart-btn" type="button">{{ session()->get('language') == 'portuguese' ? 'Carrinho' : 'Add to cart' }}</button>
@@ -633,7 +631,7 @@ Home Shop
                                                 <div class="action">
                                                     <ul class="list-unstyled">
                                                         <li class="add-cart-button btn-group">
-                                                            <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i
+                                                            <button class="btn btn-primary icon" type="button" data-toggle="modal" data-target="#addCart" id="{{$skip->id}}" onclick="productView(this.id)"> <i
                                                                     class="fa fa-shopping-cart"></i>
                                                             </button>
                                                             <button class="btn btn-primary cart-btn" type="button">{{ session()->get('language') == 'portuguese' ? 'Carrinho' : 'Add to cart' }}</button>
@@ -751,7 +749,7 @@ Home Shop
                                                 <div class="action">
                                                     <ul class="list-unstyled">
                                                         <li class="add-cart-button btn-group">
-                                                            <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i
+                                                            <button class="btn btn-primary icon" type="button" data-toggle="modal" data-target="#addCart" id="{{$skip->id}}" onclick="productView(this.id)"> <i
                                                                     class="fa fa-shopping-cart"></i>
                                                             </button>
                                                             <button class="btn btn-primary cart-btn" type="button">{{ session()->get('language') == 'portuguese' ? 'Carrinho' : 'Add to cart' }}</button>
@@ -1235,7 +1233,7 @@ Home Shop
                                             <div class="action">
                                                 <ul class="list-unstyled">
                                                     <li class="add-cart-button btn-group">
-                                                        <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i
+                                                        {{-- <button class="btn btn-primary icon" type="button" data-toggle="modal" data-target="#addCart" id="{{$prod_featured->id}}" onclick="productView(this.id)"> <i --}}
                                                                 class="fa fa-shopping-cart"></i>
                                                         </button>
                                                         <button class="btn btn-primary cart-btn" type="button">Add to
@@ -1285,9 +1283,9 @@ Home Shop
                                         <div class="cart clearfix animate-effect">
                                             <div class="action">
                                                 <ul class="list-unstyled">
-                                                    <li class="add-cart-button btn-group">
-                                                        <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i
-                                                                class="fa fa-shopping-cart"></i>
+                                                    {{-- <li class="add-cart-button btn-group">
+                                                        <button class="btn btn-primary icon" type="button" data-toggle="modal" data-target="#addCart" id="{{$prod_featured->id}}" onclick="productView(this.id)"> <i
+                                                                class="fa fa-shopping-cart"></i> --}}
                                                         </button>
                                                         <button class="btn btn-primary cart-btn" type="button">Add to
                                                             cart</button>
@@ -1336,9 +1334,9 @@ Home Shop
                                         <div class="cart clearfix animate-effect">
                                             <div class="action">
                                                 <ul class="list-unstyled">
-                                                    <li class="add-cart-button btn-group">
-                                                        <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i
-                                                                class="fa fa-shopping-cart"></i>
+                                                    {{-- <li class="add-cart-button btn-group">
+                                                        <button class="btn btn-primary icon" type="button" data-toggle="modal" data-target="#addCart" id="{{$prod_featured->id}}" onclick="productView(this.id)"> <i
+                                                                class="fa fa-shopping-cart"></i> --}}
                                                         </button>
                                                         <button class="btn btn-primary cart-btn" type="button">Add to
                                                             cart</button>
@@ -1387,9 +1385,9 @@ Home Shop
                                         <div class="cart clearfix animate-effect">
                                             <div class="action">
                                                 <ul class="list-unstyled">
-                                                    <li class="add-cart-button btn-group">
-                                                        <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i
-                                                                class="fa fa-shopping-cart"></i>
+                                                    {{-- <li class="add-cart-button btn-group">
+                                                        <button class="btn btn-primary icon" type="button" data-toggle="modal" data-target="#addCart" id="{{$prod_featured->id}}" onclick="productView(this.id)"> <i
+                                                                class="fa fa-shopping-cart"></i> --}}
                                                         </button>
                                                         <button class="btn btn-primary cart-btn" type="button">Add to
                                                             cart</button>
@@ -1438,9 +1436,9 @@ Home Shop
                                         <div class="cart clearfix animate-effect">
                                             <div class="action">
                                                 <ul class="list-unstyled">
-                                                    <li class="add-cart-button btn-group">
-                                                        <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i
-                                                                class="fa fa-shopping-cart"></i>
+                                                    {{-- <li class="add-cart-button btn-group">
+                                                        <button class="btn btn-primary icon" type="button" data-toggle="modal" data-target="#addCart" id="{{$prod_featured->id}}" onclick="productView(this.id)"> <i
+                                                                class="fa fa-shopping-cart"></i> --}}
                                                         </button>
                                                         <button class="btn btn-primary cart-btn" type="button">Add to
                                                             cart</button>
@@ -1489,9 +1487,9 @@ Home Shop
                                         <div class="cart clearfix animate-effect">
                                             <div class="action">
                                                 <ul class="list-unstyled">
-                                                    <li class="add-cart-button btn-group">
-                                                        <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i
-                                                                class="fa fa-shopping-cart"></i>
+                                                    {{-- <li class="add-cart-button btn-group">
+                                                        <button class="btn btn-primary icon" type="button" data-toggle="modal" data-target="#addCart" id="{{$prod_featured->id}}" onclick="productView(this.id)"> <i
+                                                                class="fa fa-shopping-cart"></i> --}}
                                                         </button>
                                                         <button class="btn btn-primary cart-btn" type="button">Add to
                                                             cart</button>

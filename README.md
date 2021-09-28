@@ -25,6 +25,7 @@ Até o momento:
 * view para sub-categorias e sub-sub-categorias
 * select para cores e tamanhos dos produtos
 * Card na view Detalhes de Produtos para Produtos Relacionados com o da Página
+* Modal para Adicionar Produtos ao Carrinho (com AJAX)
 
 <hr>
 

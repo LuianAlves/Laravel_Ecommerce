@@ -10,6 +10,7 @@ use App\Http\Controllers\Frontend\LanguageController;
 use App\Http\Controllers\Frontend\ProductDetailsController;
 use App\Http\Controllers\Frontend\TagController;
 use App\Http\Controllers\Frontend\LinksController;
+use App\Http\Controllers\Frontend\ModalController;
 
 // Backend
 use App\Http\Controllers\Backend\AdminProfileController;
@@ -153,6 +154,9 @@ Route::get('/product/tags/{tag}', [TagController::class, 'index']);
 //CategoriesLinks
 Route::get('/subcategory/product/{subcat_id}/{slug}', [LinksController::class, 'subCategory']);
 Route::get('/subcategory/subsubcategory/product/{subsubcat_id}/{slug}', [LinksController::class, 'subSubCategory']);
+
+// Modal Add to Cart
+Route::get('/modal/add_cart/product/{id}', [ModalController::class, 'modalCart']);
 
 // Languages
 Route::get('/language/portuguese', [LanguageController::class, 'Portuguese'])->name('language.portuguese');
