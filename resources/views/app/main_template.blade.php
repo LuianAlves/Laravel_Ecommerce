@@ -32,6 +32,8 @@
 
     {{-- Toast Notification --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
+    {{-- Sweet Notification --}}
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700' rel='stylesheet' type='text/css'>
@@ -54,15 +56,15 @@
     @include('app.body.footer')
 
 
-    <!-- =========================== AJAX MODALS =============================== -->
+    
     {{-- Modal Add to Cart --}}
     <div class="modal fade" id="addCart" tabindex="-1" aria-labelledby="addCartLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addCartLabel"><strong><span id="{{ session()->get('language') == 'portuguese' ? 'name_pt' : 'name_en' }}"></span></strong>
+                    <h5 class="modal-title" id="addCartLabel"><strong><span id="pname"></span></strong>
                     </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeModal">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -116,9 +118,9 @@
                             {{-- Color --}}
                             <div class="form-group" id="colorArea">
                                 <label
-                                    for="colorSelect">{{ session()->get('language') == 'portuguese' ? 'Cor' : 'Choose Color' }}<span
+                                    for="{{ session()->get('language') == 'portuguese' ? 'color_pt' : 'color'}}">{{ session()->get('language') == 'portuguese' ? 'Cor' : 'Choose Color' }}<span
                                         class="text-danger"> *</span></label></label>
-                                <select class="form-control" id="colorSelect"
+                                <select class="form-control" id="{{ session()->get('language') == 'portuguese' ? 'color_pt' : 'color'}}"
                                     name="{{ session()->get('language') == 'portuguese' ? 'color_pt' : 'color' }}"></select>
                             </div>
                         </div>
@@ -126,40 +128,69 @@
                             {{-- Size --}}
                             <div class="form-group" id="sizeArea">
                                 <label
-                                    for="sizeSelect">{{ session()->get('language') == 'portuguese' ? 'Tamanho' : 'Choose Size' }}<span
+                                    for="{{ session()->get('language') == 'portuguese' ? 'size_pt' : 'size'}}">{{ session()->get('language') == 'portuguese' ? 'Tamanho' : 'Choose Size' }}<span
                                         class="text-danger"> *</span></label></label>
-                                <select class="form-control" id="sizeSelect"
+                                <select class="form-control" id="{{ session()->get('language') == 'portuguese' ? 'size_pt' : 'size'}}"
                                     name="{{ session()->get('language') == 'portuguese' ? 'size_pt' : 'size' }}"></select>
                             </div>
                         </div>
                         <div class="col-md-3">
                             {{-- Quantity --}}
                             <div class="form-group">
-                                <label
-                                    for="exampleFormControlSelect1">{{ session()->get('language') == 'portuguese' ? 'Quantidade' : 'Quantity' }}<span
-                                        class="text-danger"> *</span></label></label>
-                                <input type="number" class="form-control" value="1" min="1" name="pqty">
+                                <label for="qty">{{ session()->get('language') == 'portuguese' ? 'Quantidade' : 'Quantity' }}<span class="text-danger"> *</span></label></label>
+                                <input type="number" class="form-control" id="qty" value="1" min="1">
                             </div>
                         </div>
                     </div>
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-primary mb-2" style="float: right; margin: 15px 5px;">Add to Cart</button>
-                            </div>
-                        
+
+                    {{-- BUTTON --}}
+                    <input type="hidden" id="product_id">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary mb-2" onclick="addToCart()" style="float: right; margin: 15px 5px;">Add to Cart</button>
+                    </div>            
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- JavaScripts placed at the end of the document so the pages load faster -->
+    <script src="{{ asset('frontend/assets/js/jquery-1.11.1.min.js') }}"></script>
+    <script src="{{ asset('frontend/assets/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('frontend/assets/js/bootstrap-hover-dropdown.min.js') }}"></script>
+    <script src="{{ asset('frontend/assets/js/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('frontend/assets/js/echo.min.js') }}"></script>
+    <script src="{{ asset('frontend/assets/js/jquery.easing-1.3.min.js') }}"></script>
+    <script src="{{ asset('frontend/assets/js/bootstrap-slider.min.js') }}"></script>
+    <script src="{{ asset('frontend/assets/js/jquery.rateit.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('frontend/assets/js/lightbox.min.js') }}"></script>
+    <script src="{{ asset('frontend/assets/js/bootstrap-select.min.js') }}"></script>
+    <script src="{{ asset('frontend/assets/js/wow.min.js') }}"></script>
+    <script src="{{ asset('frontend/assets/js/scripts.js') }}"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script>
+        @if (Session::has('message'))
+            var type = "{{ Session::get('alert-type', 'info') }}"
+        
+            switch(type) {
+            case 'info':
+            toastr.info(" {{ Session::get('message') }} ");
+            break;
+            case 'success':
+            toastr.success(" {{ Session::get('message') }} ");
+            break;
+            case 'warning':
+            toastr.warning(" {{ Session::get('message') }} ");
+            break;
+            case 'error':
+            toastr.error(" {{ Session::get('message') }} ");
+            break;
+            }
+        @endif
+    </script>
 
-    {{-- Ajax para Modal Add to Cart --}}
+    <!-- =========================== AJAX ADD CART =============================== --> 
     <script type="text/javascript">
-        // $.ajaxSetup({
-        //     headers: {
-        //         'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
-        //     }
-        // })
-
+        // ********************* OPEN MODAL *********************
         function productView(id) {
             $.ajax({
                 type: 'GET',
@@ -172,9 +203,12 @@
 
                     // // ================= List Group =======================
                     
+                    // PRODUCT ID - INPUT HIDDEN - BUTTON SUBMIT
+                    $('#product_id').val(id)
+                    $('#qty').val(1)
+
                     // Name
-                    $('#name_en').text(data.product.product_name_en)
-                    $('#name_pt').text(data.product.product_name_pt)
+                    $('#pname').text(data.product.product_name_en)
                     
                     // Condition Price
                     $('#price').text(data.product.selling_price)
@@ -213,26 +247,25 @@
                         }
 
                     // Condition Quantity
-                    $('#quantity').text(data.product.product_qty)
-                        if(data.product.product_qty > 0) {
-                            $('#avaliable').empty()
-                            $('#stockOut').empty()
-                            $('#disponivel').empty()
-                            $('#esgotado').empty()
+                    if(data.product.product_qty > 0) {
+                        $('#avaliable').empty()
+                        $('#stockOut').empty()
+                        $('#disponivel').empty()
+                        $('#esgotado').empty()
 
-                            $('#avaliable').text('Avaliable')
-                            $('#disponivel').text('Disponível')
-                            
-                        } else {
-                            $('#avaliable').empty()
-                            $('#stockOut').empty()
-                            $('#disponivel').empty()
-                            $('#esgotado').empty()
+                        $('#avaliable').text('Avaliable')
+                        $('#disponivel').text('Disponível')
+                        
+                    } else {
+                        $('#avaliable').empty()
+                        $('#stockOut').empty()
+                        $('#disponivel').empty()
+                        $('#esgotado').empty()
 
-                            $('#stockOut').text('Stock Out')
-                            $('#esgotado').text('Esgotado')
-                            
-                        }
+                        $('#stockOut').text('Stock Out')
+                        $('#esgotado').text('Esgotado')
+                        
+                    }
 
                     // ================= Colors =======================
                     // Color En
@@ -288,45 +321,141 @@
                 }
             })
         }
+
+        // ********************* BUTTON ADD CART *********************
+        function addToCart() {
+            var id = $('#product_id').val()
+            var quantity = $('#qty').val()
+
+            var product_name = $('#pname').text();
+            var color = $('#color option:selected').text()
+            var size = $('#size option:selected').text()
+
+            $.ajax({
+                headers: { 'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content') },
+                type: "POST",
+                dataType: 'json',
+                data: {
+                    color: color, size: size, quantity: quantity, product_name: product_name
+                },
+                url: "/cart/store/"+id,
+
+                success: function(data) {
+                    miniCart() // Adicionado aqui para recarregar os valores automaticamente no mini cart
+                    $('#closeModal').click()
+                    
+                    // Notification
+                    const Toast =  Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            icon: 'success',
+                            showConfirmButton: false,
+                            timer: 3000
+                        })
+
+                    if($.isEmptyObject(data.error)) {
+                        Toast.fire({
+                            type: 'success',
+                            title: data.success
+                        })
+
+                    } else {
+                        Toast.fire({
+                            type: 'error',
+                            title: data.error
+                        })
+
+                    }
+                }
+            })
+        }
+
+        // ********************* READ - MINI CARD *********************
+        function miniCart() {
+            $.ajax({
+                type: 'GET',
+                url: '/cart/mini/view',
+                dataType: 'json',
+
+                success: function(response) {
+                    $('span[id="cartSubTotal"]').text(response.cartTotal)
+                    $('span[id="cartQty"]').text(response.cartQty)
+
+                    var miniCart = ""
+                    
+                    $.each(response.carts, function(valor, product) {
+                        miniCart +=  `
+                            <div class="cart-item product-summary">
+                                <div class="row" style="padding-right: 20px;">
+                                    <div class="col-xs-4">
+                                        <div class="image"> 
+                                            <a href="detail.html">
+                                                <img src="/${product.options.image}" alt="">
+                                            </a> 
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <h3 class="name">
+                                            <a href="index.php?page-detail">
+                                                ${product.name}
+                                            </a>
+                                        </h3>
+                                        <div class="price">{{ session()->get('language') == 'portuguese' ? 'R$' : '$' }} ${product.price} * ${product.qty}</div>
+                                    </div>
+                                    <div class="col-xs-1 action"> 
+                                        <button class="btn btn-sm btn-danger" type="submit" id="${product.rowId}" onclick="deleteMiniCart(this.id)">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <hr>
+                        ` 
+                    });
+
+                    $('#miniCart').html(miniCart);
+                }
+            });
+        }
+        miniCart();
+
+        // ********************* DELETE - MINI CARD *********************
+        function deleteMiniCart(rowId) {
+            $.ajax({
+                type: 'GET',
+                url: 'cart/mini/product/delete/' + rowId,
+                dataType: 'json',
+
+                success: function(data) {
+                    miniCart()
+
+                    // Notification
+                    const Toast =  Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            icon: 'error',
+                            showConfirmButton: false,
+                            timer: 3000
+                        })
+
+                    if($.isEmptyObject(data.error)) {
+                        Toast.fire({
+                            type: 'error',
+                            title: data.success
+                        })
+
+                    } else {
+                        Toast.fire({
+                            type: 'warning',
+                            title: data.error
+                        })
+
+                    }
+                }
+            })
+        }
     </script>
-
-    <!-- =========================== AJAX MODALS : End =============================== -->
-
-    <!-- JavaScripts placed at the end of the document so the pages load faster -->
-    <script src="{{ asset('frontend/assets/js/jquery-1.11.1.min.js') }}"></script>
-    <script src="{{ asset('frontend/assets/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('frontend/assets/js/bootstrap-hover-dropdown.min.js') }}"></script>
-    <script src="{{ asset('frontend/assets/js/owl.carousel.min.js') }}"></script>
-    <script src="{{ asset('frontend/assets/js/echo.min.js') }}"></script>
-    <script src="{{ asset('frontend/assets/js/jquery.easing-1.3.min.js') }}"></script>
-    <script src="{{ asset('frontend/assets/js/bootstrap-slider.min.js') }}"></script>
-    <script src="{{ asset('frontend/assets/js/jquery.rateit.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('frontend/assets/js/lightbox.min.js') }}"></script>
-    <script src="{{ asset('frontend/assets/js/bootstrap-select.min.js') }}"></script>
-    <script src="{{ asset('frontend/assets/js/wow.min.js') }}"></script>
-    <script src="{{ asset('frontend/assets/js/scripts.js') }}"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    <script>
-        @if (Session::has('message'))
-            var type = "{{ Session::get('alert-type', 'info') }}"
-        
-            switch(type) {
-            case 'info':
-            toastr.info(" {{ Session::get('message') }} ");
-            break;
-            case 'success':
-            toastr.success(" {{ Session::get('message') }} ");
-            break;
-            case 'warning':
-            toastr.warning(" {{ Session::get('message') }} ");
-            break;
-            case 'error':
-            toastr.error(" {{ Session::get('message') }} ");
-            break;
-            }
-        @endif
-    </script>
-
 </body>
 
 </html>

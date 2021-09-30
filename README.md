@@ -25,7 +25,9 @@ Até o momento:
 * view para sub-categorias e sub-sub-categorias
 * select para cores e tamanhos dos produtos
 * Card na view Detalhes de Produtos para Produtos Relacionados com o da Página
-* Modal para Adicionar Produtos ao Carrinho (com AJAX)
+* Modal para Adicionar Produtos ao Carrinho (AJAX)
+* Configurado Botão para adicionar produtos ao Carrinho (AJAX)
+* MiniCarrinho no Header Configurado com Imagens, Valores (AJAX)
 
 <hr>
 

@@ -11,6 +11,7 @@ use App\Http\Controllers\Frontend\ProductDetailsController;
 use App\Http\Controllers\Frontend\TagController;
 use App\Http\Controllers\Frontend\LinksController;
 use App\Http\Controllers\Frontend\ModalController;
+use App\Http\Controllers\Frontend\CartController;
 
 // Backend
 use App\Http\Controllers\Backend\AdminProfileController;
@@ -157,6 +158,14 @@ Route::get('/subcategory/subsubcategory/product/{subsubcat_id}/{slug}', [LinksCo
 
 // Modal Add to Cart
 Route::get('/modal/add_cart/product/{id}', [ModalController::class, 'modalCart']);
+
+// Cart
+Route::prefix('cart')->group(function() {
+    Route::get('/mini/view', [CartController::class, 'miniCartIndex']);
+    Route::post('/store/{id}', [CartController::class, 'miniCartStore']);
+    Route::get('/mini/product/delete/{rowId}', [CartController::class, 'miniCartDestroy']);
+});
+
 
 // Languages
 Route::get('/language/portuguese', [LanguageController::class, 'Portuguese'])->name('language.portuguese');

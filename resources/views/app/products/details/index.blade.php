@@ -5,7 +5,7 @@
 {{ session()->get('language') == 'portuguese' ? $products->product_name_pt : $products->product_name_en }} - Product Details
 @endsection
 
-    <!-- ===== ======== HEADER : END ============================================== -->
+    
     <div class="breadcrumb">
         <div class="container">
             <div class="breadcrumb-inner">
@@ -16,7 +16,8 @@
                 </ul>
             </div><!-- /.breadcrumb-inner -->
         </div><!-- /.container -->
-    </div><!-- /.breadcrumb -->
+    </div>
+
     <div class="body-content outer-top-xs">
         <div class='container'>
             <div class='row single-product'>
@@ -56,9 +57,9 @@
                                                 <a data-lightbox="image-1" data-title="Gallery" href="{{ asset($img->photo_name) }}">
                                                     <img class="img-responsive" alt="" src="{{ asset($img->photo_name) }}" data-echo="{{ asset($img->photo_name) }}" />
                                                 </a>
-                                            </div><!-- /.single-product-gallery-item -->
+                                            </div>
                                         @endforeach
-                                    </div><!-- /.single-product-slider -->
+                                    </div>
 
                                     <div class="single-product-gallery-thumbs gallery-thumbs">
 
@@ -71,16 +72,16 @@
                                                     </a>
                                                 </div>
                                             @endforeach
-                                        </div><!-- /#owl-single-product-thumbnails -->
+                                        </div>
 
-                                    </div><!-- /.gallery-thumbs -->
+                                    </div>
 
-                                </div><!-- /.single-product-gallery -->
-                            </div><!-- /.gallery-holder -->
+                                </div>
+                            </div>
 
                             <div class='col-sm-6 col-md-7 product-info-block'>
                                 <div class="product-info">
-                                    <h1 class="name">{{ session()->get('language') == 'portuguese' ? $products->product_name_pt : $products->product_name_en }}</h1>
+                                    <h1 class="name" id="pname">{{ session()->get('language') == 'portuguese' ? $products->product_name_pt : $products->product_name_en }}</h1>
 
                                     <div class="rating-reviews m-t-20">
                                         <div class="row">
@@ -149,48 +150,47 @@
                                         </div>
                                     </div>
                                     
-                                    {{-- Colors --}}
-                                    
-                                        <div class="row m-t-20">
-                                            <div class="col-sm-6">
-                                                @if($products->product_color_en || $products->product_color_pt != NULL)
-                                                    <div class="form-group">
-                                                        <label class="info-title control-label">{{ session()->get('language') == 'portuguese' ? 'Cor' : 'Choose Color' }}<span class="text-danger"> *</span></label>
-                                                        <select class="form-control unicase-form-control selectpicker" required>
-                                                            <option selected disabled>{{ session()->get('language') == 'portuguese' ? '-- Selecione --' : '-- Choose --' }}</option>
-                                                            @if(session()->get('language') == 'portuguese')
-                                                                @foreach($product_color_pt as $color_pt)
-                                                                    <option value="{{$color_pt}}">{{ $color_pt }}</option>
-                                                                @endforeach
-                                                            @else    
-                                                                @foreach($product_color_en as $color_en)
-                                                                    <option value="{{$color_en}}">{{ $color_en }}</option>
-                                                                @endforeach
-                                                            @endif    
-                                                        </select>
-                                                    </div>
-                                                @endif
-                                            </div>
-                                            <div class="col-sm-6">
-                                                @if($products->product_size_en || $products->product_size_pt != NULL)
-                                                    <div class="form-group">
-                                                        <label class="info-title control-label">{{ session()->get('language') == 'portuguese' ? 'Tamanho' : 'Choose Size' }}<span class="text-danger"> *</span></label>
-                                                        <select class="form-control unicase-form-control selectpicker" required>
-                                                            <option selected disabled>{{ session()->get('language') == 'portuguese' ? '-- Selecione --' : '-- Choose --' }}</option>
-                                                            @if(session()->get('language') == 'portuguese')
-                                                                @foreach($product_size_pt as $size_pt)
-                                                                    <option value="{{ $size_pt }}">{{ ucfirst($size_pt) }}</option>
-                                                                @endforeach
-                                                            @else
-                                                                @foreach($product_size_en as $size_en)
-                                                                    <option value="{{ $size_en }}">{{ ucfirst($size_en) }}</option>
-                                                                @endforeach
-                                                            @endif
-                                                        </select>
-                                                    </div>
-                                                @endif    
-                                            </div>
+                                    {{-- Colors --}}                                  
+                                    <div class="row m-t-20">
+                                        <div class="col-sm-6">
+                                            @if($products->product_color_en || $products->product_color_pt != NULL)
+                                                <div class="form-group">
+                                                    <label class="info-title control-label">{{ session()->get('language') == 'portuguese' ? 'Cor' : 'Choose Color' }}<span class="text-danger"> *</span></label>
+                                                    <select class="form-control unicase-form-control selectpicker" id="color" required>
+                                                        <option selected disabled>{{ session()->get('language') == 'portuguese' ? '-- Selecione --' : '-- Choose --' }}</option>
+                                                        @if(session()->get('language') == 'portuguese')
+                                                            @foreach($product_color_pt as $color_pt)
+                                                                <option value="{{$color_pt}}">{{ $color_pt }}</option>
+                                                            @endforeach
+                                                        @else    
+                                                            @foreach($product_color_en as $color_en)
+                                                                <option value="{{$color_en}}">{{ $color_en }}</option>
+                                                            @endforeach
+                                                        @endif    
+                                                    </select>
+                                                </div>
+                                            @endif
                                         </div>
+                                        <div class="col-sm-6">
+                                            @if($products->product_size_en || $products->product_size_pt != NULL)
+                                                <div class="form-group">
+                                                    <label class="info-title control-label">{{ session()->get('language') == 'portuguese' ? 'Tamanho' : 'Choose Size' }}<span class="text-danger"> *</span></label>
+                                                    <select class="form-control unicase-form-control selectpicker" id="size" required>
+                                                        <option selected disabled>{{ session()->get('language') == 'portuguese' ? '-- Selecione --' : '-- Choose --' }}</option>
+                                                        @if(session()->get('language') == 'portuguese')
+                                                            @foreach($product_size_pt as $size_pt)
+                                                                <option value="{{ $size_pt }}">{{ ucfirst($size_pt) }}</option>
+                                                            @endforeach
+                                                        @else
+                                                            @foreach($product_size_en as $size_en)
+                                                                <option value="{{ $size_en }}">{{ ucfirst($size_en) }}</option>
+                                                            @endforeach
+                                                        @endif
+                                                    </select>
+                                                </div>
+                                            @endif    
+                                        </div>
+                                    </div>
                                     
                                         
                                     {{-- Row Qty --}}
@@ -213,15 +213,19 @@
                                                                     class="ir"><i
                                                                         class="icon fa fa-sort-desc"></i></span></div>
                                                         </div>
-                                                        <input type="text" value="1">
+                                                        <input type="number" id="qty" value="1" min="1">
                                                     </div>
                                                 </div>
                                             </div>
 
+                                            <input type="hidden" id="product_id" value="{{ $products->id }}" min="1">
+
                                             {{-- Add Cart --}}
                                             <div class="col-sm-7">
-                                                <a href="#" class="btn btn-primary"><i
-                                                        class="fa fa-shopping-cart inner-right-vs"></i> {{ session()->get('language') == 'portuguese' ? 'ADICIONAR NO CARRINHO' : 'ADD TO CART'}}</a>
+                                                <button type="submit" class="btn btn-primary" onclick="addToCart()">
+                                                    <i class="fa fa-shopping-cart inner-right-vs"></i> 
+                                                    {{ session()->get('language') == 'portuguese' ? 'ADICIONAR NO CARRINHO' : 'ADD TO CART'}}
+                                                </button>
                                             </div>
 
 
@@ -414,7 +418,7 @@
                                 </div><!-- /.tab-content -->
                             </div><!-- /.col -->
                         </div><!-- /.row -->
-                    </div><!-- /.product-tabs -->
+                    </div>
 
                     <!-- ============================================== UPSELL PRODUCTS ============================================== -->
                     <section class="section featured-product wow fadeInUp">
