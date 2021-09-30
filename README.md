@@ -28,6 +28,9 @@ Até o momento:
 * Modal para Adicionar Produtos ao Carrinho (AJAX)
 * Configurado Botão para adicionar produtos ao Carrinho (AJAX)
 * MiniCarrinho no Header Configurado com Imagens, Valores (AJAX)
+* Adicionando Produtos aos Favoritos
+* View para Listar e Remover dos Favoritos (Acesso somente com usuário 'user' autenticado)
+* // No momento existe algum bug com caracteres especiais // *
 
 <hr>
 

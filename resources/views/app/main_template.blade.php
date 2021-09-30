@@ -189,273 +189,406 @@
     </script>
 
     <!-- =========================== AJAX ADD CART =============================== --> 
-    <script type="text/javascript">
-        // ********************* OPEN MODAL *********************
-        function productView(id) {
-            $.ajax({
-                type: 'GET',
-                url: '/modal/add_cart/product/' + id,
-                dataType: 'json',
+        <script type="text/javascript">
+            // ********************* OPEN MODAL *********************
+            function productView(id) {
+                $.ajax({
+                    type: 'GET',
+                    url: '/modal/add_cart/product/' + id,
+                    dataType: 'json',
 
-                success: function(data) {
-                    // ================= Image =======================
-                    $('#image').attr('src', '/' + data.product.product_thumnail)
+                    success: function(data) {
+                        // ================= Image =======================
+                        $('#image').attr('src', '/' + data.product.product_thumnail)
 
-                    // // ================= List Group =======================
-                    
-                    // PRODUCT ID - INPUT HIDDEN - BUTTON SUBMIT
-                    $('#product_id').val(id)
-                    $('#qty').val(1)
-
-                    // Name
-                    $('#pname').text(data.product.product_name_en)
-                    
-                    // Condition Price
-                    $('#price').text(data.product.selling_price)
-                        if(data.product.discount_price == null || data.product.discount_price == 0) {
-                            $('#pprice').text(data.product.selling_price)
-                        } else {
-                            $('#pprice').text(data.product.selling_price - data.product.discount_price)
-                            $('#oldprice').text(data.product.selling_price)
-                        }
-
-                    // Product Code
-                    $('#code').text(data.product.product_code)
-                    
-                    // Category
-                    $('#category').text(data.product.category.category_name_en)
-                    $('#category_pt').text(data.product.category.category_name_pt)
-                    
-                    // Condition Brand
-                    $('#brand').text(data.product.brand_id)
-                        if(data.product.brand_id == null || data.product.brand_id == 0) {
-                            $('#pbrand').empty()
-                            $('#null').empty()
-                            $('#pmarca').empty()
-                            $('#nulo').empty()
-
-                            $('#null').text('No Brand')
-                            $('#nulo').text('Sem Marca')
-                        } else {
-                            $('#pbrand').empty()
-                            $('#null').empty()
-                            $('#pmarca').empty()
-                            $('#nulo').empty()
-
-                            $('#pbrand').text(data.product.brand.brand_name_en)
-                            $('#pmarca').text(data.product.brand.brand_name_pt)
-                        }
-
-                    // Condition Quantity
-                    if(data.product.product_qty > 0) {
-                        $('#avaliable').empty()
-                        $('#stockOut').empty()
-                        $('#disponivel').empty()
-                        $('#esgotado').empty()
-
-                        $('#avaliable').text('Avaliable')
-                        $('#disponivel').text('Disponível')
+                        // // ================= List Group =======================
                         
-                    } else {
-                        $('#avaliable').empty()
-                        $('#stockOut').empty()
-                        $('#disponivel').empty()
-                        $('#esgotado').empty()
+                        // PRODUCT ID - INPUT HIDDEN - BUTTON SUBMIT
+                        $('#product_id').val(id)
+                        $('#qty').val(1)
 
-                        $('#stockOut').text('Stock Out')
-                        $('#esgotado').text('Esgotado')
+                        // Name
+                        $('#pname').text(data.product.product_name_en)
                         
+                        // Condition Price
+                        $('#price').text(data.product.selling_price)
+                            if(data.product.discount_price == null || data.product.discount_price == 0) {
+                                $('#pprice').text(data.product.selling_price)
+                            } else {
+                                $('#pprice').text(data.product.selling_price - data.product.discount_price)
+                                $('#oldprice').text(data.product.selling_price)
+                            }
+
+                        // Product Code
+                        $('#code').text(data.product.product_code)
+                        
+                        // Category
+                        $('#category').text(data.product.category.category_name_en)
+                        $('#category_pt').text(data.product.category.category_name_pt)
+                        
+                        // Condition Brand
+                        $('#brand').text(data.product.brand_id)
+                            if(data.product.brand_id == null || data.product.brand_id == 0) {
+                                $('#pbrand').empty()
+                                $('#null').empty()
+                                $('#pmarca').empty()
+                                $('#nulo').empty()
+
+                                $('#null').text('No Brand')
+                                $('#nulo').text('Sem Marca')
+                            } else {
+                                $('#pbrand').empty()
+                                $('#null').empty()
+                                $('#pmarca').empty()
+                                $('#nulo').empty()
+
+                                $('#pbrand').text(data.product.brand.brand_name_en)
+                                $('#pmarca').text(data.product.brand.brand_name_pt)
+                            }
+
+                        // Condition Quantity
+                        if(data.product.product_qty > 0) {
+                            $('#avaliable').empty()
+                            $('#stockOut').empty()
+                            $('#disponivel').empty()
+                            $('#esgotado').empty()
+
+                            $('#avaliable').text('Avaliable')
+                            $('#disponivel').text('Disponível')
+                            
+                        } else {
+                            $('#avaliable').empty()
+                            $('#stockOut').empty()
+                            $('#disponivel').empty()
+                            $('#esgotado').empty()
+
+                            $('#stockOut').text('Stock Out')
+                            $('#esgotado').text('Esgotado')
+                            
+                        }
+
+                        // ================= Colors =======================
+                        // Color En
+                        $('select[name="color"]').empty();
+                        $.each(data.color, function(key, value) {
+                            $('select[name="color"]').append('<option value=" ' + value + ' ">' + value +
+                                '</option>')
+
+                            if (data.color == "") {
+                                $('#colorArea').hide();
+                            } else {
+                                $('#colorArea').show();
+                            }
+                        })
+                        // Color Pt
+                        $('select[name="color_pt"]').empty();
+                        $.each(data.color_pt, function(key, value) {
+                            $('select[name="color_pt"]').append('<option value=" ' + value + ' ">' + value +
+                                '</option>')
+
+                            if (data.color_pt == "") {
+                                $('#colorArea').hide();
+                            } else {
+                                $('#colorArea').show();
+                            }
+                        })
+
+                        // ================= Sizes =======================
+                        // Size En
+                        $('select[name="size"]').empty();
+                        $.each(data.size, function(key, value) {
+                            $('select[name="size"]').append('<option value=" ' + value + ' ">' + value +
+                                '</option>')
+
+                            if (data.size == "") {
+                                $('#sizeArea').hide();
+                            } else {
+                                $('#sizeArea').show();
+                            }
+                        })
+                        // Size Pt
+                        $('select[name="size_pt"]').empty();
+                        $.each(data.size_pt, function(key, value) {
+                            $('select[name="size_pt"]').append('<option value=" ' + value + ' ">' + value +
+                                '</option>')
+
+                            if (data.size_pt == "") {
+                                $('#sizeArea').hide();
+                            } else {
+                                $('#sizeArea').show();
+                            }
+                        })
                     }
+                })
+            }
 
-                    // ================= Colors =======================
-                    // Color En
-                    $('select[name="color"]').empty();
-                    $.each(data.color, function(key, value) {
-                        $('select[name="color"]').append('<option value=" ' + value + ' ">' + value +
-                            '</option>')
+            // ********************* BUTTON ADD CART *********************
+            function addToCart() {
+                var id = $('#product_id').val()
+                var quantity = $('#qty').val()
 
-                        if (data.color == "") {
-                            $('#colorArea').hide();
+                var product_name = $('#pname').text();
+                var color = $('#color option:selected').text()
+                var size = $('#size option:selected').text()
+
+                $.ajax({
+                    headers: { 'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content') },
+                    type: "POST",
+                    dataType: 'json',
+                    data: {
+                        color: color, size: size, quantity: quantity, product_name: product_name
+                    },
+                    url: "/cart/store/"+id,
+
+                    success: function(data) {
+                        miniCart() // Adicionado aqui para recarregar os valores automaticamente no mini cart
+                        $('#closeModal').click()
+                        
+                        // Notification
+                        const Toast =  Swal.mixin({
+                                toast: true,
+                                position: 'top-end',
+                                icon: 'success',
+                                showConfirmButton: false,
+                                timer: 3000
+                            })
+
+                        if($.isEmptyObject(data.error)) {
+                            Toast.fire({
+                                type: 'success',
+                                title: data.success
+                            })
+
                         } else {
-                            $('#colorArea').show();
+                            Toast.fire({
+                                type: 'error',
+                                title: data.error
+                            })
+
                         }
-                    })
-                    // Color Pt
-                    $('select[name="color_pt"]').empty();
-                    $.each(data.color_pt, function(key, value) {
-                        $('select[name="color_pt"]').append('<option value=" ' + value + ' ">' + value +
-                            '</option>')
-
-                        if (data.color_pt == "") {
-                            $('#colorArea').hide();
-                        } else {
-                            $('#colorArea').show();
-                        }
-                    })
-
-                    // ================= Sizes =======================
-                    // Size En
-                    $('select[name="size"]').empty();
-                    $.each(data.size, function(key, value) {
-                        $('select[name="size"]').append('<option value=" ' + value + ' ">' + value +
-                            '</option>')
-
-                        if (data.size == "") {
-                            $('#sizeArea').hide();
-                        } else {
-                            $('#sizeArea').show();
-                        }
-                    })
-                    // Size Pt
-                    $('select[name="size_pt"]').empty();
-                    $.each(data.size_pt, function(key, value) {
-                        $('select[name="size_pt"]').append('<option value=" ' + value + ' ">' + value +
-                            '</option>')
-
-                        if (data.size_pt == "") {
-                            $('#sizeArea').hide();
-                        } else {
-                            $('#sizeArea').show();
-                        }
-                    })
-                }
-            })
-        }
-
-        // ********************* BUTTON ADD CART *********************
-        function addToCart() {
-            var id = $('#product_id').val()
-            var quantity = $('#qty').val()
-
-            var product_name = $('#pname').text();
-            var color = $('#color option:selected').text()
-            var size = $('#size option:selected').text()
-
-            $.ajax({
-                headers: { 'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content') },
-                type: "POST",
-                dataType: 'json',
-                data: {
-                    color: color, size: size, quantity: quantity, product_name: product_name
-                },
-                url: "/cart/store/"+id,
-
-                success: function(data) {
-                    miniCart() // Adicionado aqui para recarregar os valores automaticamente no mini cart
-                    $('#closeModal').click()
-                    
-                    // Notification
-                    const Toast =  Swal.mixin({
-                            toast: true,
-                            position: 'top-end',
-                            icon: 'success',
-                            showConfirmButton: false,
-                            timer: 3000
-                        })
-
-                    if($.isEmptyObject(data.error)) {
-                        Toast.fire({
-                            type: 'success',
-                            title: data.success
-                        })
-
-                    } else {
-                        Toast.fire({
-                            type: 'error',
-                            title: data.error
-                        })
-
                     }
-                }
-            })
-        }
+                })
+            }
+        </script>
+        
+        <!-- =========================== AJAX MINI CART =============================== --> 
+        <script type="text/javascript">
+            // ********************* READ - MINI CARD *********************
+            function miniCart() {
+                $.ajax({
+                    type: 'GET',
+                    url: '/cart/mini/view',
+                    dataType: 'json',
 
-        // ********************* READ - MINI CARD *********************
-        function miniCart() {
-            $.ajax({
-                type: 'GET',
-                url: '/cart/mini/view',
-                dataType: 'json',
+                    success: function(response) {
+                        $('span[id="cartSubTotal"]').text(response.cartTotal)
+                        $('span[id="cartQty"]').text(response.cartQty)
 
-                success: function(response) {
-                    $('span[id="cartSubTotal"]').text(response.cartTotal)
-                    $('span[id="cartQty"]').text(response.cartQty)
-
-                    var miniCart = ""
-                    
-                    $.each(response.carts, function(valor, product) {
-                        miniCart +=  `
-                            <div class="cart-item product-summary">
-                                <div class="row" style="padding-right: 20px;">
-                                    <div class="col-xs-4">
-                                        <div class="image"> 
-                                            <a href="detail.html">
-                                                <img src="/${product.options.image}" alt="">
-                                            </a> 
+                        var miniCart = ""
+                        
+                        $.each(response.carts, function(valor, product) {
+                            miniCart +=  `
+                                <div class="cart-item product-summary">
+                                    <div class="row" style="padding-right: 20px;">
+                                        <div class="col-xs-4">
+                                            <div class="image"> 
+                                                <a href="detail.html">
+                                                    <img src="/${product.options.image}" alt="">
+                                                </a> 
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-7">
+                                            <h3 class="name">
+                                                <a href="index.php?page-detail">
+                                                    ${product.name}
+                                                </a>
+                                            </h3>
+                                            <div class="price">{{ session()->get('language') == 'portuguese' ? 'R$' : '$' }} ${product.price} * ${product.qty} </div>
+                                        </div>
+                                        <div class="col-xs-1 action"> 
+                                            <button class="btn btn-sm btn-danger" type="submit" id="${product.rowId}" onclick="deleteMiniCart(this.id)">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
                                         </div>
                                     </div>
-                                    <div class="col-xs-7">
-                                        <h3 class="name">
-                                            <a href="index.php?page-detail">
-                                                ${product.name}
-                                            </a>
-                                        </h3>
-                                        <div class="price">{{ session()->get('language') == 'portuguese' ? 'R$' : '$' }} ${product.price} * ${product.qty}</div>
-                                    </div>
-                                    <div class="col-xs-1 action"> 
-                                        <button class="btn btn-sm btn-danger" type="submit" id="${product.rowId}" onclick="deleteMiniCart(this.id)">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                    </div>
                                 </div>
-                            </div>
-                            <div class="clearfix"></div>
-                            <hr>
-                        ` 
-                    });
+                                <div class="clearfix"></div>
+                                <hr>
+                            ` 
+                        });
 
-                    $('#miniCart').html(miniCart);
-                }
-            });
-        }
-        miniCart();
-
-        // ********************* DELETE - MINI CARD *********************
-        function deleteMiniCart(rowId) {
-            $.ajax({
-                type: 'GET',
-                url: 'cart/mini/product/delete/' + rowId,
-                dataType: 'json',
-
-                success: function(data) {
-                    miniCart()
-
-                    // Notification
-                    const Toast =  Swal.mixin({
-                            toast: true,
-                            position: 'top-end',
-                            icon: 'error',
-                            showConfirmButton: false,
-                            timer: 3000
-                        })
-
-                    if($.isEmptyObject(data.error)) {
-                        Toast.fire({
-                            type: 'error',
-                            title: data.success
-                        })
-
-                    } else {
-                        Toast.fire({
-                            type: 'warning',
-                            title: data.error
-                        })
-
+                        $('#miniCart').html(miniCart);
                     }
-                }
-            })
-        }
-    </script>
+                });
+            }
+        
+            miniCart();
+
+            // ********************* DELETE - MINI CARD *********************
+            function deleteMiniCart(rowId) {
+                $.ajax({
+                    type: 'GET',
+                    url: 'cart/mini/product/delete/' + rowId,
+                    dataType: 'json',
+
+                    success: function(data) {
+                        miniCart()
+
+                        // Notification
+                        const Toast =  Swal.mixin({
+                                toast: true,
+                                position: 'top-end',
+                                icon: 'error',
+                                showConfirmButton: false,
+                                timer: 3000
+                            })
+
+                        if($.isEmptyObject(data.error)) {
+                            Toast.fire({
+                                type: 'error',
+                                title: data.success
+                            })
+
+                        } else {
+                            Toast.fire({
+                                type: 'warning',
+                                title: data.error
+                            })
+
+                        }
+                    }
+                })
+            }
+        </script>
+
+    <!-- =========================== AJAX ADD WISHLIST =============================== --> 
+        <script type="text/javascript">
+            // ********************* ADD WISHLIST *********************
+            function addWishlist(product_id) {
+                $.ajax({
+                    headers: { 'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content') },
+                    type: 'POST',
+                    dataType: 'json',
+                    url: '/wishlist/store/'+product_id,
+
+                    success: function(data) {
+
+                        // Notification
+                        const Toast =  Swal.mixin({
+                                toast: true,
+                                position: 'top-end',
+                                icon: 'error',
+                                showConfirmButton: false,
+                                timer: 3000
+                            })
+
+                        if($.isEmptyObject(data.error)) {
+                            Toast.fire({
+                                type: 'success',
+                                icon: 'success',
+                                title: data.success
+                            })
+
+                        } else {
+                            Toast.fire({
+                                type: 'error',
+                                icon: 'error',
+                                title: data.error
+                            })
+
+                        }
+                    }
+                })
+            }
+
+            // ********************* READ WISHLIST PAGE *********************
+            function wishlist() {
+                $.ajax({
+                    type: 'GET',
+                    url: '/get-wishlist-products',
+                    dataType: 'json',
+
+                    success:function(response) {
+
+                        var rows = ""
+
+                        $.each(response, function(key, value) {
+                            rows += `
+                                    <tr>
+                                        <td class="col-md-2">
+                                            <img src="/${value.product.product_thumnail}" alt="imga">
+                                        </td>
+                                        <td class="col-md-7">
+                                            <div class="product-name">
+                                                <a href="#">${value.product.product_name_en}</a>
+                                            </div>
+                                            <div class="price">
+                                                ${
+                                                    value.product.discount_price == null 
+                                                    ? 
+                                                        `{{ session()->get('language') == 'portuguese' ? 'R$' : '$'}} ${value.product.selling_price}` 
+                                                    : 
+                                                        `{{ session()->get('language') == 'portuguese' ? 'R$' : '$'}} ${value.product.selling_price - value.product.discount_price} 
+                                                        <span>{{ session()->get('language') == 'portuguese' ? 'R$' : '$'}} ${value.product.selling_price}</span>`
+                                                }
+                                            </div>
+                                        </td>
+                                        <td class="col-md-2">
+                                            <button class="btn-upper btn btn-primary" type="button" data-toggle="modal" data-target="#addCart" id="${value.product_id}" onclick="productView(this.id)">Add to cart</button>
+                                        </td>
+                                        <td class="col-md-1 close-btn">
+                                            <button type="button" class="btn btn-sm btn-danger" id="${value.id}" onclick="deleteWishlist(this.id)">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                `
+                        })
+
+                        $('#wishlist').html(rows)
+                    }
+                })
+            }
+
+            wishlist();
+
+            // ********************* DELETE - WISHLIST *********************
+            function deleteWishlist(id) {
+                $.ajax({
+                    type: 'GET',
+                    url: '/wishlist/my/products/delete/' + id,
+                    dataType: 'json',
+
+                    success: function(data) {
+                        wishlist()
+
+                        // Notification
+                        const Toast =  Swal.mixin({
+                                toast: true,
+                                position: 'top-end',
+                                icon: 'error',
+                                showConfirmButton: false,
+                                timer: 3000
+                            })
+
+                        if($.isEmptyObject(data.error)) {
+                            Toast.fire({
+                                type: 'error',
+                                title: data.success
+                            })
+
+                        } else {
+                            Toast.fire({
+                                type: 'warning',
+                                title: data.error
+                            })
+
+                        }
+                    }
+                })
+            }
+        </script>
+
 </body>
 
 </html>

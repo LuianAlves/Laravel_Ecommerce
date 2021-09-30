@@ -44,12 +44,7 @@ class CartController extends Controller
                     ],
                 ]);
 
-                if (session()->get('language') == 'portuguese') {
-                    return response()->json(['success' => 'Produto Adicionado ao Carrinho!']);
-                } else {
-                    return response()->json(['success' => 'Successfully Added on your Cart!']);
-                }
-
+                return response()->json(['error' => session()->get('language') == 'portuguese' ? 'Produto Adicionado ao Carrinho!' : 'Successfully Added on your Cart!']);
             } else {
 
                 Cart::add([
@@ -65,11 +60,7 @@ class CartController extends Controller
                     ],
                 ]);
 
-                if (session()->get('language') == 'portuguese') {
-                return response()->json(['success' => 'Produto Adicionado ao Carrinho!']);        
-                } else {
-                    return response()->json(['success' => 'Successfully Added on your Cart!']);
-                }
+                return response()->json(['error' => session()->get('language') == 'portuguese' ? 'Produto Adicionado ao Carrinho!' : 'Successfully Added on your Cart!']);
             }
     }
 
@@ -77,10 +68,6 @@ class CartController extends Controller
     {
         Cart::remove($rowId);
 
-        if (session()->get('language') == 'portuguese') {
-            return response()->json(['error' => 'Produto Removido do Carrinho!']);
-        } else {
-            return response()->json(['error' => 'Product Remove from Cart!']);
-        }
+        return response()->json(['error' => session()->get('language') == 'portuguese' ? 'Produto Removido do Carrinho!' : 'Product Remove from Cart!']);
     }
 }

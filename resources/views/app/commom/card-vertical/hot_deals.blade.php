@@ -48,7 +48,7 @@
                                         type="button">
                                         <i class="fa fa-shopping-cart"></i>
                                     </button>
-                                    <button class="btn btn-primary cart-btn" type="button">{{ session()->get('language') == 'portuguese' ? 'Carrinho' : 'Add to cart'}}</button>
+                                    <button class="btn btn-primary cart-btn" type="button" data-toggle="modal" data-target="#addCart" id="{{$hd->id}}" onclick="productView(this.id)">{{ session()->get('language') == 'portuguese' ? 'Carrinho' : 'Add to cart'}}</button>
 
                                 </div>
                             </div><!-- /.action -->
@@ -59,3 +59,4 @@
     </div>
     <!-- /.sidebar-widget -->
 </div>
+

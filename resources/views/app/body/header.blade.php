@@ -6,8 +6,9 @@
             <div class="header-top-inner">
                 <div class="cnt-account">
                     <ul class="list-unstyled">
-                        <li><a href="#"><i class="icon fa fa-user"></i> @if (session()->get('language') == 'portuguese') Minha Conta @else My Account @endif </a></li>
-                        <li><a href="#"><i class="icon fa fa-heart"></i> @if (session()->get('language') == 'portuguese') Favoritos @else Wishlist @endif</a></li>
+                        @auth
+                            <li><a href="{{ route('wishlist.index') }}"><i class="icon fa fa-heart"></i> @if (session()->get('language') == 'portuguese') Favoritos @else Wishlist @endif</a></li>
+                        @endauth
                         <li><a href="#"><i class="icon fa fa-shopping-cart"></i> @if (session()->get('language') == 'portuguese') Carrinho @else My Cart @endif</a></li>
                         <li><a href="#"><i class="icon fa fa-check"></i>@if (session()->get('language') == 'portuguese') Finalizar @else Checkout @endif</a></li>
 
@@ -97,7 +98,7 @@
                             <div class="items-cart-inner">
                                 <div class="basket"> <i class="glyphicon glyphicon-shopping-cart"></i>
                                 </div>
-                                <div class="basket-item-count"><span class="count" id="cartQty"> </span></div>
+                                <div class="basket-item-count"><strong><span class="count" id="cartQty"> </span></strong></div>
                                 <div class="total-price-basket"> 
                                     <span class="lbl">{{ session()->get('language') == 'portuguese' ? 'Carrinho' : 'cart' }} -</span> 
                                     <span class="total-price"> 

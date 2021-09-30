@@ -4,6 +4,7 @@
 @section('title')
 Home Shop  
 @endsection
+
     <div class="body-content outer-top-xs" id="top-banner-and-menu">
         <div class="container">
             <div class="row">
@@ -223,19 +224,23 @@ Home Shop
                                                         <div class="cart clearfix animate-effect">
                                                             <div class="action">
                                                                 <ul class="list-unstyled">
+                                                                    {{-- Add to Cart --}}
                                                                     <li class="add-cart-button btn-group">
-                                                                        <button class="btn btn-primary icon" type="button" data-toggle="modal" data-target="#addCart" id="{{$prod->id}}" onclick="productView(this.id)">
-                                                                            <i class="fa fa-shopping-cart"></i> </button>
+                                                                        <button class="btn btn-primary icon" type="button" data-toggle="modal" data-target="#addCart" id="{{$prod->id}}" onclick="productView(this.id)"> 
+                                                                            <i class="fa fa-shopping-cart"></i>
+                                                                        </button>
+                                                                        <button class="btn btn-primary cart-btn" type="button">{{ session()->get('language') == 'portuguese' ? 'Carrinho' : 'Add to cart' }}</button>
                                                                     </li>
-                                                                    <li class="lnk wishlist"> <a data-toggle="tooltip" class="add-to-cart"
-                                                                            href="detail.html"
-                                                                            title="{{ session()->get('language') == 'portuguese' ? 'Favoritos' : 'Wishlist' }}">
-                                                                            <i class="icon fa fa-heart"></i>
-                                                                        </a> </li>
-                                                                    <li class="lnk"> <a data-toggle="tooltip" class="add-to-cart"
-                                                                            href="detail.html"
-                                                                            title="{{ session()->get('language') == 'portuguese' ? 'Comparar' : 'Compare' }}">
-                                                                            <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>
+            
+                                                                    {{-- Add to Wishlist --}}
+                                                                    <li> 
+                                                                        <button class="btn btn-primary icon" type="button" id="{{$prod->id}}" onclick="addWishlist(this.id)"> 
+                                                                            <i class="icon fa fa-heart"></i> 
+                                                                        </button> 
+                                                                    </li>
+            
+                                                                    <li class="lnk"> <a class="add-to-cart" href="detail.html" > <i class="fa fa-signal" aria-hidden="true"></i> </a>
+                                                                    </li>
                                                                 </ul>
                                                             </div>
                                                             <!-- /.action -->
@@ -429,14 +434,21 @@ Home Shop
                                             <div class="cart clearfix animate-effect">
                                                 <div class="action">
                                                     <ul class="list-unstyled">
+                                                        {{-- Add to Cart --}}
                                                         <li class="add-cart-button btn-group">
                                                             <button class="btn btn-primary icon" type="button" data-toggle="modal" data-target="#addCart" id="{{$prod_featured->id}}" onclick="productView(this.id)"> 
                                                                 <i class="fa fa-shopping-cart"></i>
                                                             </button>
                                                             <button class="btn btn-primary cart-btn" type="button">{{ session()->get('language') == 'portuguese' ? 'Carrinho' : 'Add to cart' }}</button>
                                                         </li>
-                                                        <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html"> 
-                                                            <i class="icon fa fa-heart"></i> </a> </li>
+
+                                                        {{-- Add to Wishlist --}}
+                                                        <li> 
+                                                            <button class="btn btn-primary icon" type="button" id="{{$prod_featured->id}}" onclick="addWishlist(this.id)"> 
+                                                                <i class="icon fa fa-heart"></i> 
+                                                            </button> 
+                                                        </li>
+
                                                         <li class="lnk"> <a class="add-to-cart" href="detail.html" > <i class="fa fa-signal" aria-hidden="true"></i> </a>
                                                         </li>
                                                     </ul>
@@ -540,14 +552,21 @@ Home Shop
                                             <div class="cart clearfix animate-effect">
                                                 <div class="action">
                                                     <ul class="list-unstyled">
+                                                        {{-- Add to Cart --}}
                                                         <li class="add-cart-button btn-group">
-                                                            <button class="btn btn-primary icon" type="button" data-toggle="modal" data-target="#addCart" id="{{$skip->id}}" onclick="productView(this.id)"> <i
-                                                                    class="fa fa-shopping-cart"></i>
+                                                            <button class="btn btn-primary icon" type="button" data-toggle="modal" data-target="#addCart" id="{{$skip->id}}" onclick="productView(this.id)"> 
+                                                                <i class="fa fa-shopping-cart"></i>
                                                             </button>
                                                             <button class="btn btn-primary cart-btn" type="button">{{ session()->get('language') == 'portuguese' ? 'Carrinho' : 'Add to cart' }}</button>
                                                         </li>
-                                                        <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html"> 
-                                                            <i class="icon fa fa-heart"></i> </a> </li>
+
+                                                        {{-- Add to Wishlist --}}
+                                                        <li> 
+                                                            <button class="btn btn-primary icon" type="button" id="{{$skip->id}}" onclick="addWishlist(this.id)"> 
+                                                                <i class="icon fa fa-heart"></i> 
+                                                            </button> 
+                                                        </li>
+
                                                         <li class="lnk"> <a class="add-to-cart" href="detail.html" > <i class="fa fa-signal" aria-hidden="true"></i> </a>
                                                         </li>
                                                     </ul>
@@ -630,14 +649,21 @@ Home Shop
                                             <div class="cart clearfix animate-effect">
                                                 <div class="action">
                                                     <ul class="list-unstyled">
+                                                        {{-- Add to Cart --}}
                                                         <li class="add-cart-button btn-group">
-                                                            <button class="btn btn-primary icon" type="button" data-toggle="modal" data-target="#addCart" id="{{$skip->id}}" onclick="productView(this.id)"> <i
-                                                                    class="fa fa-shopping-cart"></i>
+                                                            <button class="btn btn-primary icon" type="button" data-toggle="modal" data-target="#addCart" id="{{$skip->id}}" onclick="productView(this.id)"> 
+                                                                <i class="fa fa-shopping-cart"></i>
                                                             </button>
                                                             <button class="btn btn-primary cart-btn" type="button">{{ session()->get('language') == 'portuguese' ? 'Carrinho' : 'Add to cart' }}</button>
                                                         </li>
-                                                        <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html"> 
-                                                            <i class="icon fa fa-heart"></i> </a> </li>
+
+                                                        {{-- Add to Wishlist --}}
+                                                        <li> 
+                                                            <button class="btn btn-primary icon" type="button" id="{{$skip->id}}" onclick="addWishlist(this.id)"> 
+                                                                <i class="icon fa fa-heart"></i> 
+                                                            </button> 
+                                                        </li>
+
                                                         <li class="lnk"> <a class="add-to-cart" href="detail.html" > <i class="fa fa-signal" aria-hidden="true"></i> </a>
                                                         </li>
                                                     </ul>
@@ -748,14 +774,21 @@ Home Shop
                                             <div class="cart clearfix animate-effect">
                                                 <div class="action">
                                                     <ul class="list-unstyled">
+                                                        {{-- Add to Cart --}}
                                                         <li class="add-cart-button btn-group">
-                                                            <button class="btn btn-primary icon" type="button" data-toggle="modal" data-target="#addCart" id="{{$skip->id}}" onclick="productView(this.id)"> <i
-                                                                    class="fa fa-shopping-cart"></i>
+                                                            <button class="btn btn-primary icon" type="button" data-toggle="modal" data-target="#addCart" id="{{$skip->id}}" onclick="productView(this.id)"> 
+                                                                <i class="fa fa-shopping-cart"></i>
                                                             </button>
                                                             <button class="btn btn-primary cart-btn" type="button">{{ session()->get('language') == 'portuguese' ? 'Carrinho' : 'Add to cart' }}</button>
                                                         </li>
-                                                        <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html"> 
-                                                            <i class="icon fa fa-heart"></i> </a> </li>
+
+                                                        {{-- Add to Wishlist --}}
+                                                        <li> 
+                                                            <button class="btn btn-primary icon" type="button" id="{{$skip->id}}" onclick="addWishlist(this.id)"> 
+                                                                <i class="icon fa fa-heart"></i> 
+                                                            </button> 
+                                                        </li>
+
                                                         <li class="lnk"> <a class="add-to-cart" href="detail.html" > <i class="fa fa-signal" aria-hidden="true"></i> </a>
                                                         </li>
                                                     </ul>
@@ -1519,4 +1552,5 @@ Home Shop
             </div>
         </div>
     </div>
+    
 @endsection

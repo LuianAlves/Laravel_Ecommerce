@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Models\User;
 
+// User
+use App\Http\Controllers\User\WishlistController;
+
 // Frontend
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\LanguageController;
@@ -35,9 +38,15 @@ Route::group(['prefix'=> 'admin', 'middleware'=>['admin:admin']], function(){
 	Route::post('/login',[AdminController::class, 'store'])->name('admin.login');
 });
 
+//------------------------------------------------
+/*
 //*** 
     //--//BACKEND
 //***
+----------
+=================== BACKEND =======================
+---------
+*/
 
 Route::middleware(['auth:admin'])->group(function() {
 
@@ -130,7 +139,7 @@ Route::middleware(['auth:admin'])->group(function() {
     //--//FRONTEND
 //***
 ----------
-=================== USERS =======================
+=================== FRONTEND =======================
 ---------
 */
 
@@ -166,7 +175,28 @@ Route::prefix('cart')->group(function() {
     Route::get('/mini/product/delete/{rowId}', [CartController::class, 'miniCartDestroy']);
 });
 
-
 // Languages
 Route::get('/language/portuguese', [LanguageController::class, 'Portuguese'])->name('language.portuguese');
 Route::get('/language/english', [LanguageController::class, 'English'])->name('language.english');
+
+
+//------------------------------------------------
+/*
+//*** 
+    //--// USERS
+//***
+----------
+=================== USERS =======================
+---------
+*/
+
+
+    // Wishlist
+    Route::prefix('wishlist')->group(function() {
+        Route::get('/my/products', [WishlistController::class, 'index'])->name('wishlist.index');
+        Route::post('/store/{product_id}', [WishlistController::class, 'store']);
+        Route::get('/my/products/delete/{id}', [WishlistController::class, 'delete']);
+    });
+
+    // Get Wishlist
+    Route::get('/get-wishlist-products', [WishlistController::class, 'getWishlist']);
