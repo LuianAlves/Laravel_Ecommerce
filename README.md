@@ -16,10 +16,10 @@ Até o momento:
 * Aba com CRUD para Sub-Categories e Sub Sub-categories,
 * Aba com CRUD para Products,
 * Aba com CRUD para Sliders do Template Front-end,
-* Habilitando o Multi-Language do Site, Configurando Sidenav e Navbar no Frontend, Slides e Aba de Novos Produtos,
-* Configurar a Página de cada Produto + Detalhes,
-* Configurar os Cards hot_deals, freatured, special_offer, special_deals,
-* Criando uma rota para direcionar cara Produto para sua Página,
+* Habilitado o Multi-Language do Site, Configurado Sidenav e Navbar no Frontend, Slides e Aba de Novos Produtos,
+* Configurado a Página de cada Produto + Detalhes,
+* Configurado os Cards hot_deals, freatured, special_offer, special_deals,
+* Criado rota para direcionar cara Produto para sua Página,
 * Card Personalizado com uma Categoria de Produtos,
 * view para as Tags de Produtos,
 * view para sub-categorias e sub-sub-categorias
@@ -28,9 +28,10 @@ Até o momento:
 * Modal para Adicionar Produtos ao Carrinho (AJAX)
 * Configurado Botão para adicionar produtos ao Carrinho (AJAX)
 * MiniCarrinho no Header Configurado com Imagens, Valores (AJAX)
-* Adicionando Produtos aos Favoritos
-* View para Listar e Remover dos Favoritos (Acesso somente com usuário 'user' autenticado)
-* // No momento existe algum bug com caracteres especiais // *
+* Adicionando Produtos aos Favoritos (AJAX)
+* View para Listar e Remover dos Favoritos (AJAX - Acesso somente com usuário 'user' autenticado)
+* // No momento existe algum bug com caracteres especiais, será consertado logo. // *
+* View para Carrinho de Compras finalizada (AJAX - Somente em inglês ainda)
 
 <hr>
 

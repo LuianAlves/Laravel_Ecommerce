@@ -10,10 +10,10 @@ use Cart;
 
 class CartController extends Controller
 {
-
-    public function miniCartIndex()
-    {
-        // Mini Cart
+    // Get Cart List
+    
+    public function getCart() {
+        
         $carts = Cart::content();
         $cartQty = Cart::count();
         $cartTotal = Cart::total();
@@ -26,6 +26,33 @@ class CartController extends Controller
         ));
     }
 
+    // My Cart Page Methods
+    
+    public function index() {
+        return view('app.profile.my_cart.index');
+    }
+
+    public function delete($rowId) {
+        Cart::remove($rowId);
+
+        return response()->json(['error' => session()->get('language') == 'portuguese' ? 'Produto Removido do Carrinho!' : 'Product Remove from Cart!']);
+    }
+    /* Increment - MY CART PAGE */
+        public function increment($rowId) {
+            $row = Cart::get($rowId);
+            Cart::update($rowId, $row->qty + 1);
+
+            return response()->json(['increment']);
+        }
+    /* Decrement - MY CART PAGE */
+        public function decrement($rowId) {
+            $row = Cart::get($rowId);
+            Cart::update($rowId, $row->qty - 1);
+
+            return response()->json(['decrement']);
+        }        
+
+    // Mini Cart Methods
     public function miniCartStore(Request $request, $id)
     {
         $product = Product::findOrFail($id);

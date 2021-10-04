@@ -9,12 +9,13 @@
                         @auth
                             <li><a href="{{ route('wishlist.index') }}"><i class="icon fa fa-heart"></i> @if (session()->get('language') == 'portuguese') Favoritos @else Wishlist @endif</a></li>
                         @endauth
-                        <li><a href="#"><i class="icon fa fa-shopping-cart"></i> @if (session()->get('language') == 'portuguese') Carrinho @else My Cart @endif</a></li>
+                        <li><a href="{{ route('myCart.index') }}"><i class="icon fa fa-shopping-cart"></i> @if (session()->get('language') == 'portuguese') Carrinho @else My Cart @endif</a></li>
                         <li><a href="#"><i class="icon fa fa-check"></i>@if (session()->get('language') == 'portuguese') Finalizar @else Checkout @endif</a></li>
 
                         @auth
-                            <li><a href="{{ url('/user/profile') }}"><i
-                                        class="icon fa fa-user"></i>{{ session()->get('language') == 'portuguese' ? 'Minha Conta' : 'My Account' }}</a>
+                            <li><a href="{{ url('/user/profile') }}"><i class="icon fa fa-user"></i>{{ session()->get('language') == 'portuguese' ? 'Minha Conta' : 'My Account' }}</a>
+                            </li>
+                            <li><a href="{{ url('/user/logout') }}">{{ session()->get('language') == 'portuguese' ? 'Deslogar' : 'Logout' }}</a>
                             </li>
                         @else
                             <li><a href="{{ url('/login') }}"><i

@@ -170,7 +170,7 @@ Route::get('/modal/add_cart/product/{id}', [ModalController::class, 'modalCart']
 
 // Cart
 Route::prefix('cart')->group(function() {
-    Route::get('/mini/view', [CartController::class, 'miniCartIndex']);
+    Route::get('/mini/view', [CartController::class, 'getCart']);
     Route::post('/store/{id}', [CartController::class, 'miniCartStore']);
     Route::get('/mini/product/delete/{rowId}', [CartController::class, 'miniCartDestroy']);
 });
@@ -190,13 +190,23 @@ Route::get('/language/english', [LanguageController::class, 'English'])->name('l
 ---------
 */
 
-
-    // Wishlist
-    Route::prefix('wishlist')->group(function() {
-        Route::get('/my/products', [WishlistController::class, 'index'])->name('wishlist.index');
-        Route::post('/store/{product_id}', [WishlistController::class, 'store']);
-        Route::get('/my/products/delete/{id}', [WishlistController::class, 'delete']);
-    });
-
+// Wishlist
+Route::group(['prefix' => 'wishlist', 'middleware' => ['user', 'auth']], function() {
+    Route::get('/my/products', [WishlistController::class, 'index'])->name('wishlist.index');
+    Route::post('/store/{product_id}', [WishlistController::class, 'store']);
+    Route::get('/my/products/delete/{id}', [WishlistController::class, 'delete']);
     // Get Wishlist
     Route::get('/get-wishlist-products', [WishlistController::class, 'getWishlist']);
+});
+
+// My Cart
+Route::group(['prefix' => 'my/cart'], function() {
+    Route::get('/index', [CartController::class, 'index'])->name('myCart.index');
+    Route::get('/delete/{rowId}', [CartController::class, 'delete']);
+    // Get Cart
+    Route::get('/get-cart-products', [CartController::class, 'getCart']);
+    // Increment product
+    Route::get('increment/{rowId}', [CartController::class, 'increment']);
+    // Decrement product
+    Route::get('decrement/{rowId}', [CartController::class, 'decrement']);
+});
