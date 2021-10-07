@@ -6,6 +6,7 @@ use App\Models\User;
 
 // User
 use App\Http\Controllers\User\WishlistController;
+use App\Http\Controllers\User\CheckoutController;
 
 // Frontend
 use App\Http\Controllers\Frontend\IndexController;
@@ -24,6 +25,10 @@ use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\SubSubCategoryController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SliderController;
+use App\Http\Controllers\Backend\CouponController;
+use App\Http\Controllers\Backend\ShipDivisionController;
+use App\Http\Controllers\Backend\ShipDistrictController;
+use App\Http\Controllers\Backend\ShipStateController;
 
 
 /*
@@ -131,6 +136,50 @@ Route::middleware(['auth:admin'])->group(function() {
         Route::get('/active/{id}', [SliderController::class, 'active'])->name('slider.active');
         Route::get('/inactive/{id}', [SliderController::class, 'inactive'])->name('slider.inactive');
     });
+
+    // Admin Coupons
+    Route::prefix('coupons')->group(function () {
+        Route::get('/view', [CouponController::class, 'index'])->name('coupon.index'); // index
+        Route::post('/store', [CouponController::class, 'store'])->name('coupon.store'); // store
+        Route::get('/edit/{id}', [CouponController::class, 'edit'])->name('coupon.edit'); // edit
+        Route::post('/update/{id}', [CouponController::class, 'update'])->name('coupon.update'); // update
+        Route::get('/destroy/{id}', [CouponController::class, 'destroy'])->name('coupon.destroy'); // destroy
+
+        // Status
+        Route::get('/active/{id}', [CouponController::class,'active'])->name('coupon.active');
+        Route::get('/inactive/{id}', [CouponController::class,'inactive'])->name('coupon.inactive');
+    });
+
+    // Admin Shipping 
+    Route::prefix('shipping')->group(function() {
+        // Division
+        Route::prefix('division')->group(function() {
+            Route::get('/view', [ShipDivisionController::class, 'index'])->name('division.index'); // index
+            Route::post('/store', [ShipDivisionController::class, 'store'])->name('division.store'); // store
+            Route::get('/edit/{id}', [ShipDivisionController::class, 'edit'])->name('division.edit'); // edit
+            Route::post('/update/{id}', [ShipDivisionController::class, 'update'])->name('division.update'); // update
+            Route::get('/destroy/{id}', [ShipDivisionController::class, 'destroy'])->name('division.destroy'); // destroy
+        });
+          
+        // State
+        Route::prefix('state')->group(function() {
+            Route::get('/view', [ShipStateController::class, 'index'])->name('state.index'); // index
+            Route::post('/store', [ShipStateController::class, 'store'])->name('state.store'); // store
+            Route::get('/edit/{id}', [ShipStateController::class, 'edit'])->name('state.edit'); // edit
+            Route::post('/update/{id}', [ShipStateController::class, 'update'])->name('state.update'); // update
+            Route::get('/destroy/{id}', [ShipStateController::class, 'destroy'])->name('state.destroy'); // destroy
+        });
+
+        // District
+        Route::prefix('district')->group(function() {
+            Route::get('/state/ajax/{division_id}', [ShipDistrictController::class, 'getState']); // AJAX PARA SELECT DE SUB CATEGORIAS
+            Route::get('/view', [ShipDistrictController::class, 'index'])->name('district.index'); // index
+            Route::post('/store', [ShipDistrictController::class, 'store'])->name('district.store'); // store
+            Route::get('/edit/{id}', [ShipDistrictController::class, 'edit'])->name('district.edit'); // edit
+            Route::post('/update/{id}', [ShipDistrictController::class, 'update'])->name('district.update'); // update
+            Route::get('/destroy/{id}', [ShipDistrictController::class, 'destroy'])->name('district.destroy'); // destroy
+        });
+    });
 });
 
 //------------------------------------------------
@@ -175,6 +224,37 @@ Route::prefix('cart')->group(function() {
     Route::get('/mini/product/delete/{rowId}', [CartController::class, 'miniCartDestroy']);
 });
 
+// My Cart
+Route::group(['prefix' => 'my/cart'], function() {
+    Route::get('/index', [CartController::class, 'index'])->name('myCart.index');
+    Route::get('/delete/{rowId}', [CartController::class, 'delete']);
+    // Get Cart
+    Route::get('/get-cart-products', [CartController::class, 'getCart']);
+    // Increment product
+    Route::get('increment/{rowId}', [CartController::class, 'increment']);
+    // Decrement product
+    Route::get('decrement/{rowId}', [CartController::class, 'decrement']);
+});
+
+// Apply Coupon
+Route::post('/apply-coupon', [CartController::class, 'applyCoupon']); // Add
+Route::get('/calc-coupon', [CartController::class, 'calcCoupon']); // Calculation
+Route::get('/remove-coupon', [CartController::class, 'removeCoupon']); // Remove
+
+// Checkout
+Route::prefix('checkout')->group(function() {
+    Route::get('/state/ajax/{division_id}', [CheckoutController::class, 'getState']); // AJAX PARA SELECT DE State
+    Route::get('/district/ajax/{state_id}', [CheckoutController::class, 'getDistrict']); // AJAX PARA SELECT DE District
+
+
+    Route::get('/view', [CheckoutController::class, 'index'])->name('checkout.index');
+    Route::post('/store', [CheckoutController::class, 'store'])->name('checkout.store');
+});
+
+
+
+
+
 // Languages
 Route::get('/language/portuguese', [LanguageController::class, 'Portuguese'])->name('language.portuguese');
 Route::get('/language/english', [LanguageController::class, 'English'])->name('language.english');
@@ -199,14 +279,3 @@ Route::group(['prefix' => 'wishlist', 'middleware' => ['user', 'auth']], functio
     Route::get('/get-wishlist-products', [WishlistController::class, 'getWishlist']);
 });
 
-// My Cart
-Route::group(['prefix' => 'my/cart'], function() {
-    Route::get('/index', [CartController::class, 'index'])->name('myCart.index');
-    Route::get('/delete/{rowId}', [CartController::class, 'delete']);
-    // Get Cart
-    Route::get('/get-cart-products', [CartController::class, 'getCart']);
-    // Increment product
-    Route::get('increment/{rowId}', [CartController::class, 'increment']);
-    // Decrement product
-    Route::get('decrement/{rowId}', [CartController::class, 'decrement']);
-});

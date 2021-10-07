@@ -2,7 +2,7 @@
 @section('content')
 
 @section('title')
-{{ session()->get('language') == 'portuguese' ? $products->product_name_pt : $products->product_name_en }} - Product Details
+{{ session()->get('language') == 'portuguese' ? $products->product_name_pt.' - Detalhes do Produto' : $products->product_name_en.' - Product Details' }}
 @endsection
 
     

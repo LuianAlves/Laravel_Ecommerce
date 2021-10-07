@@ -6436,7 +6436,7 @@ header {
 .shopping-cart .cart-shopping-total table thead tr th {
     background-color: #fafafa;
     text-align: right;
-    padding: 24px 50px;
+    padding: 10px;
 }
 
 .shopping-cart .cart-shopping-total table thead tr th .cart-sub-total {

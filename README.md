@@ -11,11 +11,11 @@ Até o momento:
 * Configuração do template do Dashboard para usuários 'admins',
 * Configuração do template Front-end Ecommerce,
 * Configuração de uma dashboard simples para os clientes cadastrados,
-* Aba com CRUD para Brands,
-* Aba com CRUD para Categories, 
-* Aba com CRUD para Sub-Categories e Sub Sub-categories,
-* Aba com CRUD para Products,
-* Aba com CRUD para Sliders do Template Front-end,
+* backend - Aba com CRUD para Brands,
+* backend - Aba com CRUD para Categories, 
+* backend - Aba com CRUD para Sub-Categories e Sub Sub-categories,
+* backend - Aba com CRUD para Products,
+* backend - Aba com CRUD para Sliders do Template Front-end,
 * Habilitado o Multi-Language do Site, Configurado Sidenav e Navbar no Frontend, Slides e Aba de Novos Produtos,
 * Configurado a Página de cada Produto + Detalhes,
 * Configurado os Cards hot_deals, freatured, special_offer, special_deals,
@@ -32,6 +32,12 @@ Até o momento:
 * View para Listar e Remover dos Favoritos (AJAX - Acesso somente com usuário 'user' autenticado)
 * // No momento existe algum bug com caracteres especiais, será consertado logo. // *
 * View para Carrinho de Compras finalizada (AJAX - Somente em inglês ainda)
+* backend - Aba com CRUD para Adicionar Cupons de Desconto
+* backend - Aba com CRUD para Divisão entre Distritos e Estados para utilizar no frete posteriormente
+* Aplicando o Cupom de Desconto no carrinho de compras (AJAX)
+* Configurado View para Checkout (Acesso somente com usuário 'user' autenticado)
+* View CheckOut - Input para Nome e Localidade para envio (Acesso somente com usuário 'user' autenticado)
+* View CheckOut - Dados dos Produtos, dados de envio
 
 <hr>
 

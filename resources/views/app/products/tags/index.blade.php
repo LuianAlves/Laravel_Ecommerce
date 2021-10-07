@@ -2,7 +2,7 @@
 @section('content')
 
 @section('title')
-    Tag Wise Product
+    {{ session()->get('language') == 'portuguese' ? 'Sessão de Tags' : 'Tags Wise Product' }}
 @endsection
 
 <div class="breadcrumb">

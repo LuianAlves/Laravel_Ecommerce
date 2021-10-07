@@ -5,7 +5,6 @@
     {{ session()->get('language') == 'portuguese' ? 'Carrinho de Compras' : 'My Cart' }}
 @endsection
 
-
 <div class="breadcrumb">
     <div class="container">
         <div class="breadcrumb-inner">
@@ -106,54 +105,46 @@
 
                 {{-- Cupom Desconto --}}
                 <div class="col-md-4 col-sm-12 estimate-ship-tax">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>
-                                    <span class="estimate-title">Discount Code</span>
-                                    <p>Enter your coupon code if you have one..</p>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                    @if(Session::has('coupon'))
+                        
+                    @else                        
+                        <table class="table" id="couponField">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <span class="estimate-title">{{ session()->get('language') == 'portuguese' ? 'Cupom de Desconto' : 'Discount Code' }}</span>
+                                        <p>{{ session()->get('language') == 'portuguese' ? 'Coloque seu cupom de desconto caso tenha..' : 'Enter your coupon code if you have one..' }}</p>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
                                 <tr>
                                     <td>
                                         <div class="form-group">
-                                            <input type="text" class="form-control unicase-form-control text-input" placeholder="You Coupon..">
+                                            <input type="text" class="form-control unicase-form-control text-input" id="coupon_name">
                                         </div>
                                         <div class="clearfix pull-right">
-                                            <button type="submit" class="btn-upper btn btn-primary">APPLY COUPON</button>
+                                            <button type="submit" class="btn-upper btn btn-primary" onclick="applyCoupon()">{{ session()->get('language') == 'portuguese' ? 'Aplicar Cupom' : 'APPLY COUPON' }}</button>
                                         </div>
                                     </td>
                                 </tr>
-                        </tbody><!-- /tbody -->
-                    </table><!-- /table -->
+                            </tbody>
+                        </table>
+                    @endif
                 </div>
 
                 {{-- Valor Total --}}
                 <div class="col-md-4 col-sm-12 cart-shopping-total">
                     <table class="table">
-                        <thead>
-                            <tr>
-                                <th>
-                                    <div class="cart-sub-total">
-                                        Subtotal<span class="inner-left-md">$600.00</span>
-                                    </div>
-                                    <div class="cart-grand-total">
-                                        Total<span class="inner-left-md">$600.00</span>
-                                    </div>
-                                </th>
-                            </tr>
-                        </thead><!-- /thead -->
+                        <thead id="couponDiscount"></thead>
                         <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="cart-checkout-btn pull-right">
-                                            <button type="submit" class="btn btn-primary checkout-btn">PROCCED TO CHEKOUT</button>
-                                            <span class="">Checkout with multiples address!</span>
-                                        </div>
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td>
+                                    <div class="cart-checkout-btn pull-right">
+                                        <a href="{{ route('checkout.index') }}" type="submit" class="btn btn-success" style="font-weight: bold; color: white;">{{ session()->get('language') == 'portuguese' ? 'Prossiga com a Compra' : 'PROCCED TO CHEKOUT' }}</a>
+                                    </div>
+                                </td>
+                            </tr>
                         </tbody><!-- /tbody -->
                     </table><!-- /table -->
                 </div>	

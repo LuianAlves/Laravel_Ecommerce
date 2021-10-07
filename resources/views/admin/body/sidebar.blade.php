@@ -77,7 +77,6 @@ $route = Route::current()->getName();
                             href="{{ route('product.create') }}"><i class="ti-more"></i>Add Product</a></li>
                 </ul>
             </li>
-
             {{-- Sliders --}}
             <li class="treeview {{ $prefix == '/sliders' ? 'active' : '' }}">
                 <a href="#">
@@ -92,20 +91,48 @@ $route = Route::current()->getName();
                             href="{{ route('slider.index') }}"><i class="ti-more"></i>Sliders</a></li>
                 </ul>
             </li>
+            {{-- Coupons --}}
+            <li class="treeview {{ $prefix == '/coupons' ? 'active' : '' }}">
+                <a href="#">
+                    <i data-feather="book"></i>
+                    <span>Coupons</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-right pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu {{ $prefix == '/sliders' ? 'active' : '' }}">
+                    <li class="{{ $route == 'coupon.index' ? 'active' : '' }}">
+                        <a href="{{ route('coupon.index') }}"><i class="ti-more"></i>Coupons</a>
+                    </li>
+                </ul>
+            </li>
+            {{-- Shipping Division --}}
+            <li class="treeview {{ $prefix == '/shipping' ? 'active' : '' }}">
+                <a href="#">
+                    <i data-feather="box"></i>
+                    <span>Shipping Area</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-right pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu {{ $prefix == '/shipping' ? 'active' : '' }}">
+                    <li class="{{ $route == 'division.index' ? 'active' : '' }}">
+                        <a href="{{ route('division.index') }}"><i class="ti-more"></i>Ship Division</a>
+                    </li>
+                    <li class="{{ $route == 'state.index' ? 'active' : '' }}">
+                        <a href="{{ route('state.index') }}"><i class="ti-more"></i>Ship State</a>
+                    </li>
+                    <li class="{{ $route == 'district.index' ? 'active' : '' }}">
+                        <a href="{{ route('district.index') }}"><i class="ti-more"></i>Ship District</a>
+                    </li>
+                </ul>
+            </li>
 
 
 
 
 
-
-
-
-
-
-
-
-
-            <li class="treeview">
+            {{-- <li class="treeview">
                 <a href="#">
                     <i data-feather="file"></i>
                     <span>Pages</span>
@@ -191,12 +218,12 @@ $route = Route::current()->getName();
                     </li>
                     <li><a href="#">Level One</a></li>
                 </ul>
-            </li>
+            </li> --}}
 
             <li>
                 <a href="{{ route('admin.logout') }}">
                     <i data-feather="lock"></i>
-                    <span>Log Out</span>
+                    <span class="text-danger">Log Out</span>
                 </a>
             </li>
 

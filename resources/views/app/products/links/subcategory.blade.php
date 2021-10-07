@@ -2,8 +2,9 @@
 @section('content')
 
 @section('title')
-    SubCategory Product
+    {{ session()->get('language') == 'portuguese' ? 'Subcategorias de Produtos' : 'SubCategory Product' }}
 @endsection
+
 
 <div class="breadcrumb">
     <div class="container">

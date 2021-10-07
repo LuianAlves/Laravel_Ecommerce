@@ -2,7 +2,7 @@
 @section('content')
 
 @section('title')
-Home Shop  
+    {{ session()->get('language') == 'portuguese' ? 'Início' : 'Home Shop' }}
 @endsection
 
     <div class="body-content outer-top-xs" id="top-banner-and-menu">

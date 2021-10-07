@@ -35,6 +35,9 @@
     {{-- Sweet Notification --}}
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    {{-- SELECT COM AJAX --}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <!-- Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,600,600italic,700,700italic,800'
@@ -199,6 +202,9 @@
 
     <!-- ====== AJAX CART PAGE ====== --> 
     @include('app.body.ajax.cart_page')
+
+    <!-- ====== AJAX APPLY COUPON ====== --> 
+    @include('app.body.ajax.apply_coupon')
 
 </body>
 

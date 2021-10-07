@@ -73,6 +73,7 @@
             dataType: 'json',
 
             success: function(data) {
+                couponCalc()
                 Cart()
                 miniCart()
 
@@ -110,6 +111,7 @@
             dataType: 'json',
 
             success: function(data) {
+                couponCalc()
                 Cart()
                 miniCart()
             }
@@ -124,6 +126,7 @@
             dataType: 'json',
 
             success: function(data) {
+                couponCalc()
                 Cart()
                 miniCart()
 

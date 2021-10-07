@@ -1,6 +1,10 @@
 @extends('app.main_template')
 @section('content')
 
+@section('title')
+    {{ session()->get('language') == 'portuguese' ? 'Atualizar Informações' : 'Profile Update' }}
+@endsection
+
 @php // PERMITE RECUPERAR A IMAGEM DO BANCO DE DADOS
     use App\Models\User;
 

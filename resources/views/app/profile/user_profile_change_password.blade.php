@@ -1,5 +1,10 @@
 @extends('app.profile.user_profile_template')
 @section('profile_change_pass')
+
+@section('title')
+    {{ session()->get('language') == 'portuguese' ? 'Atualizar Senha' : 'Change Password' }}
+@endsection
+
     <div class="card">
         <h3 class="text-center">
             <strong class="text-muted"> {{ Auth::user()->name }} </strong>
