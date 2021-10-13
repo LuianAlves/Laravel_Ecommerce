@@ -2,36 +2,37 @@
 
 ## Projeto ainda em desenvolvimento!
 
-<a href="#desenvolvido"># Desenvolvido até o momento</a>
-<a href="#config"># Configuração Inicial do Projeto</a>
-<a href="#admin"># Login Admin</a>
-<a href="#tinker"># Caso tenha erro com o Login Admin</a>
+<p><a href="#desenvolvido"># Desenvolvido até o momento</a></p>
+<p><a href="#config"># Configuração Inicial do Projeto</a></p>
+<p><a href="#admin"># Login Admin</a></p>
+<p><a href="#tinker"># Caso tenha erro com o Login Admin</a></p>
 
 
 <p id="config">
-## Instalação do Projeto ...
+## Configurando o Projeto ...
 
- #Instalando o Composer:
  
-     $ composer install --no-scripts
+        composer install --no-scripts
      
 #Copie o arquivo .env.example
 
-    $ cp .env.example .env
+        cp .env.example .env
 
 #Crie uma key para o projeto
 
-    $ php artisan key:generate
+        php artisan key:generate
 
 #Configurar o arquivo .env com base no seu Banco de Dados e SMTP para recuperação de senhas 
 
 #Execute as migrations
 
-    $ php artisan migrate --seed
+        php artisan migrate --seed
 </p>    
 <hr>
 
 <p id="admin">
+
+## Login Admin
 #Após executar as migrates e os seeders acesse a URL 
             
         /admin/login 
