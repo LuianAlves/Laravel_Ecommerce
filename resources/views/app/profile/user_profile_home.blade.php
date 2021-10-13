@@ -10,7 +10,7 @@
             <strong class="text-muted"> {{ Auth::user()->name }} </strong>
             <br>
         </h3>
-        <p class="text-center text-capitalize text-primary"> <b>{{ __('Welcome To Shop') }}</b> </p>
+        <p class="text-center text-capitalize text-primary"> <b>{{ session()->get('language') == 'portuguese' ? 'Bem Vindo' : 'Welcome To Shop' }}</b> </p>
     </div>
 
 @endsection

@@ -490,196 +490,205 @@
 
                     <!-- ============================================== 01 SKIP CATEGORY/PRODUCTS ============================================== -->
                     <section class="section featured-product wow fadeInUp">
-                        <h3 class="section-title">{{ session()->get('language') == 'portuguese' ? $skip_cat->category_name_pt : $skip_cat->category_name_en }}</h3>
-                        <div class="owl-carousel home-owl-carousel custom-carousel owl-theme outer-top-xs">
-                            
-                            @foreach($skip_prod as $skip)
-                                <div class="item item-carousel">
-                                    <div class="products">
-                                        <div class="product">
-                                            <div class="product-image">
-                                                <div class="image"> <a href="{{ url('product/details/'.$skip->id.'/'.$skip->product_slug_en) }}"><img
-                                                            src="{{ asset($skip->product_thumnail) }}" alt=""></a> </div>
-                                                <!-- /.image -->
+                        @if(!empty($skip_cat) && !empty($skip_prod))
+                            <h3 class="section-title">{{ session()->get('language') == 'portuguese' ? $skip_cat->category_name_pt : $skip_cat->category_name_en }}</h3>
+                            <div class="owl-carousel home-owl-carousel custom-carousel owl-theme outer-top-xs">
+                                
+                                @foreach($skip_prod as $skip)
+                                    <div class="item item-carousel">
+                                        <div class="products">
+                                            <div class="product">
+                                                <div class="product-image">
+                                                    <div class="image"> <a href="{{ url('product/details/'.$skip->id.'/'.$skip->product_slug_en) }}"><img
+                                                                src="{{ asset($skip->product_thumnail) }}" alt=""></a> </div>
+                                                    <!-- /.image -->
 
-                                                @php
-                                                    $amount = $skip->discount_price;
-                                                    $discount = ($amount / $skip->selling_price) * 100;
-                                                @endphp
-                                                <div class="">
-                                                    @if ($skip->discount_price == null || $skip->discount_price == 0)
-                                                        <div class="tag new">
-                                                            <span>new</span>
-                                                        </div>
-                                                    @elseif($skip->discount_price <= 20)
-                                                        <div class="tag" style="background: #12cca7;">
-                                                            <span>{{ round($discount, 2) }} %</span>
-                                                        </div>
-                                                    @else 
-                                                        <div class="tag" style="background: orange;"><span>{{ round($discount, 2) }} %</span></div>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                            <!-- /.product-image -->
-
-                                            <div class="product-info text-left">
-                                                <h3 class="name"><a href="{{ url('product/details/'.$skip->id.'/'.$skip->product_slug_en) }}">{{ session()->get('language') == 'portuguese' ? $skip->product_name_pt : $skip->product_name_en }}</a>
-                                                </h3>
-                                                <div class="rating rateit-small"></div>
-                                                <div class="description"></div>
-                                                <div class="product-price"> 
-                                                    @php 
-                                                        $amount = $skip->selling_price - $skip->discount_price;
-                                                        $price = $amount;    
+                                                    @php
+                                                        $amount = $skip->discount_price;
+                                                        $discount = ($amount / $skip->selling_price) * 100;
                                                     @endphp
-                                                    @if($skip->discount_price == null || $skip->discount_price == 0)
-                                                    <span class="price"> {{ session()->get('language') == 'portuguese' ? 'R$' : '$' }} 
-                                                        {{ $price }}
-                                                    </span> 
-                                                    @else
-                                                    <span class="price"> {{ session()->get('language') == 'portuguese' ? 'R$' : '$' }} 
-                                                        {{ $price }}
-                                                    </span> 
-                                                    <span class="price-before-discount">{{ session()->get('language') == 'portuguese' ? 'R$' : '$' }} 
-                                                        {{ $skip->selling_price }}
-                                                    </span> 
-                                                    @endif
+                                                    <div class="">
+                                                        @if ($skip->discount_price == null || $skip->discount_price == 0)
+                                                            <div class="tag new">
+                                                                <span>new</span>
+                                                            </div>
+                                                        @elseif($skip->discount_price <= 20)
+                                                            <div class="tag" style="background: #12cca7;">
+                                                                <span>{{ round($discount, 2) }} %</span>
+                                                            </div>
+                                                        @else 
+                                                            <div class="tag" style="background: orange;"><span>{{ round($discount, 2) }} %</span></div>
+                                                        @endif
+                                                    </div>
                                                 </div>
-                                                <!-- /.product-price -->
+                                                <!-- /.product-image -->
 
-                                            </div>
-                                            <!-- /.product-info -->
-                                            <div class="cart clearfix animate-effect">
-                                                <div class="action">
-                                                    <ul class="list-unstyled">
-                                                        {{-- Add to Cart --}}
-                                                        <li class="add-cart-button btn-group">
-                                                            <button class="btn btn-primary icon" type="button" data-toggle="modal" data-target="#addCart" id="{{$skip->id}}" onclick="productView(this.id)"> 
-                                                                <i class="fa fa-shopping-cart"></i>
-                                                            </button>
-                                                            <button class="btn btn-primary cart-btn" type="button">{{ session()->get('language') == 'portuguese' ? 'Carrinho' : 'Add to cart' }}</button>
-                                                        </li>
+                                                <div class="product-info text-left">
+                                                    <h3 class="name"><a href="{{ url('product/details/'.$skip->id.'/'.$skip->product_slug_en) }}">{{ session()->get('language') == 'portuguese' ? $skip->product_name_pt : $skip->product_name_en }}</a>
+                                                    </h3>
+                                                    <div class="rating rateit-small"></div>
+                                                    <div class="description"></div>
+                                                    <div class="product-price"> 
+                                                        @php 
+                                                            $amount = $skip->selling_price - $skip->discount_price;
+                                                            $price = $amount;    
+                                                        @endphp
+                                                        @if($skip->discount_price == null || $skip->discount_price == 0)
+                                                        <span class="price"> {{ session()->get('language') == 'portuguese' ? 'R$' : '$' }} 
+                                                            {{ $price }}
+                                                        </span> 
+                                                        @else
+                                                        <span class="price"> {{ session()->get('language') == 'portuguese' ? 'R$' : '$' }} 
+                                                            {{ $price }}
+                                                        </span> 
+                                                        <span class="price-before-discount">{{ session()->get('language') == 'portuguese' ? 'R$' : '$' }} 
+                                                            {{ $skip->selling_price }}
+                                                        </span> 
+                                                        @endif
+                                                    </div>
+                                                    <!-- /.product-price -->
 
-                                                        {{-- Add to Wishlist --}}
-                                                        <li> 
-                                                            <button class="btn btn-primary icon" type="button" id="{{$skip->id}}" onclick="addWishlist(this.id)"> 
-                                                                <i class="icon fa fa-heart"></i> 
-                                                            </button> 
-                                                        </li>
-
-                                                        <li class="lnk"> <a class="add-to-cart" href="detail.html" > <i class="fa fa-signal" aria-hidden="true"></i> </a>
-                                                        </li>
-                                                    </ul>
                                                 </div>
-                                                <!-- /.action -->
+                                                <!-- /.product-info -->
+                                                <div class="cart clearfix animate-effect">
+                                                    <div class="action">
+                                                        <ul class="list-unstyled">
+                                                            {{-- Add to Cart --}}
+                                                            <li class="add-cart-button btn-group">
+                                                                <button class="btn btn-primary icon" type="button" data-toggle="modal" data-target="#addCart" id="{{$skip->id}}" onclick="productView(this.id)"> 
+                                                                    <i class="fa fa-shopping-cart"></i>
+                                                                </button>
+                                                                <button class="btn btn-primary cart-btn" type="button">{{ session()->get('language') == 'portuguese' ? 'Carrinho' : 'Add to cart' }}</button>
+                                                            </li>
+
+                                                            {{-- Add to Wishlist --}}
+                                                            <li> 
+                                                                <button class="btn btn-primary icon" type="button" id="{{$skip->id}}" onclick="addWishlist(this.id)"> 
+                                                                    <i class="icon fa fa-heart"></i> 
+                                                                </button> 
+                                                            </li>
+
+                                                            <li class="lnk"> <a class="add-to-cart" href="detail.html" > <i class="fa fa-signal" aria-hidden="true"></i> </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <!-- /.action -->
+                                                </div>
+                                                <!-- /.cart -->
                                             </div>
-                                            <!-- /.cart -->
+                                            <!-- /.product -->
+
                                         </div>
-                                        <!-- /.product -->
-
+                                        <!-- /.products -->
                                     </div>
-                                    <!-- /.products -->
-                                </div>
-                            @endforeach
-                        </div>
-                        <!-- /.home-owl-carousel -->
+                                @endforeach
+                            </div>
+                            <!-- /.home-owl-carousel -->
+                        @else
+                            <span style="font-size: 20px; color: red; font-weight: bold;">
+                                Adicione Novas Categorias/SubCategorias/SubSubCategorias e Produtos em /admin/login <br>
+                                <span class="text-info"><br>Login:</b> admin@gmail.com | <b>Senha:</b> teste123</span>
+                                <hr>
+                            </span>
+                        @endif
                     </section>
 
                     <!-- ============================================== 02 SKIP CATEGORY/PRODUCTS ============================================== -->
                     <section class="section featured-product wow fadeInUp">
-                        <h3 class="section-title">{{ session()->get('language') == 'portuguese' ? $skip_cat_two->category_name_pt : $skip_cat_two->category_name_en }}</h3>
-                        <div class="owl-carousel home-owl-carousel custom-carousel owl-theme outer-top-xs">
-                            
-                            @foreach($skip_prod_two as $skip)
-                                <div class="item item-carousel">
-                                    <div class="products">
-                                        <div class="product">
-                                            <div class="product-image">
-                                                <div class="image"> <a href="{{ url('product/details/'.$skip->id.'/'.$skip->product_slug_en) }}"><img
-                                                            src="{{ asset($skip->product_thumnail) }}" alt=""></a> </div>
-                                                <!-- /.image -->
+                        @if(!empty($skip_cat_two) && !empty($skip_prod_two))
+                            <h3 class="section-title">{{ session()->get('language') == 'portuguese' ? $skip_cat_two->category_name_pt : $skip_cat_two->category_name_en }}</h3>
+                            <div class="owl-carousel home-owl-carousel custom-carousel owl-theme outer-top-xs">
+                                
+                                @foreach($skip_prod_two as $skip)
+                                    <div class="item item-carousel">
+                                        <div class="products">
+                                            <div class="product">
+                                                <div class="product-image">
+                                                    <div class="image"> <a href="{{ url('product/details/'.$skip->id.'/'.$skip->product_slug_en) }}"><img
+                                                                src="{{ asset($skip->product_thumnail) }}" alt=""></a> </div>
+                                                    <!-- /.image -->
 
-                                                @php
-                                                    $amount = $skip->discount_price;
-                                                    $discount = ($amount / $skip->selling_price) * 100;
-                                                @endphp
-                                                <div class="">
-                                                    @if ($skip->discount_price == null || $skip->discount_price == 0)
-                                                        <div class="tag new">
-                                                            <span>new</span>
-                                                        </div>
-                                                    @elseif($skip->discount_price <= 20)
-                                                        <div class="tag" style="background: #12cca7;">
-                                                            <span>{{ round($discount, 2) }} %</span>
-                                                        </div>
-                                                    @else 
-                                                        <div class="tag" style="background: orange;"><span>{{ round($discount, 2) }} %</span></div>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                            <!-- /.product-image -->
-
-                                            <div class="product-info text-left">
-                                                <h3 class="name"><a href="{{ url('product/details/'.$skip->id.'/'.$skip->product_slug_en) }}">{{ session()->get('language') == 'portuguese' ? $skip->product_name_pt : $skip->product_name_en }}</a>
-                                                </h3>
-                                                <div class="rating rateit-small"></div>
-                                                <div class="description"></div>
-                                                <div class="product-price"> 
-                                                    @php 
-                                                        $amount = $skip->selling_price - $skip->discount_price;
-                                                        $price = $amount;    
+                                                    @php
+                                                        $amount = $skip->discount_price;
+                                                        $discount = ($amount / $skip->selling_price) * 100;
                                                     @endphp
-                                                    @if($skip->discount_price == null || $skip->discount_price == 0)
-                                                    <span class="price"> {{ session()->get('language') == 'portuguese' ? 'R$' : '$' }} 
-                                                        {{ $price }}
-                                                    </span> 
-                                                    @else
-                                                    <span class="price"> {{ session()->get('language') == 'portuguese' ? 'R$' : '$' }} 
-                                                        {{ $price }}
-                                                    </span> 
-                                                    <span class="price-before-discount">{{ session()->get('language') == 'portuguese' ? 'R$' : '$' }} 
-                                                        {{ $skip->selling_price }}
-                                                    </span> 
-                                                    @endif
+                                                    <div class="">
+                                                        @if ($skip->discount_price == null || $skip->discount_price == 0)
+                                                            <div class="tag new">
+                                                                <span>new</span>
+                                                            </div>
+                                                        @elseif($skip->discount_price <= 20)
+                                                            <div class="tag" style="background: #12cca7;">
+                                                                <span>{{ round($discount, 2) }} %</span>
+                                                            </div>
+                                                        @else 
+                                                            <div class="tag" style="background: orange;"><span>{{ round($discount, 2) }} %</span></div>
+                                                        @endif
+                                                    </div>
                                                 </div>
-                                                <!-- /.product-price -->
+                                                <!-- /.product-image -->
 
-                                            </div>
-                                            <!-- /.product-info -->
-                                            <div class="cart clearfix animate-effect">
-                                                <div class="action">
-                                                    <ul class="list-unstyled">
-                                                        {{-- Add to Cart --}}
-                                                        <li class="add-cart-button btn-group">
-                                                            <button class="btn btn-primary icon" type="button" data-toggle="modal" data-target="#addCart" id="{{$skip->id}}" onclick="productView(this.id)"> 
-                                                                <i class="fa fa-shopping-cart"></i>
-                                                            </button>
-                                                            <button class="btn btn-primary cart-btn" type="button">{{ session()->get('language') == 'portuguese' ? 'Carrinho' : 'Add to cart' }}</button>
-                                                        </li>
+                                                <div class="product-info text-left">
+                                                    <h3 class="name"><a href="{{ url('product/details/'.$skip->id.'/'.$skip->product_slug_en) }}">{{ session()->get('language') == 'portuguese' ? $skip->product_name_pt : $skip->product_name_en }}</a>
+                                                    </h3>
+                                                    <div class="rating rateit-small"></div>
+                                                    <div class="description"></div>
+                                                    <div class="product-price"> 
+                                                        @php 
+                                                            $amount = $skip->selling_price - $skip->discount_price;
+                                                            $price = $amount;    
+                                                        @endphp
+                                                        @if($skip->discount_price == null || $skip->discount_price == 0)
+                                                        <span class="price"> {{ session()->get('language') == 'portuguese' ? 'R$' : '$' }} 
+                                                            {{ $price }}
+                                                        </span> 
+                                                        @else
+                                                        <span class="price"> {{ session()->get('language') == 'portuguese' ? 'R$' : '$' }} 
+                                                            {{ $price }}
+                                                        </span> 
+                                                        <span class="price-before-discount">{{ session()->get('language') == 'portuguese' ? 'R$' : '$' }} 
+                                                            {{ $skip->selling_price }}
+                                                        </span> 
+                                                        @endif
+                                                    </div>
+                                                    <!-- /.product-price -->
 
-                                                        {{-- Add to Wishlist --}}
-                                                        <li> 
-                                                            <button class="btn btn-primary icon" type="button" id="{{$skip->id}}" onclick="addWishlist(this.id)"> 
-                                                                <i class="icon fa fa-heart"></i> 
-                                                            </button> 
-                                                        </li>
-
-                                                        <li class="lnk"> <a class="add-to-cart" href="detail.html" > <i class="fa fa-signal" aria-hidden="true"></i> </a>
-                                                        </li>
-                                                    </ul>
                                                 </div>
-                                                <!-- /.action -->
+                                                <!-- /.product-info -->
+                                                <div class="cart clearfix animate-effect">
+                                                    <div class="action">
+                                                        <ul class="list-unstyled">
+                                                            {{-- Add to Cart --}}
+                                                            <li class="add-cart-button btn-group">
+                                                                <button class="btn btn-primary icon" type="button" data-toggle="modal" data-target="#addCart" id="{{$skip->id}}" onclick="productView(this.id)"> 
+                                                                    <i class="fa fa-shopping-cart"></i>
+                                                                </button>
+                                                                <button class="btn btn-primary cart-btn" type="button">{{ session()->get('language') == 'portuguese' ? 'Carrinho' : 'Add to cart' }}</button>
+                                                            </li>
+
+                                                            {{-- Add to Wishlist --}}
+                                                            <li> 
+                                                                <button class="btn btn-primary icon" type="button" id="{{$skip->id}}" onclick="addWishlist(this.id)"> 
+                                                                    <i class="icon fa fa-heart"></i> 
+                                                                </button> 
+                                                            </li>
+
+                                                            <li class="lnk"> <a class="add-to-cart" href="detail.html" > <i class="fa fa-signal" aria-hidden="true"></i> </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <!-- /.action -->
+                                                </div>
+                                                <!-- /.cart -->
                                             </div>
-                                            <!-- /.cart -->
+                                            <!-- /.product -->
+
                                         </div>
-                                        <!-- /.product -->
-
+                                        <!-- /.products -->
                                     </div>
-                                    <!-- /.products -->
-                                </div>
-                            @endforeach
-                        </div>
-                        <!-- /.home-owl-carousel -->
+                                @endforeach
+                            </div>
+                        @endif
                     </section>
 
                     <!-- ============================================== BANNERS WIDE PRODUCTS ============================================== -->
@@ -712,99 +721,100 @@
 
                     <!-- ============================================== 02 SKIP BRAND/PRODUCTS ============================================== -->
                     <section class="section featured-product wow fadeInUp">
-                        <h3 class="section-title">{{ session()->get('language') == 'portuguese' ? $skip_bd->brand_name_pt : $skip_bd->brand_name_en }}</h3>
-                        <div class="owl-carousel home-owl-carousel custom-carousel owl-theme outer-top-xs">
-                            
-                            @foreach($skip_bd_prod as $skip)
-                                <div class="item item-carousel">
-                                    <div class="products">
-                                        <div class="product">
-                                            <div class="product-image">
-                                                <div class="image"> <a href="{{ url('product/details/'.$skip->id.'/'.$skip->product_slug_en) }}"><img
-                                                            src="{{ asset($skip->product_thumnail) }}" alt=""></a> </div>
-                                                <!-- /.image -->
+                        @if(!empty($skip_bd) && !empty($skip_bd_prod))                   
+                            <h3 class="section-title">{{ session()->get('language') == 'portuguese' ? $skip_bd->brand_name_pt : $skip_bd->brand_name_en }}</h3>
+                            <div class="owl-carousel home-owl-carousel custom-carousel owl-theme outer-top-xs">
+                                
+                                @foreach($skip_bd_prod as $skip)
+                                    <div class="item item-carousel">
+                                        <div class="products">
+                                            <div class="product">
+                                                <div class="product-image">
+                                                    <div class="image"> <a href="{{ url('product/details/'.$skip->id.'/'.$skip->product_slug_en) }}"><img
+                                                                src="{{ asset($skip->product_thumnail) }}" alt=""></a> </div>
+                                                    <!-- /.image -->
 
-                                                @php
-                                                    $amount = $skip->discount_price;
-                                                    $discount = ($amount / $skip->selling_price) * 100;
-                                                @endphp
-                                                <div class="">
-                                                    @if ($skip->discount_price == null || $skip->discount_price == 0)
-                                                        <div class="tag new">
-                                                            <span>new</span>
-                                                        </div>
-                                                    @elseif($skip->discount_price <= 20)
-                                                        <div class="tag" style="background: #12cca7;">
-                                                            <span>{{ round($discount, 2) }} %</span>
-                                                        </div>
-                                                    @else 
-                                                        <div class="tag" style="background: orange;"><span>{{ round($discount, 2) }} %</span></div>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                            <!-- /.product-image -->
-
-                                            <div class="product-info text-left">
-                                                <h3 class="name"><a href="{{ url('product/details/'.$skip->id.'/'.$skip->product_slug_en) }}">{{ session()->get('language') == 'portuguese' ? $skip->product_name_pt : $skip->product_name_en }}</a>
-                                                </h3>
-                                                <div class="rating rateit-small"></div>
-                                                <div class="description"></div>
-                                                <div class="product-price"> 
-                                                    @php 
-                                                        $amount = $skip->selling_price - $skip->discount_price;
-                                                        $price = $amount;    
+                                                    @php
+                                                        $amount = $skip->discount_price;
+                                                        $discount = ($amount / $skip->selling_price) * 100;
                                                     @endphp
-                                                    @if($skip->discount_price == null || $skip->discount_price == 0)
-                                                    <span class="price"> {{ session()->get('language') == 'portuguese' ? 'R$' : '$' }} 
-                                                        {{ $price }}
-                                                    </span> 
-                                                    @else
-                                                    <span class="price"> {{ session()->get('language') == 'portuguese' ? 'R$' : '$' }} 
-                                                        {{ $price }}
-                                                    </span> 
-                                                    <span class="price-before-discount">{{ session()->get('language') == 'portuguese' ? 'R$' : '$' }} 
-                                                        {{ $skip->selling_price }}
-                                                    </span> 
-                                                    @endif
+                                                    <div class="">
+                                                        @if ($skip->discount_price == null || $skip->discount_price == 0)
+                                                            <div class="tag new">
+                                                                <span>new</span>
+                                                            </div>
+                                                        @elseif($skip->discount_price <= 20)
+                                                            <div class="tag" style="background: #12cca7;">
+                                                                <span>{{ round($discount, 2) }} %</span>
+                                                            </div>
+                                                        @else 
+                                                            <div class="tag" style="background: orange;"><span>{{ round($discount, 2) }} %</span></div>
+                                                        @endif
+                                                    </div>
                                                 </div>
-                                                <!-- /.product-price -->
+                                                <!-- /.product-image -->
 
-                                            </div>
-                                            <!-- /.product-info -->
-                                            <div class="cart clearfix animate-effect">
-                                                <div class="action">
-                                                    <ul class="list-unstyled">
-                                                        {{-- Add to Cart --}}
-                                                        <li class="add-cart-button btn-group">
-                                                            <button class="btn btn-primary icon" type="button" data-toggle="modal" data-target="#addCart" id="{{$skip->id}}" onclick="productView(this.id)"> 
-                                                                <i class="fa fa-shopping-cart"></i>
-                                                            </button>
-                                                            <button class="btn btn-primary cart-btn" type="button">{{ session()->get('language') == 'portuguese' ? 'Carrinho' : 'Add to cart' }}</button>
-                                                        </li>
+                                                <div class="product-info text-left">
+                                                    <h3 class="name"><a href="{{ url('product/details/'.$skip->id.'/'.$skip->product_slug_en) }}">{{ session()->get('language') == 'portuguese' ? $skip->product_name_pt : $skip->product_name_en }}</a>
+                                                    </h3>
+                                                    <div class="rating rateit-small"></div>
+                                                    <div class="description"></div>
+                                                    <div class="product-price"> 
+                                                        @php 
+                                                            $amount = $skip->selling_price - $skip->discount_price;
+                                                            $price = $amount;    
+                                                        @endphp
+                                                        @if($skip->discount_price == null || $skip->discount_price == 0)
+                                                        <span class="price"> {{ session()->get('language') == 'portuguese' ? 'R$' : '$' }} 
+                                                            {{ $price }}
+                                                        </span> 
+                                                        @else
+                                                        <span class="price"> {{ session()->get('language') == 'portuguese' ? 'R$' : '$' }} 
+                                                            {{ $price }}
+                                                        </span> 
+                                                        <span class="price-before-discount">{{ session()->get('language') == 'portuguese' ? 'R$' : '$' }} 
+                                                            {{ $skip->selling_price }}
+                                                        </span> 
+                                                        @endif
+                                                    </div>
+                                                    <!-- /.product-price -->
 
-                                                        {{-- Add to Wishlist --}}
-                                                        <li> 
-                                                            <button class="btn btn-primary icon" type="button" id="{{$skip->id}}" onclick="addWishlist(this.id)"> 
-                                                                <i class="icon fa fa-heart"></i> 
-                                                            </button> 
-                                                        </li>
-
-                                                        <li class="lnk"> <a class="add-to-cart" href="detail.html" > <i class="fa fa-signal" aria-hidden="true"></i> </a>
-                                                        </li>
-                                                    </ul>
                                                 </div>
-                                                <!-- /.action -->
+                                                <!-- /.product-info -->
+                                                <div class="cart clearfix animate-effect">
+                                                    <div class="action">
+                                                        <ul class="list-unstyled">
+                                                            {{-- Add to Cart --}}
+                                                            <li class="add-cart-button btn-group">
+                                                                <button class="btn btn-primary icon" type="button" data-toggle="modal" data-target="#addCart" id="{{$skip->id}}" onclick="productView(this.id)"> 
+                                                                    <i class="fa fa-shopping-cart"></i>
+                                                                </button>
+                                                                <button class="btn btn-primary cart-btn" type="button">{{ session()->get('language') == 'portuguese' ? 'Carrinho' : 'Add to cart' }}</button>
+                                                            </li>
+
+                                                            {{-- Add to Wishlist --}}
+                                                            <li> 
+                                                                <button class="btn btn-primary icon" type="button" id="{{$skip->id}}" onclick="addWishlist(this.id)"> 
+                                                                    <i class="icon fa fa-heart"></i> 
+                                                                </button> 
+                                                            </li>
+
+                                                            <li class="lnk"> <a class="add-to-cart" href="detail.html" > <i class="fa fa-signal" aria-hidden="true"></i> </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <!-- /.action -->
+                                                </div>
+                                                <!-- /.cart -->
                                             </div>
-                                            <!-- /.cart -->
+                                            <!-- /.product -->
+
                                         </div>
-                                        <!-- /.product -->
-
+                                        <!-- /.products -->
                                     </div>
-                                    <!-- /.products -->
-                                </div>
-                            @endforeach
-                        </div>
-                        <!-- /.home-owl-carousel -->
+                                @endforeach
+                            </div>
+                        @endif
                     </section>
 
                     <!-- ============================================== BEST SELLER ============================================== -->

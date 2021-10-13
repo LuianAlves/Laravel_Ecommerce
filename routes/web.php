@@ -7,6 +7,11 @@ use App\Models\User;
 // User
 use App\Http\Controllers\User\WishlistController;
 use App\Http\Controllers\User\CheckoutController;
+use App\Http\Controllers\User\OrderController;
+
+// Payments
+use App\Http\Controllers\User\Payments\CashController;
+use App\Http\Controllers\User\Payments\API\StripeController;
 
 // Frontend
 use App\Http\Controllers\Frontend\IndexController;
@@ -29,6 +34,9 @@ use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\ShipDivisionController;
 use App\Http\Controllers\Backend\ShipDistrictController;
 use App\Http\Controllers\Backend\ShipStateController;
+
+// Backend - Orders
+use App\Http\Controllers\Backend\Orders\OrderStatusController;
 
 
 /*
@@ -180,6 +188,27 @@ Route::middleware(['auth:admin'])->group(function() {
             Route::get('/destroy/{id}', [ShipDistrictController::class, 'destroy'])->name('district.destroy'); // destroy
         });
     });
+
+    // Admin Orders - Backend\Orders\
+    Route::prefix('orders')->group(function() {
+        // Details
+        Route::get('/details/{order_id}', [OrderStatusController::class, 'details'])->name('details'); 
+
+        // Pending
+        Route::get('/pending', [OrderStatusController::class, 'pending'])->name('pending.view');
+        // Confirmed 
+        Route::get('confirmed', [OrderStatusController::class, 'confirmed'])->name('confirmed.view');
+        // // Processing 
+        Route::get('processing', [OrderStatusController::class, 'processing'])->name('processing.view');
+        // // Picked 
+        // Route::get('view', [PickedController::class, 'view'])->name('picked.view');
+        // // Shipped 
+        //  Route::get('view', [ShippedController::class, 'view'])->name('shipped.view');
+        // // Delivered 
+        // Route::get('view', [DeliveredController::class, 'view'])->name('delivered.view');
+        // // Cancel 
+        // Route::get('view', [CancelController::class, 'view'])->name('cancel.view');
+    });
 });
 
 //------------------------------------------------
@@ -214,6 +243,16 @@ Route::get('/product/tags/{tag}', [TagController::class, 'index']);
 Route::get('/subcategory/product/{subcat_id}/{slug}', [LinksController::class, 'subCategory']);
 Route::get('/subcategory/subsubcategory/product/{subsubcat_id}/{slug}', [LinksController::class, 'subSubCategory']);
 
+
+// Wishlist - USER
+Route::group(['prefix' => 'wishlist', 'middleware' => ['user', 'auth']], function() {
+    Route::get('/my/products', [WishlistController::class, 'index'])->name('wishlist.index');
+    Route::post('/store/{product_id}', [WishlistController::class, 'store']);
+    Route::get('/my/products/delete/{id}', [WishlistController::class, 'delete']);
+    // Get Wishlist
+    Route::get('/get-wishlist-products', [WishlistController::class, 'getWishlist']);
+});
+
 // Modal Add to Cart
 Route::get('/modal/add_cart/product/{id}', [ModalController::class, 'modalCart']);
 
@@ -241,15 +280,33 @@ Route::post('/apply-coupon', [CartController::class, 'applyCoupon']); // Add
 Route::get('/calc-coupon', [CartController::class, 'calcCoupon']); // Calculation
 Route::get('/remove-coupon', [CartController::class, 'removeCoupon']); // Remove
 
-// Checkout
+// Checkout - USER
 Route::prefix('checkout')->group(function() {
-    Route::get('/state/ajax/{division_id}', [CheckoutController::class, 'getState']); // AJAX PARA SELECT DE State
-    Route::get('/district/ajax/{state_id}', [CheckoutController::class, 'getDistrict']); // AJAX PARA SELECT DE District
-
-
     Route::get('/view', [CheckoutController::class, 'index'])->name('checkout.index');
     Route::post('/store', [CheckoutController::class, 'store'])->name('checkout.store');
+
+    // Get Select
+    Route::get('/state/ajax/{division_id}', [CheckoutController::class, 'getState']); // AJAX PARA SELECT DE State
+    Route::get('/district/ajax/{state_id}', [CheckoutController::class, 'getDistrict']); // AJAX PARA SELECT DE District
 });
+
+// Payments Orders - USER
+Route::group(['prefix' => 'stripe', 'middleware' => ['user', 'auth']], function() {
+    // API STRIPE
+    Route::post('/order', [StripeController::class, 'index'])->name('stripe.order'); 
+    // CASH
+    Route::post('/cash', [CashController::class, 'index'])->name('cash.order');
+});
+
+// Orders Profile Account - USER
+Route::group(['prefix' => 'my/orders', 'middleware' => ['user', 'auth']], function() {
+    Route::get('/view', [OrderController::class, 'profile'])->name('my.orders');
+    Route::get('/details/{order_id}', [OrderController::class, 'details'])->name('my.orders.details');
+    Route::get('/download/{order_id}', [OrderController::class, 'download'])->name('my.order.download');
+}); 
+
+
+
 
 
 
@@ -258,24 +315,4 @@ Route::prefix('checkout')->group(function() {
 // Languages
 Route::get('/language/portuguese', [LanguageController::class, 'Portuguese'])->name('language.portuguese');
 Route::get('/language/english', [LanguageController::class, 'English'])->name('language.english');
-
-
-//------------------------------------------------
-/*
-//*** 
-    //--// USERS
-//***
-----------
-=================== USERS =======================
----------
-*/
-
-// Wishlist
-Route::group(['prefix' => 'wishlist', 'middleware' => ['user', 'auth']], function() {
-    Route::get('/my/products', [WishlistController::class, 'index'])->name('wishlist.index');
-    Route::post('/store/{product_id}', [WishlistController::class, 'store']);
-    Route::get('/my/products/delete/{id}', [WishlistController::class, 'delete']);
-    // Get Wishlist
-    Route::get('/get-wishlist-products', [WishlistController::class, 'getWishlist']);
-});
 

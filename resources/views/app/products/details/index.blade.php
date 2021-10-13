@@ -135,9 +135,9 @@
                                             {{-- Buttons Favorite --}}
                                             <div class="col-sm-6">
                                                 <div class="favorite-button m-t-10">
-                                                    <a class="btn btn-primary" data-toggle="tooltip" data-placement="right" href="#">
+                                                    <button type="button" class="btn btn-primary" id="{{$products->id}}" onclick="addWishlist(this.id)"" data-toggle="tooltip" data-placement="right" href="#">
                                                         <i class="fa fa-heart"></i>
-                                                    </a>
+                                                    </button>
                                                     <a class="btn btn-primary" data-toggle="tooltip" data-placement="right" href="#">
                                                         <i class="fa fa-signal"></i>
                                                     </a>
@@ -150,14 +150,13 @@
                                         </div>
                                     </div>
                                     
-                                    {{-- Colors --}}                                  
+                                    {{-- Colors / Sizers --}}                                  
                                     <div class="row m-t-20">
                                         <div class="col-sm-6">
                                             @if($products->product_color_en || $products->product_color_pt != NULL)
                                                 <div class="form-group">
                                                     <label class="info-title control-label">{{ session()->get('language') == 'portuguese' ? 'Cor' : 'Choose Color' }}<span class="text-danger"> *</span></label>
                                                     <select class="form-control unicase-form-control selectpicker" id="color" required>
-                                                        <option selected disabled>{{ session()->get('language') == 'portuguese' ? '-- Selecione --' : '-- Choose --' }}</option>
                                                         @if(session()->get('language') == 'portuguese')
                                                             @foreach($product_color_pt as $color_pt)
                                                                 <option value="{{$color_pt}}">{{ $color_pt }}</option>
@@ -176,7 +175,6 @@
                                                 <div class="form-group">
                                                     <label class="info-title control-label">{{ session()->get('language') == 'portuguese' ? 'Tamanho' : 'Choose Size' }}<span class="text-danger"> *</span></label>
                                                     <select class="form-control unicase-form-control selectpicker" id="size" required>
-                                                        <option selected disabled>{{ session()->get('language') == 'portuguese' ? '-- Selecione --' : '-- Choose --' }}</option>
                                                         @if(session()->get('language') == 'portuguese')
                                                             @foreach($product_size_pt as $size_pt)
                                                                 <option value="{{ $size_pt }}">{{ ucfirst($size_pt) }}</option>
@@ -192,7 +190,6 @@
                                         </div>
                                     </div>
                                     
-                                        
                                     {{-- Row Qty --}}
                                     <div class="quantity-container info-container">
                                         <div class="row">
@@ -205,14 +202,6 @@
                                             <div class="col-sm-2">
                                                 <div class="cart-quantity">
                                                     <div class="quant-input">
-                                                        <div class="arrows">
-                                                            <div class="arrow plus gradient"><span
-                                                                    class="ir"><i
-                                                                        class="icon fa fa-sort-asc"></i></span></div>
-                                                            <div class="arrow minus gradient"><span
-                                                                    class="ir"><i
-                                                                        class="icon fa fa-sort-desc"></i></span></div>
-                                                        </div>
                                                         <input type="number" id="qty" value="1" min="1">
                                                     </div>
                                                 </div>
@@ -224,7 +213,7 @@
                                             <div class="col-sm-7">
                                                 <button type="submit" class="btn btn-primary" onclick="addToCart()">
                                                     <i class="fa fa-shopping-cart inner-right-vs"></i> 
-                                                    {{ session()->get('language') == 'portuguese' ? 'ADICIONAR NO CARRINHO' : 'ADD TO CART'}}
+                                                    {{ session()->get('language') == 'portuguese' ? 'Carrinho' : 'Add to Cart'}}
                                                 </button>
                                             </div>
 

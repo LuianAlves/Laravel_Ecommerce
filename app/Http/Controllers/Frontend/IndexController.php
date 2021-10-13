@@ -27,16 +27,19 @@ class IndexController extends Controller
         $featured = Product::where('featured', 1)->where('status', 1)->inRandomOrder()->limit(6)->get();
 
         // Cards com uma Categoria
-        $skip_cat = Category::skip(0)->first();
-        $skip_prod = Product::where('status', 1)->where('category_id', $skip_cat->id)->inRandomOrder()->limit(10)->get();  
+        if(Category::count('id') >= 1 && Product::count('id') >= 1 && Brand::count('id') >= 1) {
+            $skip_cat = Category::skip(0)->first(); // O método skip vai variar de acordo com a ordem adicionada no banco de dados, no meu caso o o id (2) foi a categoria de eletronicos
+            $skip_prod = Product::where('status', 1)->where('category_id', $skip_cat->id)->inRandomOrder()->limit(10)->get();  
 
-        $skip_cat_two = Category::skip(1)->first();
-        $skip_prod_two = Product::where('status', 1)->where('category_id', $skip_cat_two->id)->inRandomOrder()->limit(10)->get();  
+            $skip_cat_two = Category::skip(1)->first();
+            $skip_prod_two = Product::where('status', 1)->where('category_id', $skip_cat_two->id)->inRandomOrder()->limit(10)->get();  
 
-        $skip_bd = Brand::skip(4)->first();
-        $skip_bd_prod = Product::where('status', 1)->where('brand_id', $skip_bd->id)->inRandomOrder()->limit(10)->get();        
+            $skip_bd = Brand::skip(4)->first();
+            $skip_bd_prod = Product::where('status', 1)->where('brand_id', $skip_bd->id)->inRandomOrder()->limit(10)->get();        
 
-        return view('app.index', compact('category', 'sliders', 'products', 'featured', 'skip_cat', 'skip_prod', 'skip_cat_two', 'skip_prod_two', 'skip_bd', 'skip_bd_prod'));
+            return view('app.index', compact('category', 'sliders', 'products', 'featured', 'skip_cat', 'skip_prod', 'skip_cat_two', 'skip_prod_two', 'skip_bd', 'skip_bd_prod'));
+        }
+        return view('app.index', compact('category', 'sliders', 'products', 'featured'));
     }
 
     // Logout Profile

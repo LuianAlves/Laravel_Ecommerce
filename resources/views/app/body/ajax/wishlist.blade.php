@@ -70,7 +70,9 @@
                                     </div>
                                 </td>
                                 <td class="col-md-2">
-                                    <button class="btn-upper btn btn-primary" type="button" data-toggle="modal" data-target="#addCart" id="${value.product_id}" onclick="productView(this.id)">Add to cart</button>
+                                    <button class="btn-upper btn btn-primary" type="button" data-toggle="modal" data-target="#addCart" id="${value.product_id}" onclick="productView(this.id)">
+                                        {{ session()->get('language') == 'portuguese' ? 'Carrinho' : 'Add to Cart'}}
+                                    </button>
                                 </td>
                                 <td class="col-md-1 close-btn">
                                     <button type="button" class="btn btn-sm btn-danger" id="${value.id}" onclick="deleteWishlist(this.id)">

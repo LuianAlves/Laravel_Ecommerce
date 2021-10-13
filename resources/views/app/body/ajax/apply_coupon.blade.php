@@ -13,8 +13,11 @@
 
             success: function(data) {
                 couponCalc()
-                $('#couponField').hide()
-                $('#coupon_name').val('')
+
+                if(data.validity == true) {
+                    $('#couponField').hide()
+                    $('#coupon_name').val('')
+                }
 
                 // Notification
                 const Toast =  Swal.mixin({

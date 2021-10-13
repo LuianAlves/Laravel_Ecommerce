@@ -48,27 +48,16 @@ class CheckoutController extends Controller
     }
 
     public function store(Request $request) {
-        // $request->validate([
-        //     'shipping_name' => 'required',
-        //     'shipping_email' => 'required',
-        //     'shipping_phone' => 'required',
-        //     'post_code' => 'required',
-        //     'division_id' => 'required',
-        //     'district_id' => 'required',
-        //     'state_id' => 'required',
-        //     'payment_method' => 'required',
-        // ]);
-
-        // $data = Shipping::insert([
-        //     'shipping_name' => $request->shipping_name,
-        //     'shipping_email' => $request->shipping_email,
-        //     'shipping_phone' => $request->shipping_phone,
-        //     'division_id' => $request->division_id,
-        //     'post_code' => $request->post_code,
-        //     'state_id' => $request->state_id,
-        //     'district_id' => $request->district_id,
-        //     'notes' => $request->notes,
-        // ]);
+        $request->validate([
+            'shipping_name' => 'required',
+            'shipping_email' => 'required',
+            'shipping_phone' => 'required',
+            'post_code' => 'required',
+            'division_id' => 'required',
+            'district_id' => 'required',
+            'state_id' => 'required',
+            'payment_method' => 'required',
+        ]);
 
         $data = array();
         $data['shipping_name'] = $request->shipping_name;
@@ -80,23 +69,19 @@ class CheckoutController extends Controller
         $data['district_id'] = $request->district_id;
         $data['notes'] = $request->notes;
 
+        $cartTotal = Cart::total();
+
         if ($request->payment_method == 'stripe') {
 
-            return view('app.profile.checkout.payments.stripe', compact('data'));
+            return view('app.profile.checkout.payments.stripe', compact('data', 'cartTotal'));
         } else if ($request->payment_method == 'card'){
 
             return view('app.profile.checkout.payments.card', compact('data'));
-        } else if($request->payment_method == 'cash'){
+        } else {
             
-            return view('app.profile.checkout.payments.cash', compact('data'));
-        }
+            return view('app.profile.checkout.payments.cash', compact('data', 'cartTotal'));
+        } 
 
-        // $noti = [
-        //     'message' => '',
-        //     'alert-type' => 'success'
-        // ];
-
-        return redirect()->route()->with($noti);
     }
 
     // =====================================

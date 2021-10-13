@@ -1,11 +1,78 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
-
 ## Projeto ainda em desenvolvimento!
 
-### Existe alguns erros ainda não resolvidos por enquanto, para contornar-los leia mais abaixo.
+<a href="#desenvolvido"># Desenvolvido até o momento</a>
+<a href="#config"># Configuração Inicial do Projeto</a>
+<a href="#admin"># Login Admin</a>
+<a href="#tinker"># Caso tenha erro com o Login Admin</a>
 
-Até o momento:
+
+<p id="config">
+## Instalação do Projeto ...
+
+ #Instalando o Composer:
+ 
+     $ composer install --no-scripts
+     
+#Copie o arquivo .env.example
+
+    $ cp .env.example .env
+
+#Crie uma key para o projeto
+
+    $ php artisan key:generate
+
+#Configurar o arquivo .env com base no seu Banco de Dados e SMTP para recuperação de senhas 
+
+#Execute as migrations
+
+    $ php artisan migrate --seed
+</p>    
+<hr>
+
+<p id="admin">
+#Após executar as migrates e os seeders acesse a URL 
+            
+        /admin/login 
+        
+        usuario: admin@gmail.com
+        password: teste123
+</p>
+
+<hr>
+
+<p id="tinker">
+
+## Caso tenha algum erro com o Login e/ou Senha acima
+
+#Criando um Login via Tinker
+
+    $ php artisan tinker
+
+#Acessando o user
+
+        $admin = new App\Models\Admin();
+
+#Definindo os dados de login
+
+        $user->name = 'Teste';
+        $user->email = 'teste@admin.com';
+        $user->password = bcrypt('teste123');
+
+#Adicionando ao Banco de Dados
+
+        $user->save();
+        
+        // Caso obtenha sucesso na gravação dos dados, retornará 'true' 
+
+</p>
+    
+<hr>
+
+<p id="desenvolvido>
+
+## Até o momento:
 
 * Criada duas tabelas no Banco de Dados para Users e Admins,
 * Configuração do template do Dashboard para usuários 'admins',
@@ -39,105 +106,24 @@ Até o momento:
 * View CheckOut - Input para Nome e Localidade para envio (Acesso somente com usuário 'user' autenticado)
 * View CheckOut - Dados dos Produtos, dados de envio
 
-<hr>
-
-### Evite alguns erros: 
-
-// Solução 01
-
-    - Acesse Primeiramente a Rota 
-
-            /admin/login 
-            
-    - Adicione 4/5 Brands(Marcas) e 2/3 Categorias-SubCategorias-SubSubCategorias e então adicione alguns produtos 
-
-
-### Motivo: 
-
-// Solução 02
-
-- Alguns cards estão configurados no IndexController para que mostre apenas as Categorias Filtradas, 
-  caso queira acessar a Rota '127.0.0.1/8000' sem adicionar Marcas/Categorias/Produtos, faça:
-
-
-        1° Acesse app/Http/Frontend/IndexController e comente:
-            [
-                $skip_cat = Category::skip(0)->first();
-                $skip_prod = Product::where('status', 1)->where('category_id', $skip_cat->id)->inRandomOrder()->limit(10)->get();  
-
-                $skip_cat_two = Category::skip(1)->first();
-                $skip_prod_two = Product::where('status', 1)->where('category_id', $skip_cat_two->id)->inRandomOrder()->limit(10)->get();  
-
-                $skip_bd = Brand::skip(4)->first();
-                $skip_bd_prod = Product::where('status', 1)->where('brand_id', $skip_bd->id)->inRandomOrder()->limit(10)->get(); 
-            ]
-
-        -- Remova as mesmas em Compact(...)
-
-
-        2° Acesse resources/views/app/index.blade.php e comente as sections:
-
-        [
-            <!-- ========= 01 SKIP CATEGORY/PRODUCTS ============ -->,
-            <!-- ========= 02 SKIP CATEGORY/PRODUCTS ============ -->,
-            <!-- ========= 02 SKIP BRAND/PRODUCTS ============ -->
-        ]
-
-<hr>
-
-
-## Instalação do Projeto ...
-
- #Instalando o Composer:
- 
-     $ composer install --no-scripts
-     
-#Copie o arquivo .env.example
-
-    $ cp .env.example .env
-
-#Crie uma key para o projeto
-
-    $ php artisan key:generate
-
-#Configurar o arquivo .env com base no seu Banco de Dados e SMTP para recuperação de senhas 
-
-#Execute as migrations
-
-    $ php artisan migrate --seed
+* // API Stripe 
     
-<hr>
+        --> Acesse o Site https://stripe.com e crie uma conta, caso ainda não tenha.
+        --> Acesse a url https://dashboard.stripe.com/test/apiskeys ou pelo menu, acesse Desenvolvedores->Chaves da API (Canto esquerdo da Tela)
+        --> Copie a chave publicável e cole no SCRIPT presente no fim da view stripe.blade.php. - [resources/profile/checkout/payments/stripe.blade.php]
+        --> Copie a chave secreta e cole em StripeController, 'index'. - [App/Http/Controllers/User/API/StripeController.php] 
+        Acesse [App/Mail/OrderMail] e modifique conforme suas informações: from(' ... '), subject(' ... ')
 
-#Após executar as migrates e os seeders acesse a URL 
-            
-        /admin/login 
-        
-        usuario: admin@gmail.com
-        password: teste123
+* //
 
+* Aba 'Meus Pedidos' na conta do usuário listado as compras feitas pelo usuário (Acesso somente com usuário 'user' autenticado)
+* View para detalhes da Compra, listando endereço de envio, detalhes do pedido e dos produtos comprados (Acesso somente com usuário 'user' autenticado)
 
-<hr>
+* Download da 'Fatura' com detalhes da Compra feita pelo usuário (Utilizado o DOMPDF)
+* Configurado o método de pagamento 'Dinheiro'
 
-## Caso tenha algum erro com o Login e/ou Senha acima
-
-#Criando um Login via Tinker
-
-    $ php artisan tinker
-
-#Acessando o user
-
-        $admin = new App\Models\Admin();
-
-#Definindo os dados de login
-
-        $user->name = 'Teste';
-        $user->email = 'teste@admin.com';
-        $user->password = bcrypt('teste123');
-
-#Adicionando ao Banco de Dados
-
-        $user->save();
-        
-        // Caso obtenha sucesso na gravação dos dados, retornará 'true' 
+* backend - Criado Aba para listar os pedido conforme seu status
+* backend - Para cada status do pedido foi criado um controller para facilitar a visualizar [App/Http/Controllers/Backend/Orders]
+</p>
      
 
