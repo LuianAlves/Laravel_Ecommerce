@@ -4,11 +4,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Fatura - {{ $order->invoice_no }}</title>
+    <title>Invoice - {{ $order->invoice_no }}</title>
 
     <style type="text/css">
-         /* NOVA PÁGINA - DOMPDF */
-         .page_break { page-break-before: always; }
+
+        /* NOVA PÁGINA - DOMPDF */
+        .page_break { page-break-before: always; }
         /* -------------------- */
 
         * {
@@ -53,11 +54,6 @@
             margin-top: 20px;
         }
 
-        #product_img {
-            margin: 10px;
-            width: 40px;
-            height: 40px;
-        }
     </style>
 
 </head>
@@ -68,7 +64,7 @@
         <tr>
             <td valign="top">
                 <!-- {{-- <img src="" alt="" width="150"/> --}} -->
-                <h2 style="color: green; font-size: 26px;"><strong>Loja Luian Alves</strong></h2>
+                <h2 style="color: green; font-size: 26px;"><strong>Luian Ecommerce</strong></h2>
             </td>
             <td align="right">
                 <pre class="font">
@@ -88,33 +84,33 @@
         <tr>
             <td>
                 <p class="font" style="margin-left: 20px;">
-                  <strong>Nome:</strong> {{ $order->name }}
+                  <strong>Name:</strong> {{ $order->name }}
                 </p>
                 <p class="font" style="margin-left: 20px;">
                   <strong>Email:</strong> {{ $order->email }}
                 </p>
                 <p class="font" style="margin-left: 20px;">
-                  <strong>Telefone:</strong> {{ $order->phone }}
+                  <strong>Phone:</strong> {{ $order->phone }}
                 </p>
                 <p class="font" style="margin-left: 20px;">
-                  <strong>Endereço:</strong> {{ $order->district->district_name . '/' . $order->state->state_name }}
+                  <strong>Address:</strong> {{ $order->district->district_name . '/' . $order->state->state_name }}
                 </p>
                 <p class="font" style="margin-left: 20px;">
-                  <strong>CEP:</strong> {{ $order->post_code }}
+                  <strong>Post Code:</strong> {{ $order->post_code }}
                 </p>
             </td>
             <td>
                 <p class="font">
-                  <h3><span style="color: green;">Fatura:</span> #{{ $order->invoice_no }}</h3>
+                  <h3><span style="color: green;">Invoice:</span> #{{ $order->invoice_no }}</h3>
                 </p>
                 <p class="font">
-                  Data do Pedido: <b>{{ $order->order_date }}</b>
+                  Order Date: <b>{{ $order->order_date }}</b>
                 </p>
                 <p class="font">
-                  Data de Entrega: <b>{{ $order->delivered_date == null ? 'A Caminho' : $order->delivered_date}}</b>
+                  Delivery Date: <b>{{ $order->delivered_date == null ? 'On the Way' : $order->delivered_date}}</b>
                 </p>
                 <p class="font">
-                  Tipo de Pagamento: <b>{{ $order->payment_type }}</b>
+                  Payment Type : <b>{{ $order->payment_method }}</b>
                 </p>
             </td>
         </tr>
@@ -126,48 +122,50 @@
     <table width="100%">
         <thead style="background-color: green; color:#FFFFFF;">
             <tr class="font">
-                <th>Imagem</th>
-                <th>Nome do Produto</th>
-                <th>Tamanho</th>
-                <th>Cor</th>
-                <th>Código do Produto</th>
-                <th>Quantidade</th>
-                <th>Preço Unidade</th>
-                <th>Valor Total</th>
+                <th>Image</th>
+                <th>Product Name</th>
+                <th>Size</th>
+                <th>Color</th>
+                <th>Code</th>
+                <th>Quantity</th>
+                <th>Unit Price </th>
+                <th>Total </th>
             </tr>
         </thead>
         <tbody>
-            @foreach($orderItem as $item)
-                <tr class="font">
-                    <td align="center">
-                        <img src="{{ public_path($item->product->product_thumnail) }}" id="product_img">
-                    </td>
-                    <td align="center">{{ $item->product->product_name_pt }}</td>
-                    <td align="center">{{ $item->size == null ? '...' : $item->size }}</td>
-                    <td align="center"><b>{{ strtoupper($item->color == null ? '...' : $item->color) }}</b></td>
-                    <td align="center">{{ $item->product->product_code }}</td>
-                    <td align="center">{{ $item->qty }}</td>
-                    <td align="center"><b>R$</b> {{ $item->price }}</td>
-                    <td align="center"><b>R$</b> {{ $item->price * $item->qty}}</td>
-                </tr>
-            @endforeach
-        </tbody>
+          @foreach($orderItem as $item)
+              <tr class="font">
+                  <td align="center">
+                      <img src="{{ public_path($item->product->product_thumnail) }}" height="60px;" width="60px;" alt="">
+                  </td>
+                  <td align="center">{{ $item->product->product_name_en }}</td>
+                  <td align="center">{{ $item->size == null ? '...' : $item->size }}</td>
+                  <td align="center"><b>{{ strtoupper($item->color == null ? '...' : $item->color) }}</b></td>
+                  <td align="center">{{ $item->product->product_code }}</td>
+                  <td align="center">{{ $item->qty }}</td>
+                  <td align="center"><b>R$</b> {{ $item->price }}</td>
+                  <td align="center"><b>R$</b> {{ $item->price * $item->qty}}</td>
+              </tr>
+          @endforeach
+      </tbody>
     </table>
+
     <hr class="page_break" style="border: 3px solid green">
-    <table width="100%" style=" padding:0 10px 0 10px;">
+    
+    <table  width="100%" style=" padding:0 10px 0 10px;">
         <tr>
             <td align="right">
-                <h2><span style="color: green;">Subtotal:</span> <b>R$ </b> {{$order->amount}}</h2>
-                <h2><span style="color: green;">Total:</span> <b>R$ </b> {{$order->amount}}</h2>
+              <h2><span style="color: green;">Subtotal:</span> <b>R$ </b> {{$order->amount}}</h2>
+              <h2><span style="color: green;">Total:</span> <b>R$ </b> {{$order->amount}}</h2>
             </td>
         </tr>
     </table>
     <div class="thanks mt-3">
-        <p>Obrigado por comprar Conosco !!</p>
+        <p>Thanks For Buying Products..!!</p>
     </div>
     <div class="authority float-right mt-5">
         <p>-----------------------------------</p>
-        <h5>Assinatura Autorizada</h5>
+        <h5>Authority Signature:</h5>
     </div>
 </body>
 

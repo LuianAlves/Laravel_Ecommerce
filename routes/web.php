@@ -190,24 +190,34 @@ Route::middleware(['auth:admin'])->group(function() {
     });
 
     // Admin Orders - Backend\Orders\
-    Route::prefix('orders')->group(function() {
-        // Details
-        Route::get('/details/{order_id}', [OrderStatusController::class, 'details'])->name('details'); 
-
+    Route::prefix('orders')->group(function() {   
         // Pending
         Route::get('/pending', [OrderStatusController::class, 'pending'])->name('pending.view');
+        Route::get('/pending/update/{order_id}', [OrderStatusController::class, 'pendingUpdate'])->name('pending.update');
         // Confirmed 
         Route::get('confirmed', [OrderStatusController::class, 'confirmed'])->name('confirmed.view');
-        // // Processing 
+        Route::get('/confirmed/update/{order_id}', [OrderStatusController::class, 'confirmedUpdate'])->name('confirmed.update');
+        // Processing 
         Route::get('processing', [OrderStatusController::class, 'processing'])->name('processing.view');
-        // // Picked 
-        // Route::get('view', [PickedController::class, 'view'])->name('picked.view');
-        // // Shipped 
-        //  Route::get('view', [ShippedController::class, 'view'])->name('shipped.view');
-        // // Delivered 
-        // Route::get('view', [DeliveredController::class, 'view'])->name('delivered.view');
-        // // Cancel 
-        // Route::get('view', [CancelController::class, 'view'])->name('cancel.view');
+        Route::get('/processing/update/{order_id}', [OrderStatusController::class, 'processingUpdate'])->name('processing.update');
+        // Picked 
+        Route::get('picked', [OrderStatusController::class, 'picked'])->name('picked.view');
+        Route::get('picked/update/{order_id}', [OrderStatusController::class, 'pickedUpdate'])->name('picked.update');
+        // Shipped 
+        Route::get('shipped', [OrderStatusController::class, 'shipped'])->name('shipped.view');
+        Route::get('shipped/update/{order_id}', [OrderStatusController::class, 'shippedUpdate'])->name('shipped.update');
+        // Delivered 
+        Route::get('delivered', [OrderStatusController::class, 'delivered'])->name('delivered.view');
+        Route::get('delivered/update/{order_id}', [OrderStatusController::class, 'deliveredUpdate'])->name('delivered.update');
+        // Cancel 
+        Route::get('cancel', [OrderStatusController::class, 'cancel'])->name('cancel.view');
+        Route::get('cancel/update/{order_id}', [OrderStatusController::class, 'cancelUpdate'])->name('cancel.update');
+
+
+        // Details
+        Route::get('/details/{order_id}', [OrderStatusController::class, 'details'])->name('details');
+        // Download 
+        Route::get('/download/{order_id}', [OrderStatusController::class, 'download'])->name('download');
     });
 });
 
@@ -300,9 +310,16 @@ Route::group(['prefix' => 'stripe', 'middleware' => ['user', 'auth']], function(
 
 // Orders Profile Account - USER
 Route::group(['prefix' => 'my/orders', 'middleware' => ['user', 'auth']], function() {
-    Route::get('/view', [OrderController::class, 'profile'])->name('my.orders');
+    // Order View
+    Route::get('/view', [OrderController::class, 'orders'])->name('my.orders');
     Route::get('/details/{order_id}', [OrderController::class, 'details'])->name('my.orders.details');
     Route::get('/download/{order_id}', [OrderController::class, 'download'])->name('my.order.download');
+    Route::post('/return/{order_id}', [OrderController::class, 'return'])->name('my.order.return');
+
+    // Return Order View
+    Route::get('/return/view', [OrderController::class, 'returnView'])->name('my.return.view');
+    // Cancel Order View
+    Route::get('/cancel/view', [OrderController::class, 'cancelView'])->name('my.cancel.view');
 }); 
 
 

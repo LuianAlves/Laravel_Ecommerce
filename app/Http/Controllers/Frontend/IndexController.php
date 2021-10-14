@@ -39,6 +39,7 @@ class IndexController extends Controller
 
             return view('app.index', compact('category', 'sliders', 'products', 'featured', 'skip_cat', 'skip_prod', 'skip_cat_two', 'skip_prod_two', 'skip_bd', 'skip_bd_prod'));
         }
+        
         return view('app.index', compact('category', 'sliders', 'products', 'featured'));
     }
 

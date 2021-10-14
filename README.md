@@ -6,9 +6,12 @@
 <p><a href="#config"># Configuração Inicial do Projeto</a></p>
 <p><a href="#admin"># Login Admin</a></p>
 <p><a href="#tinker"># Caso tenha erro com o Login Admin</a></p>
+<p><a href="#erros"># Possíveis erros ou bugs</a></p>
 
+<hr>
 
 <p id="config">
+
 ## Configurando o Projeto ...
 
  
@@ -49,7 +52,7 @@
 
 #Criando um Login via Tinker
 
-    $ php artisan tinker
+        php artisan tinker
 
 #Acessando o user
 
@@ -123,8 +126,18 @@
 * Download da 'Fatura' com detalhes da Compra feita pelo usuário (Utilizado o DOMPDF)
 * Configurado o método de pagamento 'Dinheiro'
 
-* backend - Criado Aba para listar os pedido conforme seu status
-* backend - Para cada status do pedido foi criado um controller para facilitar a visualizar [App/Http/Controllers/Backend/Orders]
+* backend - Criado Aba para listar os pedido conforme seu status e um botão para mudar seu status e fazer um download do pedido
+
+* frontend - Criada Aba para Pedidos Cancelados e Pedidos de Devolução na conta do usuário (Acesso somente com usuário 'user' autenticado)
+
 </p>
      
+<hr>
+
+<p id="erros">
+
+## Possíveis Erros/Bugs 
+
+* Ao criar uma categoria/sub-categoria/sub-sub-categoria ocorre algum bug com caracteres especiais (Será corrigido em breve)
+</p>
 

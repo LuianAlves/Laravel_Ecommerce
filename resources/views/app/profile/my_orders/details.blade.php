@@ -123,7 +123,15 @@
                             <tr>
                                 <th>
                                     {{ session()->get('language') == 'portuguese' ? 'Pedido' : 'Order' }}: 
-                                    <span class="badge badge-pill" style="float: right; background: #ebb237">{{ $order->status }}</span>
+                                    @if($order->status == "Pending" || $order->status == "pending")
+                                        <span class="badge badge-pill text-white" style="background: rgb(255, 153, 0); font-weight: bold;">{{ ucfirst($order->status) }} ..</span>
+                                    @elseif($order->status == "Delivered" || $order->status == "delivered")
+                                        <span class="badge badge-pill text-white" style="background: blue; font-weight: bold;">{{ ucfirst($order->status) }}</span>
+                                    @elseif($order->status == "Cancel" || $order->status == "cancel")
+                                        <span class="badge badge-pill text-white" style="background: red; font-weight: bold;">{{ ucfirst($order->status) }}</span>
+                                    @else
+                                        <span class="badge badge-pill text-white" style="background: green; font-weight: bold;">{{ ucfirst($order->status) }}</span>
+                                    @endif
                                 </th>
                             </tr>
                         </tbody>
@@ -134,70 +142,85 @@
     </div>
 
     {{-- Product Details --}}
-    <div class="col-md-12" id="product_details">
-        <div class="card">
-            <div class="card-header text-center">
-                {{ session()->get('language') == 'portuguese' ? 'Produtos' : 'Products' }}</div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th class="text-center">{{ session()->get('language') == 'portuguese' ? 'Imagem' : 'Image' }}</th>
-                                <th class="text-center">{{ session()->get('language') == 'portuguese' ? 'Produto' : 'Product' }}</th>
-                                <th class="text-center">{{ session()->get('language') == 'portuguese' ? 'Código' : 'Code' }}</th>
-                                <th class="text-center">{{ session()->get('language') == 'portuguese' ? 'Cor' : 'Color' }}</th>
-                                <th class="text-center">{{ session()->get('language') == 'portuguese' ? 'Tamanho' : 'Size' }}</th>
-                                <th class="text-center">{{ session()->get('language') == 'portuguese' ? 'Qtd' : 'Qty' }}</th>
-                                <th class="text-center">{{ session()->get('language') == 'portuguese' ? 'Preço' : 'Price' }}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($orderItem as $item)
+    <div class="row">
+        <div class="col-md-12" id="product_details">
+            <div class="card">
+                <div class="card-header text-center">
+                    {{ session()->get('language') == 'portuguese' ? 'Produtos' : 'Products' }}</div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
                                 <tr>
-                                    <td><img src="{{ asset($item->product->product_thumnail) }}" style="width: 50px; height: 75px;"></td>
-                                    <td class="col-md-3">{{ session()->get('language') == 'portuguese' ? $item->product->product_name_pt : $item->product->product_name_en }}</td>
-                                    <td>{{ $item->product->product_code }}</td>
-
-                                    <td>
-                                        @if($item->color  != null || $item->color  != '')
-                                            {{ strtoupper($item->color) }}
-                                        @else
-                                            ...
-                                        @endif
-                                    </td>
-
-                                    <td>
-                                        @if($item->size  != null || $item->size  != '')
-                                            {{ $item->size }}
-                                        @else
-                                            ...
-                                        @endif
-                                    </td>
-
-                                    <td>{{ $item->qty }}</td>
-                                    <td class="col-md-2"><b>$</b> {{ $item->price }}</td>
+                                    <th class="text-center">{{ session()->get('language') == 'portuguese' ? 'Imagem' : 'Image' }}</th>
+                                    <th class="text-center">{{ session()->get('language') == 'portuguese' ? 'Produto' : 'Product' }}</th>
+                                    <th class="text-center">{{ session()->get('language') == 'portuguese' ? 'Código' : 'Code' }}</th>
+                                    <th class="text-center">{{ session()->get('language') == 'portuguese' ? 'Cor' : 'Color' }}</th>
+                                    <th class="text-center">{{ session()->get('language') == 'portuguese' ? 'Tamanho' : 'Size' }}</th>
+                                    <th class="text-center">{{ session()->get('language') == 'portuguese' ? 'Qtd' : 'Qty' }}</th>
+                                    <th class="text-center">{{ session()->get('language') == 'portuguese' ? 'Preço' : 'Price' }}</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach ($orderItem as $item)
+                                    <tr>
+                                        <td><img src="{{ asset($item->product->product_thumnail) }}" style="width: 50px; height: 75px;"></td>
+                                        <td>{{ session()->get('language') == 'portuguese' ? $item->product->product_name_pt : $item->product->product_name_en }}</td>
+                                        <td>{{ $item->product->product_code }}</td>
+    
+                                        <td>
+                                            @if($item->color  != null || $item->color  != '')
+                                                {{ strtoupper($item->color) }}
+                                            @else
+                                                ...
+                                            @endif
+                                        </td>
+    
+                                        <td>
+                                            @if($item->size  != null || $item->size  != '')
+                                                {{ $item->size }}
+                                            @else
+                                                ...
+                                            @endif
+                                        </td>
+    
+                                        <td>{{ $item->qty }}</td>
+                                        <td class="col-md-2"><b>$</b> {{ $item->price }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     {{-- Order Return Reason --}}
-    @if($order->status !== "delivered")
-    @else
-        <div class="col-md-12" id="returnReason">
-            <div class="form-group">
-                <label for="label">Order Return Reason</label>
-                <textarea class="form-control" name="return_reason" cols="30" rows="05"></textarea>
+    @if($order->status == "Delivered")
+        <form action="{{ route('my.order.return', $order->id) }}" method="post">
+            @csrf
+
+            <div class="col-md-12" id="returnReason">
+                <div class="form-group">
+                    <label for="label">{{ session()->get('language') == 'portuguese' ? 'Motivo de Devolução' : 'Order Return Reason' }}</label>
+                    <textarea class="form-control" name="return_reason" cols="50" rows="10"></textarea>
+                </div>
             </div>
-        </div>
+
+            <div class="col-md-12">
+                <div class="form-group" id="buttonReason">
+                    <button type="submit" class="btn btn-md">{{ session()->get('language') == 'portuguese' ? 'Devolver' : 'Return'}}</button>
+                </div>
+            </div>
+        </form>
+    @elseif($order->status == "Return Requested")
+        <span class="badge" style="margin-top: 15px; background:rgb(255, 153, 0); font-size: 16px;">You Have Send Return Request for this Product!!</span>        
+    @else
     @endif
 </div>
 
+<hr>
 
 
 
@@ -234,9 +257,12 @@
 
     /* Product Detail */
     #product_details {
+        font-family: "Poppins", sans-serif;
         background: #fff;
-        margin: 10px;
-        border-radius: 15px;
+        margin-top: 15px;
+        padding: 2px;
+        border-radius: 10px;
+        border: 1px solid rgb(22, 90, 168);
     }
 
     #product_details .card-header {
@@ -245,15 +271,14 @@
         margin: 15px;
     }
 
-    #product_details table tr {
-        font-size: 14px;
-        border: 1px solid rgb(22, 90, 168);
-    }
-
     #product_details table th {
         background: #3065c9;
         color: #fff;
         padding: 12px 15px;
+    }
+
+    #product_details table tr {
+        font-size: 14px;
     }
 
     #product_details table span {
@@ -262,7 +287,7 @@
         float: right;
     }
 
-    /* Return Reason Textarea */
+    /* Return Reason */
     #returnReason {
         margin-top: 20px;
         display: flex;
@@ -277,4 +302,17 @@
     #returnReason textarea {
         border: 2px solid #3065c9;
     }
+
+    #buttonReason {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    #buttonReason button {
+        color: #fff;
+        font-weight: bold;
+        background: #c72f2a;
+        border: none;
+    }
+
 </style>

@@ -113,7 +113,7 @@
                                         {{-- Total Price --}}
                                         <tr>
                                             <th>
-                                                Total Paid: <span><b>$</b> {{ $order->amount }}</span>
+                                                Total Paid: <span><b class="text-success">$</b> {{ $order->amount }}</span>
                                             </th>
                                         </tr>
                                         {{-- Order Number --}}
@@ -128,7 +128,22 @@
                                         {{-- Status --}}
                                         <tr>
                                             <th>
-                                                Status: <span class="badge badge-pill" style="background: rgb(19, 133, 19); font-weight: bold;"> {{ $order->status }} ..</span>
+                                                Status: 
+                                                    @if($order->status == "Pending" || $order->status == "pending")
+                                                        <span class="badge badge-pill text-white" style="background: rgb(255, 153, 0); font-weight: bold;">{{ ucfirst($order->status) }} ..</span>
+                                                    @elseif($order->status == "Delivered" || $order->status == "delivered")
+                                                        <span class="badge badge-pill text-white" style="background: blue; font-weight: bold;">{{ ucfirst($order->status) }}</span>
+                                                    @elseif($order->status == "Cancel" || $order->status == "cancel")
+                                                        <span class="badge badge-pill text-white" style="background: red; font-weight: bold;">{{ ucfirst($order->status) }}</span>
+                                                    @else
+                                                        <span class="badge badge-pill text-white" style="background: green; font-weight: bold;">{{ ucfirst($order->status) }}</span>
+                                                    @endif
+                                            </th>
+                                        </tr>
+                                        {{-- Button --}}
+                                        <tr>
+                                            <th>
+                                                <button type="submit">Confirm Order</button>
                                             </th>
                                         </tr>
                                     </tbody>
@@ -169,7 +184,7 @@
                                                 <td> <b>{{ $item->color == null ? '...' : strtoupper($item->color) }}</b> </td>
                                                 <td> <b>{{ $item->size == null ? '...' : strtoupper($item->size) }}</b> </td>
                                                 <td> {{ $item->qty }} </td>
-                                                <td>$ {{ $item->price * $item->qty }} </td>
+                                                <td><b class="text-success">$</b> {{ $item->price * $item->qty }} </td>
                                             </tr>
                                         @endforeach
                                     </tbody>

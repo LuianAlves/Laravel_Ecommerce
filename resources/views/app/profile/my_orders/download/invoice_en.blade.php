@@ -7,6 +7,12 @@
     <title>Invoice - {{ $order->invoice_no }}</title>
 
     <style type="text/css">
+
+        /* NOVA PÁGINA - DOMPDF */
+        .page_break { page-break-before: always; }
+        /* -------------------- */
+
+
         * {
             font-family: Verdana, Arial, sans-serif;
         }
@@ -144,7 +150,7 @@
           @endforeach
       </tbody>
     </table>
-    <br>
+    <hr class="page_break" style="border: 3px solid green">
     <table width="100%" style=" padding:0 10px 0 10px;">
         <tr>
             <td align="right">

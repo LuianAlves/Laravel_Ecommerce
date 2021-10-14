@@ -8,12 +8,16 @@ use Illuminate\Http\Request;
 use Auth;
 use Cart;
 use PDF;
+use Carbon\Carbon;
+
 use App\Models\Order;
 use App\Models\OrderItem;
 
 class OrderController extends Controller
 {
-    public function profile() {
+    // === Orders View
+
+    public function orders() {
 
         $orders = Order::where('user_id', Auth::id())->orderBy('id', 'DESC')->get();
 
@@ -57,5 +61,37 @@ class OrderController extends Controller
         }
 
         
+    }
+
+    // Order Return
+    public function return(Request $request, $order_id) {
+        $order = Order::with('division', 'state', 'district', 'user')->where('id', $order_id)->where('user_id', Auth::id())->first();
+
+        $order->findOrFail($order_id)->update([
+            'return_date' => Carbon::now()->format('d F Y'),
+            'return_reason' => $request->return_reason,
+            'status' => 'Return Requested'
+        ]);
+
+        $noti = [
+            'message' => 'Return Request Send Successfully!',
+            'alert-type' => 'success'
+        ];
+
+        return redirect()->route('my.orders')->with($noti);
+    }
+
+    // Return Orders View 
+    public function returnView() {
+        $orders = Order::where('status', 'Return Requested')->where('user_id', Auth::id())->orderBy('id', 'DESC')->get();
+
+        return view('app.profile.my_orders.return_orders.index', compact('orders'));
+    }
+
+    // Cancel Orders View
+    public function cancelView() {
+        $orders = Order::where('status', 'Cancel')->where('user_id', Auth::id())->orderBy('id', 'DESC')->get();
+
+        return view('app.profile.my_orders.cancel_orders.index', compact('orders'));
     }
 }

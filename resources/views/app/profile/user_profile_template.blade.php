@@ -25,18 +25,24 @@
     <div class="body-content">
         <div class="container">
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <img class="card-img-top" style="border-radius: 100%; width: 100%; height: 120px; margin-bottom: 15px;"
                         src="{{ !empty($user->profile_photo_path) ? url('upload/user_images/'.$user->profile_photo_path) : url('upload/no_image.jpg') }}">
                     <ul class="list-group list-group-flush">
                         <a href="{{ route('profile.home') }}" class="btn btn-primary btn-md btn-block">{{ session()->get('language') == 'portuguese' ? 'Início' : 'Home' }}</a>
-                        <a href="{{ route('my.orders') }}" class="btn btn-primary btn-md btn-block">{{ session()->get('language') == 'portuguese' ? 'Meus Pedidos' : 'My Orders' }}</a>
+                    </ul>
+                    <ul class="list-group list-group-flush" style="padding-top: 25px;">
+                        <a href="{{ route('my.orders') }}" class="btn btn-success btn-md btn-block">{{ session()->get('language') == 'portuguese' ? 'Meus Pedidos' : 'My Orders' }}</a>
+                        <a href="{{ route('my.return.view') }}" class="btn btn-success btn-md btn-block">{{ session()->get('language') == 'portuguese' ? 'Devolução' : 'Return Orders' }}</a>
+                        <a href="{{ route('my.cancel.view') }}" class="btn btn-success btn-md btn-block">{{ session()->get('language') == 'portuguese' ? 'Cancelados' : 'Cancel Orders' }}</a>
+                    </ul>   
+                    <ul class="list-group list-group-flush" style="padding-top: 25px;">
                         <a href="{{ route('user.profile') }}" class="btn btn-primary btn-md btn-block">{{ session()->get('language') == 'portuguese' ? 'Atualizar Perfil' : 'Profile Update' }}</a>
                         <a href="{{ route('user.change.password') }}" class="btn btn-primary btn-md btn-block">{{ session()->get('language') == 'portuguese' ? 'Atualizar Senha' : 'Change Password' }}</a>
                         <a href="{{ route('user.logout') }}" class="btn btn-danger btn-md btn-block">{{ session()->get('language') == 'portuguese' ? 'Deslogar' : 'Logout' }}</a>
                     </ul>
                 </div>
-                <div class="col-md-10">
+                <div class="col-md-9">
                     @yield('profile_home')
                     @yield('profile_orders')
                     @yield('profile_update')

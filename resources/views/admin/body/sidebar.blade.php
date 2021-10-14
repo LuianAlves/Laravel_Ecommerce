@@ -137,27 +137,27 @@ $route = Route::current()->getName();
                     </span>
                 </a>
                 <ul class="treeview-menu {{ $prefix == '/orders' ? 'active' : '' }}">
-                    <li class="{{ $route == 'pending.order' ? 'active' : '' }}">
+                    <li class="{{ $route == 'pending.view' ? 'active' : '' }}">
                         <a href="{{ route('pending.view') }}"><i class="ti-more"></i>Pending Orders</a>
                     </li>
-                    <li class="{{ $route == 'confirmed.order' ? 'active' : '' }}">
+                    <li class="{{ $route == 'confirmed.view' ? 'active' : '' }}">
                         <a href="{{ route('confirmed.view') }}"><i class="ti-more"></i>Confirmed Orders</a>
                     </li> 
-                    <li class="{{ $route == 'processing.order' ? 'active' : '' }}">
+                    <li class="{{ $route == 'processing.view' ? 'active' : '' }}">
                         <a href="{{ route('processing.view') }}"><i class="ti-more"></i>Processing Orders</a>
                     </li> 
-                    {{-- <li class="{{ $route == 'picked.order' ? 'active' : '' }}">
+                    <li class="{{ $route == 'picked.view' ? 'active' : '' }}">
                         <a href="{{ route('picked.view') }}"><i class="ti-more"></i>Picked Orders</a>
                     </li>
-                    <li class="{{ $route == 'shipped.order' ? 'active' : '' }}">
+                    <li class="{{ $route == 'shipped.view' ? 'active' : '' }}">
                         <a href="{{ route('shipped.view') }}"><i class="ti-more"></i>Shipped Orders</a>
                     </li>
-                    <li class="{{ $route == 'delivered.order' ? 'active' : '' }}">
+                    <li class="{{ $route == 'delivered.view' ? 'active' : '' }}">
                         <a href="{{ route('delivered.view') }}"><i class="ti-more"></i>Delivered Orders</a>
                     </li>
-                    <li class="{{ $route == 'cancel.order' ? 'active' : '' }}">
+                    <li class="{{ $route == 'cancel.view' ? 'active' : '' }}">
                         <a href="{{ route('cancel.view') }}"><i class="ti-more"></i>Cancel Orders</a> 
-                    </li> --}}
+                    </li>
                 </ul>
             </li>
 

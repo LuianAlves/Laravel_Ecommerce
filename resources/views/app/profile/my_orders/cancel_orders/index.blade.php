@@ -2,7 +2,7 @@
 @section('profile_orders')
 
 @section('title')
-    {{ session()->get('language') == 'portuguese' ? 'Meus Pedidos' : 'My Orders' }}
+    {{ session()->get('language') == 'portuguese' ? 'Pedidos Cancelados' : 'My Cancel Orders' }}
 @endsection
 
 <div class="row">
@@ -24,31 +24,30 @@
                             </tr>
                         </thead>
                         <tbody class="text-left">
-                            @foreach ($orders as $order)
+                            @forelse ($orders as $order)
                                 <tr style="background: #fff; border-bottom: 1px solid #ccc">
                                     <td><b>{{ $order->order_date }}</b></td>
-                                    <td><b>{{ session()->get('language') == 'portuguese' ? 'R$' : '$' }}</b> </span> {{ $order->amount }}</td>
+                                    <td class="col-md-3"><b>{{ session()->get('language') == 'portuguese' ? 'R$' : '$' }}</b> </span> {{ $order->amount }}</td>
                                     {{-- <td>{{ $order->payment_method }}</td> --}}
                                     <td>{{ $order->invoice_no }}</td>
     
                                     <td>
-                                        @if($order->status == "Pending" || $order->status == "pending")
-                                            <span class="badge badge-pill text-white" style="background: rgb(255, 153, 0); font-weight: bold;">{{ ucfirst($order->status) }} ..</span>
-                                        @elseif($order->status == "Delivered" || $order->status == "delivered")
-                                            <span class="badge badge-pill text-white" style="background: blue; font-weight: bold;">{{ ucfirst($order->status) }}</span>
-                                        @elseif($order->status == "Cancel" || $order->status == "cancel")
-                                            <span class="badge badge-pill text-white" style="background: red; font-weight: bold;">{{ ucfirst($order->status) }}</span>
-                                        @else
-                                            <span class="badge badge-pill text-white" style="background: green; font-weight: bold;">{{ ucfirst($order->status) }}</span>
-                                        @endif
+                                        <span class="badge badge-pill text-white" style="background: red; font-weight: bold;">{{ ucfirst($order->status) }}</span>
                                     </td>
     
-                                    <td>
+                                    <td class="col-md-1">
                                         <a href="{{ url('my/orders/details/'.$order->id) }}" class="btn btn-sm btn-info">{{ session()->get('language') == 'portuguese' ? 'Visualizar' : 'View' }}<i class="fa fa-eye"></i></a>
                                         <a target="_blank" href="{{ url('my/orders/download/'.$order->id) }}" class="btn btn-sm btn-danger">{{ session()->get('language') == 'portuguese' ? 'Fatura' : 'Invoice' }}<i class="fa fa-download"></i></a>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                            <tr>
+                                <td>
+                                    <h3 class="text-danger">Order Not Found</h3>
+                                </td>
+                            </tr>
+                            
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
