@@ -74,7 +74,7 @@
     
 <hr>
 
-<p id="desenvolvido>
+<p id="desenvolvido">
 
 ## Até o momento:
 
