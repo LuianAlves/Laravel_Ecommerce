@@ -140,12 +140,6 @@
                                                     @endif
                                             </th>
                                         </tr>
-                                        {{-- Button --}}
-                                        <tr>
-                                            <th>
-                                                <button type="submit">Confirm Order</button>
-                                            </th>
-                                        </tr>
                                     </tbody>
                                 </table>
                             </div>

@@ -19,7 +19,7 @@ $route = Route::current()->getName();
             </div>
         </div>
 
-        <!-- sidebar menu-->
+        
         <ul class="sidebar-menu" data-widget="tree">
 
             <li class="{{ $route == 'dashboard' ? 'active' : '' }}">
@@ -127,6 +127,10 @@ $route = Route::current()->getName();
                     </li>
                 </ul>
             </li>
+
+            {{-- ---------------------- --}}
+            <li class="header nav-small-cap">User Interface</li>
+
             {{-- Orders --}}
             <li class="treeview {{ $prefix == '/orders' ? 'active' : '' }}">
                 <a href="#">
@@ -161,39 +165,32 @@ $route = Route::current()->getName();
                 </ul>
             </li>
 
-            {{-- ---------------------- --}}
-            <li class="header nav-small-cap">User Interface</li>
 
-            <li class="treeview">
+            <li class="treeview {{ $prefix == '/reports' ? 'active' : '' }}">
                 <a href="#">
-                    <i data-feather=""></i>
-                    <span>Components</span>
+                    <i data-feather="credit-card"></i>
+                    <span>Reports</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-right pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="components_alerts.html"><i class="ti-more"></i>Alerts</a></li>
-                    <li><a href="components_badges.html"><i class="ti-more"></i>Badge</a></li>
-                    <li><a href="components_buttons.html"><i class="ti-more"></i>Buttons</a></li>
+                    <li class="{{ $route == 'report.index' ? 'active' : '' }}"><a href="{{route('report.index')}}"><i class="ti-more"></i>All Reports</a></li>
                 </ul>
             </li>
 
-            <li class="treeview">
+            <li class="treeview {{ $prefix == '/register/users' ? 'active' : '' }}">
                 <a href="#">
-                    <i data-feather="credit-card"></i>
-                    <span>Cards</span>
+                    <i data-feather="user"></i>
+                    <span>Register Users</span>
                     <span class="pull-right-container">
-
+                        <i class="fa fa-angle-right pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="card_advanced.html"><i class="ti-more"></i>Advanced Cards</a></li>
-                    <li><a href="card_basic.html"><i class="ti-more"></i>Basic Cards</a></li>
-                    <li><a href="card_color.html"><i class="ti-more"></i>Cards Color</a></li>
+                    <li class="{{ $route == 'report.index' ? 'active' : '' }}"><a href="{{route('report.index')}}"><i class="ti-more"></i>All Reports</a></li>
                 </ul>
             </li>
-
 
             {{-- ----------------------- --}}
             <li class="header nav-small-cap">EXTRA</li>

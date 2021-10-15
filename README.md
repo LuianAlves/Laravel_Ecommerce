@@ -122,13 +122,12 @@
 
 * Aba 'Meus Pedidos' na conta do usuário listado as compras feitas pelo usuário (Acesso somente com usuário 'user' autenticado)
 * View para detalhes da Compra, listando endereço de envio, detalhes do pedido e dos produtos comprados (Acesso somente com usuário 'user' autenticado)
-
 * Download da 'Fatura' com detalhes da Compra feita pelo usuário (Utilizado o DOMPDF)
 * Configurado o método de pagamento 'Dinheiro'
-
-* backend - Criado Aba para listar os pedido conforme seu status e um botão para mudar seu status e fazer um download do pedido
-
+* backend - Criado Aba para listar os Pedidos conforme seu status e um botão para mudar seu status e fazer um download da Fatura do Pedido
 * frontend - Criada Aba para Pedidos Cancelados e Pedidos de Devolução na conta do usuário (Acesso somente com usuário 'user' autenticado)
+* backend - Aba de Relatórios para listar e pesquisar por Data/Mês/Ano as Compras feitas
+
 
 </p>
      

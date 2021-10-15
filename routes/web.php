@@ -34,6 +34,7 @@ use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\ShipDivisionController;
 use App\Http\Controllers\Backend\ShipDistrictController;
 use App\Http\Controllers\Backend\ShipStateController;
+use App\Http\Controllers\Backend\ReportController;
 
 // Backend - Orders
 use App\Http\Controllers\Backend\Orders\OrderStatusController;
@@ -219,6 +220,14 @@ Route::middleware(['auth:admin'])->group(function() {
         // Download 
         Route::get('/download/{order_id}', [OrderStatusController::class, 'download'])->name('download');
     });
+
+    // Admin Reports
+    Route::prefix('reports')->group(function() {
+        Route::get('/view', [ReportController::class, 'index'])->name('report.index');
+        Route::post('/report/by/date', [ReportController::class, 'date'])->name('report.search.date');
+        Route::post('/report/by/month', [ReportController::class, 'month'])->name('report.search.month');
+        Route::post('/report/by/year', [ReportController::class, 'year'])->name('report.search.year');
+    });
 });
 
 //------------------------------------------------
@@ -321,11 +330,6 @@ Route::group(['prefix' => 'my/orders', 'middleware' => ['user', 'auth']], functi
     // Cancel Order View
     Route::get('/cancel/view', [OrderController::class, 'cancelView'])->name('my.cancel.view');
 }); 
-
-
-
-
-
 
 
 
