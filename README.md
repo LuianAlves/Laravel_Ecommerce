@@ -127,7 +127,8 @@
 * backend - Criado Aba para listar os Pedidos conforme seu status e um botão para mudar seu status e fazer um download da Fatura do Pedido
 * frontend - Criada Aba para Pedidos Cancelados e Pedidos de Devolução na conta do usuário (Acesso somente com usuário 'user' autenticado)
 * backend - Aba de Relatórios para listar e pesquisar por Data/Mês/Ano as Compras feitas
-
+* backend - Aba de Usuários Registrados listandos todos os Clientes 'users' cadastrados no sistema
+* backend - Listando se os usuários estão online ou não no sistema
 
 </p>
      

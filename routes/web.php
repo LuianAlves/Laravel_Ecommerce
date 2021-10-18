@@ -35,6 +35,7 @@ use App\Http\Controllers\Backend\ShipDivisionController;
 use App\Http\Controllers\Backend\ShipDistrictController;
 use App\Http\Controllers\Backend\ShipStateController;
 use App\Http\Controllers\Backend\ReportController;
+use App\Http\Controllers\Backend\AllUsersController;
 
 // Backend - Orders
 use App\Http\Controllers\Backend\Orders\OrderStatusController;
@@ -227,6 +228,12 @@ Route::middleware(['auth:admin'])->group(function() {
         Route::post('/report/by/date', [ReportController::class, 'date'])->name('report.search.date');
         Route::post('/report/by/month', [ReportController::class, 'month'])->name('report.search.month');
         Route::post('/report/by/year', [ReportController::class, 'year'])->name('report.search.year');
+    });
+
+    // Admin Register Users
+
+    Route::prefix('/registered/users')->group(function() {
+        Route::get('/view', [AllUsersController::class, 'index'])->name('users.index');
     });
 });
 

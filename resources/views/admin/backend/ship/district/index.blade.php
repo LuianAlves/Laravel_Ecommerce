@@ -72,7 +72,7 @@
                 <div class="col-10">
                     <div class="box">
                         <div class="box-header with-border">
-                            <h3 class="box-title">District List</h3>
+                            <h3 class="box-title">District List <span class="badge badge-success badge-pill"> {{ count($districts) }}</h3>
                         </div>
 
                         <div class="box-body">

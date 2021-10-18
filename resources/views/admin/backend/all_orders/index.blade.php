@@ -15,7 +15,7 @@
                 <div class="col-12">
                     <div class="box">
                         <div class="box-header with-border">
-                            <h3 class="box-title">{{ $title }} Orders</h3>
+                            <h3 class="box-title">{{ $title }} Orders <span class="badge badge-success badge-pill"> {{ count($orders) }}</h3>
                         </div>
 
                         <div class="box-body">

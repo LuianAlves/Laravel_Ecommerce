@@ -58,7 +58,7 @@
                 <div class="col-10">
                     <div class="box">
                         <div class="box-header with-border">
-                            <h3 class="box-title">State List</h3>
+                            <h3 class="box-title">State List <span class="badge badge-success badge-pill"> {{ count($states) }}</h3>
                         </div>
 
                         <div class="box-body">

@@ -179,7 +179,7 @@ $route = Route::current()->getName();
                 </ul>
             </li>
 
-            <li class="treeview {{ $prefix == '/register/users' ? 'active' : '' }}">
+            <li class="treeview {{ $prefix == '/registered/users' ? 'active' : '' }}">
                 <a href="#">
                     <i data-feather="user"></i>
                     <span>Register Users</span>
@@ -188,7 +188,7 @@ $route = Route::current()->getName();
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li class="{{ $route == 'report.index' ? 'active' : '' }}"><a href="{{route('report.index')}}"><i class="ti-more"></i>All Reports</a></li>
+                    <li class="{{ $route == 'users.index' ? 'active' : '' }}"><a href="{{route('users.index')}}"><i class="ti-more"></i>All Users</a></li>
                 </ul>
             </li>
 

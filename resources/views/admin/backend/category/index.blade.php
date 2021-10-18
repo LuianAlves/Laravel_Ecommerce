@@ -67,7 +67,7 @@
 
                     <div class="box">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Category List</h3>
+                            <h3 class="box-title">Category List <span class="badge badge-success badge-pill"> {{ count($category) }}</h3>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">

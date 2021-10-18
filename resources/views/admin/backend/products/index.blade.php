@@ -7,7 +7,7 @@
                 <div class="col-12">
                     <div class="box">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Product List</h3>
+                            <h3 class="box-title">Product List<span class="badge badge-success badge-pill ml-5"> {{ count($products) }}</h3>
                             <a href="{{ route('product.create') }}"
                                 class="btn btn-success btn-md font-weight-bold float-right">Add Products</a>
                         </div>
