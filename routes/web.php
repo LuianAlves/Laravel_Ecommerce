@@ -21,6 +21,7 @@ use App\Http\Controllers\Frontend\TagController;
 use App\Http\Controllers\Frontend\LinksController;
 use App\Http\Controllers\Frontend\ModalController;
 use App\Http\Controllers\Frontend\CartController;
+use App\Http\Controllers\Frontend\Blog\HomeBlogController;
 
 // Backend
 use App\Http\Controllers\Backend\AdminProfileController;
@@ -36,6 +37,10 @@ use App\Http\Controllers\Backend\ShipDistrictController;
 use App\Http\Controllers\Backend\ShipStateController;
 use App\Http\Controllers\Backend\ReportController;
 use App\Http\Controllers\Backend\AllUsersController;
+
+// Backend - Blog
+use App\Http\Controllers\Backend\Blog\BlogController;
+use App\Http\Controllers\Backend\Blog\BlogCategoryController;
 
 // Backend - Orders
 use App\Http\Controllers\Backend\Orders\OrderStatusController;
@@ -231,9 +236,26 @@ Route::middleware(['auth:admin'])->group(function() {
     });
 
     // Admin Register Users
-
     Route::prefix('/registered/users')->group(function() {
         Route::get('/view', [AllUsersController::class, 'index'])->name('users.index');
+    });
+
+    // Admin Blog
+    Route::prefix('/blog')->group(function() {
+        // Category
+        Route::get('/category/view', [BlogCategoryController::class, 'index'])->name('blog.category.index');
+        Route::post('/category/store', [BlogCategoryController::class, 'store'])->name('blog.category.store');
+        Route::get('/category/edit/{id}', [BlogCategoryController::class, 'edit'])->name('blog.category.edit');
+        Route::post('/category/update/{id}', [BlogCategoryController::class, 'update'])->name('blog.category.update');
+        Route::get('/category/destroy/{id}', [BlogCategoryController::class, 'destroy'])->name('blog.category.destroy');
+
+        // Post
+        Route::get('/post/view', [BlogController::class, 'index'])->name('blog.post.index');
+        Route::get('/post/create', [BlogController::class, 'create'])->name('blog.post.create');
+        Route::post('/post/store', [BlogController::class, 'store'])->name('blog.post.store');
+        Route::get('/post/edit/{id}', [BlogController::class, 'edit'])->name('blog.post.edit');
+        Route::post('/post/update/{id}', [BlogController::class, 'update'])->name('blog.post.update');
+        Route::get('/post/destroy/{id}', [BlogController::class, 'destroy'])->name('blog.post.destroy');
     });
 });
 
@@ -337,6 +359,13 @@ Route::group(['prefix' => 'my/orders', 'middleware' => ['user', 'auth']], functi
     // Cancel Order View
     Route::get('/cancel/view', [OrderController::class, 'cancelView'])->name('my.cancel.view');
 }); 
+
+// BLOG
+Route::prefix('blog')->group(function() {
+    Route::get('/view', [HomeBlogController::class, 'index'])->name('blog.home');
+    Route::get('/details/{id}', [HomeBlogController::class, 'details'])->name('blog.details');
+    Route::get('/category/post/{id}', [HomeBlogController::class, 'category'])->name('blog.category.post');
+});
 
 
 

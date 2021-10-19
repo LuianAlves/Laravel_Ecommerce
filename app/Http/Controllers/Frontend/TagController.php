@@ -19,7 +19,7 @@ class TagController extends Controller
                            ->where('product_tag_en', $tag)
                            ->orWhere('product_tag_pt', $tag)
                            ->orderBy('id', 'DESC')
-                           ->paginate(1);
+                           ->paginate(6);
 
         return view('app.products.tags.index', compact('products', 'subcategory'));
     }

@@ -179,7 +179,7 @@ $route = Route::current()->getName();
                 </ul>
             </li>
 
-            <li class="treeview {{ $prefix == '/registered/users' ? 'active' : '' }}">
+            <li class="treeview {{ $prefix == '/registered/user' ? 'active' : '' }}">
                 <a href="#">
                     <i data-feather="user"></i>
                     <span>Register Users</span>
@@ -192,10 +192,27 @@ $route = Route::current()->getName();
                 </ul>
             </li>
 
-            {{-- ----------------------- --}}
-            <li class="header nav-small-cap">EXTRA</li>
+            <li class="treeview {{ $prefix == '/blog' ? 'active' : '' }}">
+                <a href="#">
+                    <i data-feather="book"></i>
+                    <span>Manage Blog</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-right pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="{{ $route == 'blog.category.index' ? 'active' : '' }}"><a href="{{route('blog.category.index')}}"><i class="ti-more"></i>Blog Category</a></li>
+                
+                    <li class="{{ $route == 'blog.post.create' ? 'active' : '' }}"><a href="{{route('blog.post.create')}}"><i class="ti-more"></i>Add Post</a></li>
+                
+                    <li class="{{ $route == 'blog.post.index' ? 'active' : '' }}"><a href="{{route('blog.post.index')}}"><i class="ti-more"></i>All Posts</a></li>
+                </ul>
+            </li>
 
-            <li class="treeview">
+            {{-- ----------------------- --}}
+            {{-- <li class="header nav-small-cap">EXTRA</li> --}}
+
+            {{-- <li class="treeview">
                 <a href="#">
                     <i data-feather="layers"></i>
                     <span>Multilevel</span>
@@ -228,7 +245,7 @@ $route = Route::current()->getName();
                     </li>
                     <li><a href="#">Level One</a></li>
                 </ul>
-            </li>
+            </li> --}}
 
             <li>
                 <a href="{{ route('admin.logout') }}">

@@ -209,6 +209,7 @@
                                     </li>
                                 @endforeach
                                 <li class="dropdown  navbar-right special-menu"> <a href="#">{{ session()->get('language') == 'portuguese' ? 'Ofertas de Hoje' : 'Todays offer'}}</a> </li>
+                                <li class="dropdown  navbar-right special-menu"> <a href="{{ route('blog.home') }}">Blog</a> </li>
                             </ul>
                             <!-- /.navbar-nav -->
                             <div class="clearfix"></div>

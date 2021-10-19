@@ -129,6 +129,9 @@
 * backend - Aba de Relatórios para listar e pesquisar por Data/Mês/Ano as Compras feitas
 * backend - Aba de Usuários Registrados listandos todos os Clientes 'users' cadastrados no sistema
 * backend - Listando se os usuários estão online ou não no sistema
+* backend - CRUD para página de Blog do Site
+* backend - Listando As Postagens no Blog
+
 
 </p>
      
