@@ -197,7 +197,8 @@
     </div>
 
     {{-- Order Return Reason --}}
-    @if($order->status == "Delivered")
+    @if($order->status != 'Delivered')
+    @elseif($order->status == 'Delivered' && $order->return_reason == null)
         <form action="{{ route('my.order.return', $order->id) }}" method="post">
             @csrf
 
@@ -214,9 +215,8 @@
                 </div>
             </div>
         </form>
-    @elseif($order->status == "Return Requested")
-        <span class="badge" style="margin-top: 15px; background:rgb(255, 153, 0); font-size: 16px;">You Have Send Return Request for this Product!!</span>        
     @else
+        <span class="badge" style="margin-top: 15px; background:rgb(255, 153, 0); font-size: 16px;">You Have Send Return Request for this Product!!</span>        
     @endif
 </div>
 

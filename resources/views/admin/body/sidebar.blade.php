@@ -212,7 +212,7 @@ $route = Route::current()->getName();
             {{-- ----------------------- --}}
             <li class="header nav-small-cap">FRONT-END</li>
 
-            {{-- Footer Infos - Links --}}
+            {{-- Settings Site --}}
             <li class="treeview {{ $prefix == '/setting' ? 'active' : '' }}">
                 <a href="#">
                     <i data-feather="cpu"></i>
@@ -223,6 +223,22 @@ $route = Route::current()->getName();
                 </a>
                 <ul class="treeview-menu">
                     <li class="{{ $route == 'setting.site.index' ? 'active' : '' }}"><a href="{{route('setting.site.index')}}"><i class="ti-more"></i>Setting Footer</a></li>
+                    <li class="{{ $route == 'setting.site.index' ? 'active' : '' }}"><a href="{{route('setting.site.index')}}"><i class="ti-more"></i>Setting SEO</a></li>
+                </ul>
+            </li>
+
+            {{-- Return Orders --}}
+            <li class="treeview {{ $prefix == '/return' ? 'active' : '' }}">
+                <a href="#">
+                    <i data-feather="cpu"></i>
+                    <span>Return Orders</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-right pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="{{ $route == 'return.request' ? 'active' : '' }}"><a href="{{route('return.request')}}"><i class="ti-more"></i>Return Request</a></li>
+                    <li class="{{ $route == 'all.request' ? 'active' : '' }}"><a href="{{route('all.request')}}"><i class="ti-more"></i>All Request</a></li>
                 </ul>
             </li>
 

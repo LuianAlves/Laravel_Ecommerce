@@ -133,6 +133,8 @@
 * backend - Listando As Postagens no Blog
 * backend - CRUD para adicionar Logo e informações ao Footer do Frontend
 * frontend - Listando as informações do footer
+* backend/frontend - Controle de devolução de Pedidos através do dashboard
+
 
 
 </p>

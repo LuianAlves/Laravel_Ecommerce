@@ -69,8 +69,8 @@ class OrderController extends Controller
 
         $order->findOrFail($order_id)->update([
             'return_date' => Carbon::now()->format('d F Y'),
+            'return_order' => 1,
             'return_reason' => $request->return_reason,
-            'status' => 'Return Requested'
         ]);
 
         $noti = [
@@ -83,7 +83,7 @@ class OrderController extends Controller
 
     // Return Orders View 
     public function returnView() {
-        $orders = Order::where('status', 'Return Requested')->where('user_id', Auth::id())->orderBy('id', 'DESC')->get();
+        $orders = Order::where('return_date', '!=', null)->where('user_id', Auth::id())->orderBy('id', 'DESC')->get();
 
         return view('app.profile.my_orders.return_orders.index', compact('orders'));
     }

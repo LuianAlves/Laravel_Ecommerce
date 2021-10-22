@@ -23,6 +23,9 @@
                                         <input type="email" name="email" id="email"
                                             class="form-control pl-15 bg-transparent text-white plc-white"
                                             :value="old('email')" placeholder="Username" required>
+                                            @error('email')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -34,6 +37,9 @@
                                         <input type="password" name="password" id="password"
                                             class="form-control pl-15 bg-transparent text-white plc-white"
                                             placeholder="Password" autocomplete="current-password">
+                                            @error('password')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                     </div>
                                 </div>
                                 <div class="row">

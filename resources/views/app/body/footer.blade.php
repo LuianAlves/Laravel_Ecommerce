@@ -111,15 +111,18 @@
         <div class="container">
             <div class="col-xs-12 col-sm-6 no-padding social">
                 <ul class="link">
-                    <li class="fb pull-left"><a target="_blank" rel="nofollow" href="#" title="Facebook"></a></li>
-                    <li class="tw pull-left"><a target="_blank" rel="nofollow" href="#" title="Twitter"></a></li>
-                    <li class="googleplus pull-left"><a target="_blank" rel="nofollow" href="#" title="GooglePlus"></a>
-                    </li>
-                    <li class="rss pull-left"><a target="_blank" rel="nofollow" href="#" title="RSS"></a></li>
-                    <li class="pintrest pull-left"><a target="_blank" rel="nofollow" href="#" title="PInterest"></a>
-                    </li>
-                    <li class="linkedin pull-left"><a target="_blank" rel="nofollow" href="#" title="Linkedin"></a></li>
-                    <li class="youtube pull-left"><a target="_blank" rel="nofollow" href="#" title="Youtube"></a></li>
+                    @if($setting->facebook != null)
+                        <li class="fb pull-left"><a rel="nofollow" href="{{ url($setting->facebook) }}" title="Facebook"></a></li>
+                    @endif
+                    @if($setting->twitter != null)
+                        <li class="tw pull-left"><a rel="nofollow" href="{{ url($setting->twitter) }}" title="Twitter"></a></li>
+                    @endif
+                    @if($setting->linkedin != null)
+                        <li class="linkedin pull-left"><a rel="nofollow" href="{{ url($setting->linkedin) }}" title="Linkedin"></a></li>
+                    @endif
+                    @if($setting->youtube != null)
+                        <li class="youtube pull-left"><a rel="nofollow" href="{{ url($setting->youtube) }}" title="Youtube"></a></li>
+                    @endif
                 </ul>
             </div>
             <div class="col-xs-12 col-sm-6 no-padding">

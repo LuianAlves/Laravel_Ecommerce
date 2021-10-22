@@ -40,13 +40,19 @@
                                                 <td>{{ $order->payment_method }}</td>
                                                 <td>
                                                     @if($order->status == "Pending" || $order->status == "pending")
-                                                        <span class="badge badge-pill text-white" style="background: rgb(255, 153, 0); font-weight: bold;">{{ ucfirst($order->status) }} ..</span>
+                                                        <span class="badge badge-pill text-white" style="background: #DC7633; font-weight: bold;">{{ ucfirst($order->status) }} ..</span>
+                                                    @elseif($order->status == "Confirmed" || $order->status == "confirmed")
+                                                        <span class="badge badge-pill text-white" style="background: #5D6D7E; font-weight: bold;">{{ ucfirst($order->status) }}</span>
+                                                    @elseif($order->status == "Processing" || $order->status == "processing")
+                                                        <span class="badge badge-pill text-white" style="background: #9B59B6; font-weight: bold;">{{ ucfirst($order->status) }}</span>
+                                                    @elseif($order->status == "Picked" || $order->status == "picked")
+                                                        <span class="badge badge-pill text-white" style="background: #73C6B6; font-weight: bold;">{{ ucfirst($order->status) }}</span>
+                                                    @elseif($order->status == "Shipped" || $order->status == "shipped")
+                                                        <span class="badge badge-pill text-white" style="background: #F1C40F; font-weight: bold;">{{ ucfirst($order->status) }}</span>
                                                     @elseif($order->status == "Delivered" || $order->status == "delivered")
-                                                        <span class="badge badge-pill text-white" style="background: blue; font-weight: bold;">{{ ucfirst($order->status) }}</span>
-                                                    @elseif($order->status == "Cancel" || $order->status == "cancel")
-                                                        <span class="badge badge-pill text-white" style="background: red; font-weight: bold;">{{ ucfirst($order->status) }}</span>
+                                                        <span class="badge badge-pill text-white" style="background:#2874A6; font-weight: bold;">{{ ucfirst($order->status) }}</span>
                                                     @else
-                                                        <span class="badge badge-pill text-white" style="background: green; font-weight: bold;">{{ ucfirst($order->status) }}</span>
+                                                        <span class="badge badge-pill text-white" style="background: red; font-weight: bold;">{{ ucfirst($order->status) }}</span>
                                                     @endif
                                                 </td>
                                                 {{-- Action --}}

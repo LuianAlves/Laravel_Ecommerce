@@ -45,6 +45,7 @@ use App\Http\Controllers\Backend\Blog\BlogCategoryController;
 
 // Backend - Orders
 use App\Http\Controllers\Backend\Orders\OrderStatusController;
+use App\Http\Controllers\Backend\Orders\ReturnOrderController;
 
 
 /*
@@ -266,6 +267,14 @@ Route::middleware(['auth:admin'])->group(function() {
         Route::get('/edit/{id}', [SiteSettingController::class, 'edit'])->name('setting.site.edit');
         Route::post('/update/{id}', [SiteSettingController::class, 'update'])->name('setting.site.update');
         Route::get('/destroy/{id}', [SiteSettingController::class, 'destroy'])->name('setting.site.destroy');
+    });
+
+    // Admin Return Orders
+    Route::prefix('/return')->group(function() {
+        Route::get('/order/request', [ReturnOrderController::class, 'request'])->name('return.request');
+        Route::get('/request/aprove/{id}', [ReturnOrderController::class, 'aprove'])->name('return.aprove');
+
+        Route::get('/all/order/request', [ReturnOrderController::class, 'allRequest'])->name('all.request');
     });
 });
 

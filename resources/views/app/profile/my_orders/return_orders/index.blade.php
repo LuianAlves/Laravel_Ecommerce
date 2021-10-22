@@ -18,27 +18,36 @@
                                 <th class="text-center">{{ session()->get('language') == 'portuguese' ? 'Data' : 'Date' }}</th>
                                 <th>Total</th>
                                 {{-- <th class="text-center">{{ session()->get('language') == 'portuguese' ? 'Pagamento' : 'Payment' }}</th> --}}
-                                <th class="text-center">{{ session()->get('language') == 'portuguese' ? 'Fatura' : 'Invoice' }}</th>
+                                {{-- <th class="text-center">{{ session()->get('language') == 'portuguese' ? 'Fatura' : 'Invoice' }}</th> --}}
+                                <th class="text-center">{{ session()->get('language') == 'portuguese' ? 'Motivo' : 'Return Reason' }}</th>
                                 <th class="text-center">Status</th>
-                                <th class="text-center">{{ session()->get('language') == 'portuguese' ? 'Opções' : 'Action' }}</th>
+                                {{-- <th class="text-center">{{ session()->get('language') == 'portuguese' ? 'Opções' : 'Action' }}</th> --}}
                             </tr>
                         </thead>
-                        <tbody class="text-left">
+                        <tbody class="text-center">
                             @foreach ($orders as $order)
                                 <tr style="background: #fff; border-bottom: 1px solid #ccc">
                                     <td><b>{{ $order->order_date }}</b></td>
-                                    <td class="col-md-3"><b>{{ session()->get('language') == 'portuguese' ? 'R$' : '$' }}</b> </span> {{ $order->amount }}</td>
+                                    <td><b>{{ session()->get('language') == 'portuguese' ? 'R$' : '$' }}</b> </span> {{ $order->amount }}</td>
                                     {{-- <td>{{ $order->payment_method }}</td> --}}
-                                    <td>{{ $order->invoice_no }}</td>
-    
-                                    <td>
-                                        <span class="badge badge-pill text-white" style="background: green; font-weight: bold;">{{ ucfirst($order->status) }}</span>
+                                    {{-- <td>{{ $order->invoice_no }}</td> --}}
+                                    <td>{{ $order->return_reason }}</td>
+                                    
+                                    <td width="5%">
+                                        @if($order->return_order == 0)
+                                            <span class="badge badge-pill text-white" style="background: #73C6B6; font-weight: bold;">{{ session()->get('language') == 'portuguese' ? 'Nenhum Pedido de Devolução' : 'No Return Request' }}</span>
+                                        @elseif($order->return_order == 1)
+                                            <span class="badge badge-pill text-white" style="background: #a68f28; font-weight: bold;">{{ session()->get('language') == 'portuguese' ? 'Pendente' : 'Pedding' }}</span>
+                                            <span class="badge badge-pill text-white" style="background: #800000; font-weight: bold; margin-top: 5px;">{{ session()->get('language') == 'portuguese' ? 'Devolução Requerida' : 'Return Requested' }}</span>
+                                        @elseif($order->return_order == 2)
+                                            <span class="badge badge-pill text-white" style="background: #008000; font-weight: bold;">{{ session()->get('language') == 'portuguese' ? 'Devolvido' : 'Return Success' }}</span>
+                                        @endif
                                     </td>
     
-                                    <td class="col-md-1">
+                                    {{-- <td class="col-md-1">
                                         <a href="{{ url('my/orders/details/'.$order->id) }}" class="btn btn-sm btn-info">{{ session()->get('language') == 'portuguese' ? 'Visualizar' : 'View' }}<i class="fa fa-eye"></i></a>
                                         <a target="_blank" href="{{ url('my/orders/download/'.$order->id) }}" class="btn btn-sm btn-danger">{{ session()->get('language') == 'portuguese' ? 'Fatura' : 'Invoice' }}<i class="fa fa-download"></i></a>
-                                    </td>
+                                    </td> --}}
                                 </tr>
                             @endforeach
                         </tbody>

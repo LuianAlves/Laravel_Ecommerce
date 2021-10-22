@@ -14,8 +14,8 @@
                     <li><a href="#">{{ $products->category_name_en }}</a></li>
                     <li class='active'>{{ $products->sub_subcategory_id }}</li>
                 </ul>
-            </div><!-- /.breadcrumb-inner -->
-        </div><!-- /.container -->
+            </div>
+        </div>
     </div>
 
     <div class="body-content outer-top-xs">
@@ -234,7 +234,7 @@
                                     </li>
                                     <li><a data-toggle="tab" href="#review">{{ session()->get('language') == 'portuguese' ? 'COMENTÁRIOS' : 'REVIEW'}}</a></li>
                                     <li><a data-toggle="tab" href="#tags">TAGS</a></li>
-                                </ul><!-- /.nav-tabs #product-tabs -->
+                                </ul>
                             </div>
                             <div class="col-sm-9">
 
@@ -246,7 +246,7 @@
                                                 {!! session()->get('language') == 'portuguese' ? $products->long_descp_pt : $products->long_descp_en !!}
                                             </p>
                                         </div>
-                                    </div><!-- /.tab-pane -->
+                                    </div>
 
                                     <div id="review" class="tab-pane">
                                         <div class="product-tab">
@@ -256,18 +256,17 @@
 
                                                 <div class="reviews">
                                                     <div class="review">
-                                                        <div class="review-title"><span class="summary">We love
-                                                                this product</span><span class="date"><i
-                                                                    class="fa fa-calendar"></i><span>1 days
-                                                                    ago</span></span></div>
-                                                        <div class="text">"Lorem ipsum dolor sit amet,
-                                                            consectetur adipiscing elit.Aliquam suscipit."</div>
+                                                        <div class="review-title">
+                                                            <span class="summary">We love this product</span>
+                                                            <span class="date">
+                                                                <i class="fa fa-calendar"></i>
+                                                                <span>1 days ago</span>
+                                                            </span>
+                                                        </div>
+                                                        <div class="text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit.Aliquam suscipit."</div>
                                                     </div>
-
-                                                </div><!-- /.reviews -->
-                                            </div><!-- /.product-reviews -->
-
-
+                                                </div>
+                                            </div>
 
                                             <div class="product-add-review">
                                                 <h4 class="title">Write your own review</h4>
@@ -300,34 +299,24 @@
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="cell-label">Price</td>
-                                                                    <td><input type="radio" name="quality"
-                                                                            class="radio" value="1"></td>
-                                                                    <td><input type="radio" name="quality"
-                                                                            class="radio" value="2"></td>
-                                                                    <td><input type="radio" name="quality"
-                                                                            class="radio" value="3"></td>
-                                                                    <td><input type="radio" name="quality"
-                                                                            class="radio" value="4"></td>
-                                                                    <td><input type="radio" name="quality"
-                                                                            class="radio" value="5"></td>
+                                                                    <td><input type="radio" name="quality" class="radio" value="1"></td>
+                                                                    <td><input type="radio" name="quality" class="radio" value="2"></td>
+                                                                    <td><input type="radio" name="quality" class="radio" value="3"></td>
+                                                                    <td><input type="radio" name="quality" class="radio" value="4"></td>
+                                                                    <td><input type="radio" name="quality" class="radio" value="5"></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="cell-label">Value</td>
-                                                                    <td><input type="radio" name="quality"
-                                                                            class="radio" value="1"></td>
-                                                                    <td><input type="radio" name="quality"
-                                                                            class="radio" value="2"></td>
-                                                                    <td><input type="radio" name="quality"
-                                                                            class="radio" value="3"></td>
-                                                                    <td><input type="radio" name="quality"
-                                                                            class="radio" value="4"></td>
-                                                                    <td><input type="radio" name="quality"
-                                                                            class="radio" value="5"></td>
+                                                                    <td><input type="radio" name="quality" class="radio" value="1"></td>
+                                                                    <td><input type="radio" name="quality" class="radio" value="2"></td>
+                                                                    <td><input type="radio" name="quality" class="radio" value="3"></td>
+                                                                    <td><input type="radio" name="quality" class="radio" value="4"></td>
+                                                                    <td><input type="radio" name="quality" class="radio" value="5"></td>
                                                                 </tr>
                                                             </tbody>
-                                                        </table><!-- /.table .table-bordered -->
-                                                    </div><!-- /.table-responsive -->
-                                                </div><!-- /.review-table -->
+                                                        </table>
+                                                    </div>
+                                                </div>
 
                                                 <div class="review-form">
                                                     <div class="form-container">
