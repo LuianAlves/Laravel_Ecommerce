@@ -1,5 +1,4 @@
 <header class="header-style-1">
-
     <!-- ============================================== TOP MENU ============================================== -->
     <div class="top-bar animate-dropdown">
         <div class="container">
@@ -66,10 +65,21 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-2 logo-holder">
+
+                    @php
+                        $setting = App\Models\SiteSetting::first();
+                    @endphp
                     <!-- ============================================================= LOGO ============================================================= -->
-                    <div class="logo"> <a href="{{ url('/') }}"> <img
-                                src="{{ asset('frontend/assets/images/logo.png') }}" alt="logo">
-                        </a> </div>
+                    <div class="logo">
+                        @if(!empty($setting->logo))
+                            <a href="{{ url('/') }}"> 
+                                <img src="{{ asset($setting->logo) }}" alt="logo" style="width: 120px; height: 50px;">
+                            </a> 
+                        @else
+                            <span style="font-size: 26px; color: #fff; font-weight: bold;">LOGO</span><br>
+                            <span style="color: #fff;">Adicione uma logo atravez do dashboard em Settings->setting footer</span>
+                        @endif
+                    </div>
                     <!-- /.logo -->
                     <!-- ============================================================= LOGO : END ============================================================= -->
                 </div>

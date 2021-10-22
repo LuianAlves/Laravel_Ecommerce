@@ -194,7 +194,7 @@ $route = Route::current()->getName();
 
             <li class="treeview {{ $prefix == '/blog' ? 'active' : '' }}">
                 <a href="#">
-                    <i data-feather="book"></i>
+                    <i data-feather="aperture"></i>
                     <span>Manage Blog</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-right pull-right"></i>
@@ -210,7 +210,21 @@ $route = Route::current()->getName();
             </li>
 
             {{-- ----------------------- --}}
-            {{-- <li class="header nav-small-cap">EXTRA</li> --}}
+            <li class="header nav-small-cap">FRONT-END</li>
+
+            {{-- Footer Infos - Links --}}
+            <li class="treeview {{ $prefix == '/setting' ? 'active' : '' }}">
+                <a href="#">
+                    <i data-feather="cpu"></i>
+                    <span>Settings</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-right pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="{{ $route == 'setting.site.index' ? 'active' : '' }}"><a href="{{route('setting.site.index')}}"><i class="ti-more"></i>Setting Footer</a></li>
+                </ul>
+            </li>
 
             {{-- <li class="treeview">
                 <a href="#">

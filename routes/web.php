@@ -37,6 +37,7 @@ use App\Http\Controllers\Backend\ShipDistrictController;
 use App\Http\Controllers\Backend\ShipStateController;
 use App\Http\Controllers\Backend\ReportController;
 use App\Http\Controllers\Backend\AllUsersController;
+use App\Http\Controllers\Backend\SiteSettingController;
 
 // Backend - Blog
 use App\Http\Controllers\Backend\Blog\BlogController;
@@ -256,6 +257,15 @@ Route::middleware(['auth:admin'])->group(function() {
         Route::get('/post/edit/{id}', [BlogController::class, 'edit'])->name('blog.post.edit');
         Route::post('/post/update/{id}', [BlogController::class, 'update'])->name('blog.post.update');
         Route::get('/post/destroy/{id}', [BlogController::class, 'destroy'])->name('blog.post.destroy');
+    });
+
+    // Admin Settings Site
+    Route::prefix('/setting')->group(function() {
+        Route::get('/index', [SiteSettingController::class, 'index'])->name('setting.site.index');
+        Route::post('/store', [SiteSettingController::class, 'store'])->name('setting.site.store');
+        Route::get('/edit/{id}', [SiteSettingController::class, 'edit'])->name('setting.site.edit');
+        Route::post('/update/{id}', [SiteSettingController::class, 'update'])->name('setting.site.update');
+        Route::get('/destroy/{id}', [SiteSettingController::class, 'destroy'])->name('setting.site.destroy');
     });
 });
 

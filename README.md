@@ -131,6 +131,8 @@
 * backend - Listando se os usuários estão online ou não no sistema
 * backend - CRUD para página de Blog do Site
 * backend - Listando As Postagens no Blog
+* backend - CRUD para adicionar Logo e informações ao Footer do Frontend
+* frontend - Listando as informações do footer
 
 
 </p>
