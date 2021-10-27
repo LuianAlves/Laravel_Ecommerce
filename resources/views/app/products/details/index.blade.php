@@ -96,17 +96,6 @@
                                         </div>
                                     </div>
 
-                                    {{-- Row Stock --}}
-                                    <div class="stock-container info-container m-t-10">
-                                        <div class="row">
-                                            <div class="col-sm-2">
-                                                <div class="stock-box">
-                                                    <span class="label">{{ session()->get('language') == 'portuguese' ? 'Disponível em Estoque' : 'Availability in Stock'}}: <strong class="text-danger">{{ $products->product_qty }}</strong></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
                                     {{-- Short Description --}}
                                     <div class="description-container m-t-20">
                                         {{ session()->get('language') == 'portuguese' ? $products->short_descp_pt : $products->short_descp_en }}
@@ -193,34 +182,41 @@
                                     {{-- Row Qty --}}
                                     <div class="quantity-container info-container">
                                         <div class="row">
-
-                                            {{-- Quantity --}}
-                                            <div class="col-sm-2">
-                                                <span class="label">Qty :</span>
-                                            </div>
-
-                                            <div class="col-sm-2">
-                                                <div class="cart-quantity">
-                                                    <div class="quant-input">
-                                                        <input type="number" id="qty" value="1" min="1">
+                                            @if($products->product_qty >= 1)
+                                                {{-- Quantity --}}
+                                                <div class="col-sm-2">
+                                                    <span class="label">Qty :</span>
+                                                    <div class="stock-box">
+                                                        <span class="label">{{ session()->get('language') == 'portuguese' ? 'Disponível em Estoque' : 'Availability in Stock'}}: <strong class="text-success badge badge-success" style="background: #008000">{{ $products->product_qty }}</strong></span>
                                                     </div>
                                                 </div>
-                                            </div>
 
-                                            <input type="hidden" id="product_id" value="{{ $products->id }}" min="1">
+                                                <div class="col-sm-2">
+                                                    <div class="cart-quantity">
+                                                        <div class="quant-input">
+                                                            <input type="number" id="qty" value="1" min="1" max="{{ $products->product_qty }}">
+                                                        </div>
+                                                    </div>
+                                                </div>
 
-                                            {{-- Add Cart --}}
-                                            <div class="col-sm-7">
-                                                <button type="submit" class="btn btn-primary" onclick="addToCart()">
-                                                    <i class="fa fa-shopping-cart inner-right-vs"></i> 
-                                                    {{ session()->get('language') == 'portuguese' ? 'Carrinho' : 'Add to Cart'}}
-                                                </button>
-                                            </div>
+                                                <input type="hidden" id="product_id" value="{{ $products->id }}" min="1">
 
-
+                                                {{-- Add Cart --}}
+                                                <div class="col-sm-7">
+                                                    <button type="submit" class="btn btn-primary" onclick="addToCart()">
+                                                        <i class="fa fa-shopping-cart inner-right-vs"></i> 
+                                                        {{ session()->get('language') == 'portuguese' ? 'Carrinho' : 'Add to Cart'}}
+                                                    </button>
+                                                </div>
+                                            @else
+                                                <div class="col-sm-2">
+                                                    <div class="stock-box">
+                                                        <span class="label">{{ session()->get('language') == 'portuguese' ? 'Indisponível' : 'Stock Out'}}: <strong class="text-danger badge badge-danger" style="background: red;">{{ $products->product_qty }}</strong></span>
+                                                    </div>
+                                                </div>
+                                            @endif
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -254,114 +250,98 @@
                                             <div class="product-reviews">
                                                 <h4 class="title">{{ session()->get('language') == 'portuguese' ? 'Opinião dos Consumidores' : 'Customer Reviews'}}</h4>
 
+                                                @php
+                                                    $reviews = App\Models\ProductReview::where('status', '!=', 0)->where('product_id', $products->id)->latest()->get();
+                                                @endphp
+
                                                 <div class="reviews">
-                                                    <div class="review">
-                                                        <div class="review-title">
-                                                            <span class="summary">We love this product</span>
-                                                            <span class="date">
-                                                                <i class="fa fa-calendar"></i>
-                                                                <span>1 days ago</span>
-                                                            </span>
+                                                    @foreach($reviews as $review)
+                                                        @if($review->user_id == Auth::id())
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <img src="{{ !empty($review->user->profile_photo_path) ? url('upload/user_images/'.$review->user->profile_photo_path) : url('upload/no_image.jpg') }}" style="border-radius: 50%; width: 30px; height: 30px; margin: 10px;">
+                                                                <span style="font-size: 12px; font-weight: bold;">{{ $review->user->name }}</span>
+                                                            </div>
                                                         </div>
-                                                        <div class="text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit.Aliquam suscipit."</div>
-                                                    </div>
+                                                        <div class="review text-right" style="background: rgb(206, 226, 252);">
+                                                            <div class="review-title">
+                                                                <span class="summary">{{ $review->summary }}</span>
+                                                                <span class="date">
+                                                                    <i class="fa fa-calendar"></i>
+                                                                    <span>{{ Carbon\Carbon::parse($review->created_at)->diffForHumans() }}</span>
+                                                                </span>
+                                                            </div>
+                                                            <div class="text">"{{ $review->comment }}"</div>
+                                                        </div>
+                                                        <hr>
+                                                        @else   
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <img src="{{ !empty($review->user->profile_photo_path) ? url('upload/user_images/'.$review->user->profile_photo_path) : url('upload/no_image.jpg') }}" style="border-radius: 50%; width: 30px; height: 30px; margin: 10px;">
+                                                                <span style="font-size: 12px; font-weight: bold;">{{ $review->user->name }}</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="review">
+                                                            <div class="review-title">
+                                                                <span class="summary">{{ $review->summary }}</span>
+                                                                <span class="date">
+                                                                    <i class="fa fa-calendar"></i>
+                                                                    <span>{{ Carbon\Carbon::parse($review->created_at)->diffForHumans() }}</span>
+                                                                </span>
+                                                            </div>
+                                                            <div class="text">"{{ $review->comment }}"</div>
+                                                        </div>
+                                                        <hr>
+                                                        @endif
+                                                    @endforeach
                                                 </div>
                                             </div>
 
                                             <div class="product-add-review">
-                                                <h4 class="title">Write your own review</h4>
-                                                <div class="review-table">
-                                                    <div class="table-responsive">
-                                                        <table class="table">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th class="cell-label">&nbsp;</th>
-                                                                    <th>1 star</th>
-                                                                    <th>2 stars</th>
-                                                                    <th>3 stars</th>
-                                                                    <th>4 stars</th>
-                                                                    <th>5 stars</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td class="cell-label">Quality</td>
-                                                                    <td><input type="radio" name="quality"
-                                                                            class="radio" value="1"></td>
-                                                                    <td><input type="radio" name="quality"
-                                                                            class="radio" value="2"></td>
-                                                                    <td><input type="radio" name="quality"
-                                                                            class="radio" value="3"></td>
-                                                                    <td><input type="radio" name="quality"
-                                                                            class="radio" value="4"></td>
-                                                                    <td><input type="radio" name="quality"
-                                                                            class="radio" value="5"></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class="cell-label">Price</td>
-                                                                    <td><input type="radio" name="quality" class="radio" value="1"></td>
-                                                                    <td><input type="radio" name="quality" class="radio" value="2"></td>
-                                                                    <td><input type="radio" name="quality" class="radio" value="3"></td>
-                                                                    <td><input type="radio" name="quality" class="radio" value="4"></td>
-                                                                    <td><input type="radio" name="quality" class="radio" value="5"></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class="cell-label">Value</td>
-                                                                    <td><input type="radio" name="quality" class="radio" value="1"></td>
-                                                                    <td><input type="radio" name="quality" class="radio" value="2"></td>
-                                                                    <td><input type="radio" name="quality" class="radio" value="3"></td>
-                                                                    <td><input type="radio" name="quality" class="radio" value="4"></td>
-                                                                    <td><input type="radio" name="quality" class="radio" value="5"></td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
+                                                <h4 class="title">{{ session()->get('language') == 'portuguese' ? 'Faça seu próprio comentário' : 'Write your own review'}}</h4>
 
                                                 <div class="review-form">
-                                                    <div class="form-container">
-                                                        <form role="form" class="cnt-form">
+                                                    @guest
+                                                        @if(session()->get('language') == 'portuguese')
+                                                            <p><b> Você precisa está logado para adicionar um comentário! <a href="{{ route('login') }}">Entre Agora</a></b></p>
+                                                        @else
+                                                            <p><b> For Add Product Preview. You Need to login First! <a href="{{ route('login') }}">Login Here</a></b></p>
+                                                        @endif
+                                                    @else
+                                                        <div class="form-container">
+                                                            <form class="cnt-form" method="post" action="{{ route('review.store') }}">
+                                                                @csrf
 
-                                                            <div class="row">
-                                                                <div class="col-sm-6">
-                                                                    <div class="form-group">
-                                                                        <label for="exampleInputName">Your Name <span
-                                                                                class="astk">*</span></label>
-                                                                        <input type="text" class="form-control txt"
-                                                                            id="exampleInputName" placeholder="">
-                                                                    </div><!-- /.form-group -->
-                                                                    <div class="form-group">
-                                                                        <label for="exampleInputSummary">Summary <span
-                                                                                class="astk">*</span></label>
-                                                                        <input type="text" class="form-control txt"
-                                                                            id="exampleInputSummary" placeholder="">
-                                                                    </div><!-- /.form-group -->
+                                                                <input type="hidden" name="product_id" value="{{$products->id}}">
+                                                                <div class="row">
+                                                                    <div class="col-sm-6">
+                                                                        <div class="form-group">
+                                                                            <label for="exampleInputSummary">{{ session()->get('language') == 'portuguese' ? 'Título' : 'Summary'}}<span class="astk">*</span></label>
+                                                                            <input type="text" class="form-control txt" name="summary" required>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <label for="exampleInputReview">{{ session()->get('language') == 'portuguese' ? 'Comentário' : 'Review'}}<span class="astk">*</span></label>
+                                                                            <textarea class="form-control txt txt-review" name="comment" rows="4" required></textarea>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
 
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label for="exampleInputReview">Review <span
-                                                                                class="astk">*</span></label>
-                                                                        <textarea class="form-control txt txt-review"
-                                                                            id="exampleInputReview" rows="4"
-                                                                            placeholder=""></textarea>
-                                                                    </div><!-- /.form-group -->
+                                                                <div class="action text-right">
+                                                                    <button class="btn btn-primary btn-upper">{{ session()->get('language') == 'portuguese' ? 'Enviar Comentário' : 'Submit Review'}}</button>
                                                                 </div>
-                                                            </div><!-- /.row -->
 
-                                                            <div class="action text-right">
-                                                                <button class="btn btn-primary btn-upper">SUBMIT
-                                                                    REVIEW</button>
-                                                            </div><!-- /.action -->
+                                                            </form>
+                                                        </div>
+                                                    @endguest
+                                                </div>
 
-                                                        </form><!-- /.cnt-form -->
-                                                    </div><!-- /.form-container -->
-                                                </div><!-- /.review-form -->
+                                            </div>
 
-                                            </div><!-- /.product-add-review -->
-
-                                        </div><!-- /.product-tab -->
-                                    </div><!-- /.tab-pane -->
+                                        </div>
+                                    </div>
 
                                     <div id="tags" class="tab-pane">
                                         <div class="product-tag">

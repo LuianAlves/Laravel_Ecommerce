@@ -165,7 +165,6 @@ $route = Route::current()->getName();
                 </ul>
             </li>
 
-
             <li class="treeview {{ $prefix == '/reports' ? 'active' : '' }}">
                 <a href="#">
                     <i data-feather="credit-card"></i>
@@ -176,6 +175,19 @@ $route = Route::current()->getName();
                 </a>
                 <ul class="treeview-menu">
                     <li class="{{ $route == 'report.index' ? 'active' : '' }}"><a href="{{route('report.index')}}"><i class="ti-more"></i>All Reports</a></li>
+                </ul>
+            </li>
+
+            <li class="treeview {{ $prefix == '/stock' ? 'active' : '' }}">
+                <a href="#">
+                    <i data-feather="speaker"></i>
+                    <span>Product Stock</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-right pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="{{ $route == 'product.stock' ? 'active' : '' }}"><a href="{{route('product.stock')}}"><i class="ti-more"></i>Product Stock</a></li>
                 </ul>
             </li>
 
@@ -210,7 +222,7 @@ $route = Route::current()->getName();
             </li>
 
             {{-- ----------------------- --}}
-            <li class="header nav-small-cap">FRONT-END</li>
+            <li class="header nav-small-cap">Configuration</li>
 
             {{-- Settings Site --}}
             <li class="treeview {{ $prefix == '/setting' ? 'active' : '' }}">
@@ -230,7 +242,7 @@ $route = Route::current()->getName();
             {{-- Return Orders --}}
             <li class="treeview {{ $prefix == '/return' ? 'active' : '' }}">
                 <a href="#">
-                    <i data-feather="cpu"></i>
+                    <i data-feather="film"></i>
                     <span>Return Orders</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-right pull-right"></i>
@@ -239,6 +251,21 @@ $route = Route::current()->getName();
                 <ul class="treeview-menu">
                     <li class="{{ $route == 'return.request' ? 'active' : '' }}"><a href="{{route('return.request')}}"><i class="ti-more"></i>Return Request</a></li>
                     <li class="{{ $route == 'all.request' ? 'active' : '' }}"><a href="{{route('all.request')}}"><i class="ti-more"></i>All Request</a></li>
+                </ul>
+            </li>
+
+            {{-- Aprove Reviews --}}
+            <li class="treeview {{ $prefix == '/review' ? 'active' : '' }}">
+                <a href="#">
+                    <i data-feather="trending-up"></i>
+                    <span>Reviews Manage</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-right pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="{{ $route == 'review.pedding' ? 'active' : '' }}"><a href="{{route('review.pedding')}}"><i class="ti-more"></i>Pedding Reviews</a></li>
+                    <li class="{{ $route == 'review.publish' ? 'active' : '' }}"><a href="{{route('review.publish')}}"><i class="ti-more"></i>Publish Review</a></li>
                 </ul>
             </li>
 

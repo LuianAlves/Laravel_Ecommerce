@@ -7,8 +7,11 @@ use Illuminate\Http\Request;
 
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Product;
+
 use Carbon\Carbon;
 use PDF;
+use DB;
 
 class OrderStatusController extends Controller
 {
@@ -20,6 +23,22 @@ class OrderStatusController extends Controller
     } 
 
     public function pendingUpdate($order_id) {
+        $product = OrderItem::where('order_id', $order_id)->get();
+
+        foreach($product as $item) {
+            
+            Product::where('id', $item->product_id)->update([
+                'product_qty' => DB::raw('product_qty-' . $item->qty)
+            ]);
+
+            if ($item->product_qty <= 0) {
+                Product::where('id', $item->product_id)->update([
+                    'product_qty' => 0,
+                    'status' => 0
+                ]);
+            }
+        }
+
         $status = Order::where('id', $order_id)->update([
             'status' => 'Confirmed',
             'confirmed_date' => Carbon::now()
@@ -104,6 +123,7 @@ class OrderStatusController extends Controller
     } 
 
     public function shippedUpdate($order_id) {
+       
         $status = Order::where('id', $order_id)->update([
             'status' => 'Delivered',
             'processing_date' => Carbon::now()

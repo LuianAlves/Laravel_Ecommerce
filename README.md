@@ -133,7 +133,14 @@
 * backend - Listando As Postagens no Blog
 * backend - CRUD para adicionar Logo e informações ao Footer do Frontend
 * frontend - Listando as informações do footer
+* Página ERROR 404 configurada para rotas inexistentes
+* backend - CRUD para controlar o Estoque de Produtos
 * backend/frontend - Controle de devolução de Pedidos através do dashboard
+* backend/frontend - Controle de reviews dos usuários sobre produtos
+
+* DASHBOARD - Cards com quantidade de Vendas: Diárias, Mensais, Anuais .. Pedidos e Reviews Pendentes, Pedidos Entregues
+* DASHBOARD - Configuração Pedidos Recentes, Falta de Estoque, Reviews Recentes
+
 
 
 

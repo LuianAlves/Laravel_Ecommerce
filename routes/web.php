@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Http\Controllers\User\WishlistController;
 use App\Http\Controllers\User\CheckoutController;
 use App\Http\Controllers\User\OrderController;
+use App\Http\Controllers\User\ProductReviewController;
 
 // Payments
 use App\Http\Controllers\User\Payments\CashController;
@@ -139,6 +140,13 @@ Route::middleware(['auth:admin'])->group(function() {
         // Status
             Route::get('/inactive/{id}', [ProductController::class, 'inactive'])->name('product.inactive');
             Route::get('/active/{id}', [ProductController::class, 'active'])->name('product.active'); 
+    });
+
+    // Admin Product Stock
+    Route::prefix('stock')->group(function() {
+        Route::get('/product', [ProductController::class, 'stock'])->name('product.stock');
+        Route::get('/product/edit/{id}', [ProductController::class, 'stockEdit'])->name('stock.edit');
+        Route::post('/product/update/{id}', [ProductController::class, 'stockUpdate'])->name('stock.update');
     });
 
     // Admin Sliders
@@ -273,8 +281,15 @@ Route::middleware(['auth:admin'])->group(function() {
     Route::prefix('/return')->group(function() {
         Route::get('/order/request', [ReturnOrderController::class, 'request'])->name('return.request');
         Route::get('/request/aprove/{id}', [ReturnOrderController::class, 'aprove'])->name('return.aprove');
-
         Route::get('/all/order/request', [ReturnOrderController::class, 'allRequest'])->name('all.request');
+    });
+
+    // Admin APROVE Users Reviews
+    Route::prefix('review')->group(function() {
+        Route::get('/pedding', [ProductReviewController::class, 'pedding'])->name('review.pedding');
+        Route::get('/aprove/{id}', [ProductReviewController::class, 'aprove'])->name('review.aprove');
+        Route::get('/publish', [ProductReviewController::class, 'publish'])->name('review.publish');
+        Route::get('/recuse/{id}', [ProductReviewController::class, 'recuse'])->name('review.recuse');
     });
 });
 
@@ -386,6 +401,8 @@ Route::prefix('blog')->group(function() {
     Route::get('/category/post/{id}', [HomeBlogController::class, 'category'])->name('blog.category.post');
 });
 
+// User - Product Review 
+Route::post('/store', [ProductReviewController::class, 'store'])->name('review.store');
 
 
 // Languages

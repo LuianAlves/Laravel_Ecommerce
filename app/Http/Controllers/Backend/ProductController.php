@@ -184,6 +184,35 @@ class ProductController extends Controller
         return redirect()->back()->with($noti);
     }
 
+    //----------------- Product Stock  ------------------- //
+    public function stock()
+    {
+        $products = Product::orderBy('product_qty', 'ASC')->get();
+        return view('admin.backend.products.stock.index', compact('products'));
+    }
+
+    public function stockEdit($id)
+    {
+        $products = Product::findOrFail($id);
+
+        return view('admin.backend.products.stock.edit', compact('products'));
+    }
+
+    public function stockUpdate(Request $request, $id) {
+
+        Product::findOrFail($id)->update([
+            'product_qty' => $request->product_qty,
+            'updated_at' => Carbon::now(),
+        ]);
+
+        $noti = array(
+            'message' => 'Product Stock Updated Successfully!',
+            'alert-type' => 'info',
+        );
+
+        return redirect()->route('product.stock')->with($noti);
+    }
+    
     //----------------- Select Sub Category ------------------- //
 
     public function getSubSubCategory($subcategory_id) {
