@@ -141,6 +141,10 @@
 * DASHBOARD - Cards com quantidade de Vendas: Diárias, Mensais, Anuais .. Pedidos e Reviews Pendentes, Pedidos Entregues
 * DASHBOARD - Configuração Pedidos Recentes, Falta de Estoque, Reviews Recentes
 
+* Acrescentado review com estrela de 1 a 5 para produtos
+* Criado uma Página de Compras
+* Configurando filtro de categorias e marcas na página de compras
+
 
 
 

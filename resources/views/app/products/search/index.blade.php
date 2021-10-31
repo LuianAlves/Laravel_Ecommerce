@@ -2,18 +2,16 @@
 @section('content')
 
 @section('title')
-    {{ session()->get('language') == 'portuguese' ? 'Sessão de Tags' : 'Tags Wise Product' }}
+    {{ session()->get('language') == 'portuguese' ? 'Pesquisa de Produtos' : 'Search Product' }}
 @endsection
+
 
 <div class="breadcrumb">
     <div class="container">
         <div class="breadcrumb-inner">
             <ul class="list-inline list-unstyled">
                 <li><a href="#">Home</a></li>
-                <li class='active'>Tags</li>
-                @foreach($products as $bread)
-                    <li class='active'>{{ session()->get('language') == 'portuguese' ? $bread->product_tag_pt : $bread->product_tag_en  }} </li>
-                @endforeach
+                <li class='active'>{{ session()->get('language') == 'portuguese' ? 'Pesquisa de Produtos' : 'Product Search' }}</li>
             </ul>
         </div>
     </div>
@@ -171,11 +169,11 @@
                                 <div class="excerpt-normal hidden-sm hidden-md"> Lorem ipsum dolor sit amet,
                                     consectetur adipiscing elit </div>
                             </div>
-                            <!-- /.caption -->
                         </div>
-                        <!-- /.container-fluid -->
                     </div>
                 </div>
+                
+                <span class="badge"> {{ count($products) }}</span>
 
                 <div class="clearfix filters-container m-t-10">
                     <div class="row">
@@ -188,9 +186,7 @@
                                                 class="icon fa fa-th-list"></i>List</a></li>
                                 </ul>
                             </div>
-                            <!-- /.filter-tabs -->
                         </div>
-                        <!-- /.col -->
                         <div class="col col-sm-12 col-md-6">
                             <div class="col col-sm-3 col-md-6 no-padding">
                                 <div class="lbl-cnt"> <span class="lbl">Sort by</span>
@@ -206,11 +202,8 @@
                                             </ul>
                                         </div>
                                     </div>
-                                    <!-- /.fld -->
                                 </div>
-                                <!-- /.lbl-cnt -->
                             </div>
-                            <!-- /.col -->
                             <div class="col col-sm-3 col-md-6 no-padding">
                                 <div class="lbl-cnt"> <span class="lbl">Show</span>
                                     <div class="fld inline">
@@ -231,30 +224,14 @@
                                             </ul>
                                         </div>
                                     </div>
-                                    <!-- /.fld -->
                                 </div>
-                                <!-- /.lbl-cnt -->
                             </div>
-                            <!-- /.col -->
                         </div>
-                        <!-- /.col -->
+                        {{-- Paginate --}}
                         <div class="col col-sm-6 col-md-4 text-right">
-                            <div class="pagination-container">
-                                <ul class="list-inline list-unstyled">
-                                    <li class="prev"><a href="#"><i class="fa fa-angle-left"></i></a></li>
-                                    <li><a href="#">1</a></li>
-                                    <li class="active"><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li><a href="#">4</a></li>
-                                    <li class="next"><a href="#"><i class="fa fa-angle-right"></i></a></li>
-                                </ul>
-                                <!-- /.list-inline -->
-                            </div>
-                            <!-- /.pagination-container -->
+                            {{ $products->links('app.custom_paginate.custom') }} 
                         </div>
-                        <!-- /.col -->
                     </div>
-                    <!-- /.row -->
                 </div>
 
                 <div class="search-result-container ">
@@ -469,21 +446,11 @@
                                 @endforeach    
                             </div>
                         </div>
-                        
-
 
                     </div>
 
                     {{-- Paginate --}}
-                    <div class="clearfix filters-container">
-                        <div class="text-right">
-                            <div class="pagination-container">
-                                <ul class="list-inline list-unstyled">
-                                    {{ $products->links() }}
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                    {{ $products->links('app.custom_paginate.custom') }} 
 
                 </div>
 

@@ -111,16 +111,16 @@
         <div class="container">
             <div class="col-xs-12 col-sm-6 no-padding social">
                 <ul class="link">
-                    @if($setting->facebook != null)
+                    @if(!empty($setting->facebook))
                         <li class="fb pull-left"><a rel="nofollow" href="{{ url($setting->facebook) }}" title="Facebook"></a></li>
                     @endif
-                    @if($setting->twitter != null)
+                    @if(!empty($setting->twitter))
                         <li class="tw pull-left"><a rel="nofollow" href="{{ url($setting->twitter) }}" title="Twitter"></a></li>
                     @endif
-                    @if($setting->linkedin != null)
+                    @if(!empty($setting->linkedin))
                         <li class="linkedin pull-left"><a rel="nofollow" href="{{ url($setting->linkedin) }}" title="Linkedin"></a></li>
                     @endif
-                    @if($setting->youtube != null)
+                    @if(!empty($setting->youtube))
                         <li class="youtube pull-left"><a rel="nofollow" href="{{ url($setting->youtube) }}" title="Youtube"></a></li>
                     @endif
                 </ul>

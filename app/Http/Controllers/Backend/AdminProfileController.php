@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\Admin;
+use File;
 use Auth;
 
 class AdminProfileController extends Controller
@@ -25,11 +26,15 @@ class AdminProfileController extends Controller
 
         $data->name = $request->name;
         $data->email = $request->email;
+
+        if (!File::exists('upload/admin_images')) {
+            File::makeDirectory('upload/admin_images/', 0777, true, true);
+        } 
         
         if($request->file('profile_photo_path')) {
             $file = $request->file('profile_photo_path');
             @unlink(public_path('upload/admin_images/'.$data->profile_photo_path));
-            $filename = date('dmYHi').$file->getClientOriginalExtension();
+            $filename = date('dmYHi'). '.' . $file->getClientOriginalExtension();
             $file->move(public_path('upload/admin_images'), $filename);
 
             $data['profile_photo_path'] = $filename;

@@ -13,7 +13,9 @@ class LanguageController extends Controller
         session()->forget('language');
         Session::put('language', 'portuguese');
 
-        return redirect()->back();
+        $url = request()->headers->get('referer');
+
+        return redirect()->to($url);
     }
 
     public function English() {
@@ -21,6 +23,9 @@ class LanguageController extends Controller
         session()->forget('language');
         Session::put('language', 'english');
 
-        return redirect()->back();
+        $url = request()->headers->get('referer');
+
+        return redirect()->to($url);
+
     }
 }

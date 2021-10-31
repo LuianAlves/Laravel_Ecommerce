@@ -11,8 +11,9 @@
             <div class="breadcrumb-inner">
                 <ul class="list-inline list-unstyled">
                     <li><a href="#">Home</a></li>
-                    <li><a href="#">{{ $products->category_name_en }}</a></li>
-                    <li class='active'>{{ $products->sub_subcategory_id }}</li>
+                    <li class="active">{{ session()->get('language') == 'portuguese' ? $products->category->category_name_pt : $products->category->category_name_en }}</li>
+                    <li class='active'>{{ session()->get('language') == 'portuguese' ? $products->subcategory->subcategory_name_pt : $products->subcategory->subcategory_name_en }}</li>
+                    <li class='active'>{{ session()->get('language') == 'portuguese' ? $products->subsubcategory->sub_subcategory_name_pt : $products->subsubcategory->sub_subcategory_name_en }}</li>
                 </ul>
             </div>
         </div>
@@ -82,19 +83,26 @@
                             <div class='col-sm-6 col-md-7 product-info-block'>
                                 <div class="product-info">
                                     <h1 class="name" id="pname">{{ session()->get('language') == 'portuguese' ? $products->product_name_pt : $products->product_name_en }}</h1>
-
-                                    <div class="rating-reviews m-t-20">
-                                        <div class="row">
-                                            <div class="col-sm-3">
-                                                <div class="rating rateit-small"></div>
-                                            </div>
-                                            <div class="col-sm-8">
-                                                <div class="reviews">
-                                                    <a href="#" class="lnk">(13 Reviews)</a>
+                                    
+                                    @if(!empty($reviews))
+                                        <div class="rating-reviews m-t-20">
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    @for ($i = 1; $i <= round($rating_media); $i++)
+                                                        <span class="fa fa-star checked"></span>
+                                                    @endfor
+                                                    @for ($i = 5; $i > round($rating_media); $i--)
+                                                        <span class="fa fa-star"></span>
+                                                    @endfor
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <div class="reviews">
+                                                        ({{ count($reviews) }}) {{ session()->get('language') == 'portuguese' ? ' Comentários' : ' Reviews' }}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    @endif
 
                                     {{-- Short Description --}}
                                     <div class="description-container m-t-20">
@@ -250,51 +258,64 @@
                                             <div class="product-reviews">
                                                 <h4 class="title">{{ session()->get('language') == 'portuguese' ? 'Opinião dos Consumidores' : 'Customer Reviews'}}</h4>
 
-                                                @php
-                                                    $reviews = App\Models\ProductReview::where('status', '!=', 0)->where('product_id', $products->id)->latest()->get();
-                                                @endphp
-
-                                                <div class="reviews">
-                                                    @foreach($reviews as $review)
-                                                        @if($review->user_id == Auth::id())
-                                                        <div class="row">
-                                                            <div class="col-md-4">
-                                                                <img src="{{ !empty($review->user->profile_photo_path) ? url('upload/user_images/'.$review->user->profile_photo_path) : url('upload/no_image.jpg') }}" style="border-radius: 50%; width: 30px; height: 30px; margin: 10px;">
-                                                                <span style="font-size: 12px; font-weight: bold;">{{ $review->user->name }}</span>
+                                                @if(!empty($reviews))
+                                                    <div class="reviews">
+                                                        @foreach($reviews as $review)
+                                                            @if($review->user_id == Auth::id())
+                                                            <div class="row">
+                                                                <div class="col-md-8">
+                                                                    {{-- Image/Name --}}
+                                                                    <img src="{{ !empty($review->user->profile_photo_path) ? url('upload/user_images/'.$review->user->profile_photo_path) : url('upload/no_image.jpg') }}" style="border-radius: 50%; width: 30px; height: 30px; margin: 10px;">
+                                                                    <span style="font-size: 12px; font-weight: bold;">{{ $review->user->name }}</span>                                                              
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="review text-right" style="background: rgb(206, 226, 252);">
-                                                            <div class="review-title">
-                                                                <span class="summary">{{ $review->summary }}</span>
-                                                                <span class="date">
-                                                                    <i class="fa fa-calendar"></i>
-                                                                    <span>{{ Carbon\Carbon::parse($review->created_at)->diffForHumans() }}</span>
-                                                                </span>
+                                                            <div class="review text-right" style="background: rgb(206, 226, 252);">
+                                                                {{-- Rating --}}
+                                                                @for ($i = 1; $i <= $review->rating; $i++)
+                                                                    <span class="fa fa-star checked"></span>
+                                                                @endfor
+                                                                @for ($i = 5; $i > $review->rating; $i--)
+                                                                    <span class="fa fa-star"></span>
+                                                                @endfor
+                                                                <div class="review-title">
+                                                                    <span class="summary">{{ $review->summary }}</span>
+                                                                    <span class="date">
+                                                                        <i class="fa fa-calendar"></i>
+                                                                        <span>{{ Carbon\Carbon::parse($review->created_at)->diffForHumans() }}</span>
+                                                                    </span>
+                                                                </div>
+                                                                <div class="text">"{{ $review->comment }}"</div>
                                                             </div>
-                                                            <div class="text">"{{ $review->comment }}"</div>
-                                                        </div>
-                                                        <hr>
-                                                        @else   
-                                                        <div class="row">
-                                                            <div class="col-md-4">
-                                                                <img src="{{ !empty($review->user->profile_photo_path) ? url('upload/user_images/'.$review->user->profile_photo_path) : url('upload/no_image.jpg') }}" style="border-radius: 50%; width: 30px; height: 30px; margin: 10px;">
-                                                                <span style="font-size: 12px; font-weight: bold;">{{ $review->user->name }}</span>
+                                                            <hr>
+                                                            @else   
+                                                            <div class="row">
+                                                                <div class="col-md-8">
+                                                                    <img src="{{ !empty($review->user->profile_photo_path) ? url('upload/user_images/'.$review->user->profile_photo_path) : url('upload/no_image.jpg') }}" style="border-radius: 50%; width: 30px; height: 30px; margin: 10px;">
+                                                                    <span style="font-size: 12px; font-weight: bold;">{{ $review->user->name }}</span>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="review">
-                                                            <div class="review-title">
-                                                                <span class="summary">{{ $review->summary }}</span>
-                                                                <span class="date">
-                                                                    <i class="fa fa-calendar"></i>
-                                                                    <span>{{ Carbon\Carbon::parse($review->created_at)->diffForHumans() }}</span>
-                                                                </span>
+                                                            <div class="review">                                                                                                                                                                                    
+                                                                {{-- Rating --}}
+                                                                @for ($i = 1; $i <= $review->rating; $i++)
+                                                                    <span class="fa fa-star checked"></span>
+                                                                @endfor
+                                                                @for ($i = 5; $i > $review->rating; $i--)
+                                                                    <span class="fa fa-star"></span>
+                                                                @endfor
+                                                                <div class="review-title" style="margin-top: 10px;">
+                                                                    <span class="summary">{{ $review->summary }}</span>
+                                                                    <span class="date">
+                                                                        <i class="fa fa-calendar"></i>
+                                                                        <span>{{ Carbon\Carbon::parse($review->created_at)->diffForHumans() }}</span>
+                                                                    </span>
+                                                                </div>
+                                                                <div class="text">"{{ $review->comment }}"</div>
                                                             </div>
-                                                            <div class="text">"{{ $review->comment }}"</div>
-                                                        </div>
-                                                        <hr>
-                                                        @endif
-                                                    @endforeach
-                                                </div>
+                                                            <hr>
+                                                            @endif
+                                                        @endforeach
+                                                    </div>
+                                                @endif
                                             </div>
 
                                             <div class="product-add-review">
@@ -313,6 +334,30 @@
                                                                 @csrf
 
                                                                 <input type="hidden" name="product_id" value="{{$products->id}}">
+
+                                                                <table class="table">	
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th class="cell-label">&nbsp;</th>
+                                                                            <th>1 star</th>
+                                                                            <th>2 stars</th>
+                                                                            <th>3 stars</th>
+                                                                            <th>4 stars</th>
+                                                                            <th>5 stars</th>
+                                                                        </tr>
+                                                                    </thead>	
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td class="cell-label">Quality</td>
+                                                                            <td><input type="radio" name="quality" class="radio" value="1"></td>
+                                                                            <td><input type="radio" name="quality" class="radio" value="2"></td>
+                                                                            <td><input type="radio" name="quality" class="radio" value="3"></td>
+                                                                            <td><input type="radio" name="quality" class="radio" value="4"></td>
+                                                                            <td><input type="radio" name="quality" class="radio" value="5" selected></td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+
                                                                 <div class="row">
                                                                     <div class="col-sm-6">
                                                                         <div class="form-group">
@@ -343,6 +388,7 @@
                                         </div>
                                     </div>
 
+                                    
                                     <div id="tags" class="tab-pane">
                                         <div class="product-tag">
 
@@ -412,8 +458,15 @@
                                                             {{ session()->get('language') == 'portuguese' ? $prod->product_name_pt : $prod->product_name_en }}
                                                         </a>
                                                 </h3>
-                                                <div class="rating rateit-small"></div>
-                                                <div class="description"></div>
+                                                
+                                                @if(!empty($rating_media))
+                                                    @for ($i = 1; $i <= round($rating_media); $i++)
+                                                        <span class="fa fa-star checked"></span>
+                                                    @endfor
+                                                    @for ($i = 5; $i > round($rating_media); $i--)
+                                                        <span class="fa fa-star"></span>
+                                                    @endfor
+                                                @endif
 
                                                 <div class="product-price">
                                                     @php
@@ -422,10 +475,10 @@
                                                     @endphp
 
                                                     <span class="price">
-                                                        {{$price}} 
+                                                        {{ session()->get('language') == 'portuguese' ? 'R$' : '$' }} {{$price}} 
                                                     </span>
                                                     <span class="price-before-discount">
-                                                        {{$prod->selling_price}}
+                                                        {{ session()->get('language') == 'portuguese' ? 'R$' : '$' }} {{$prod->selling_price}}
                                                     </span>
                                                 </div>
 
@@ -467,9 +520,16 @@
                     </section>
                     <!-- ============================================== UPSELL PRODUCTS : END ============================================== -->
 
-                </div><!-- /.col -->
+                </div>
                 <div class="clearfix"></div>
-            </div><!-- /.row -->
-        </div><!-- /.container -->
-    </div><!-- /.body-content -->
+            </div>
+        </div>
+    </div>
 @endsection
+
+
+<style>
+    .checked {
+        color: orange;
+    }
+</style>

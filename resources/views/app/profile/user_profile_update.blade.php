@@ -37,6 +37,9 @@
                         <span class="text-danger">*</span></label>
                     <input name="profile_photo_path" type="file" class="form-control unicase-form-control text-input" value="{{ $user->phone }}"
                         required>
+                    @error('profile_photo_path')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <div class="form-group">

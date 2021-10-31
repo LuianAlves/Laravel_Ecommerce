@@ -22,6 +22,8 @@ use App\Http\Controllers\Frontend\TagController;
 use App\Http\Controllers\Frontend\LinksController;
 use App\Http\Controllers\Frontend\ModalController;
 use App\Http\Controllers\Frontend\CartController;
+use App\Http\Controllers\Frontend\ShopController;
+
 use App\Http\Controllers\Frontend\Blog\HomeBlogController;
 
 // Backend
@@ -392,6 +394,9 @@ Route::group(['prefix' => 'my/orders', 'middleware' => ['user', 'auth']], functi
     Route::get('/return/view', [OrderController::class, 'returnView'])->name('my.return.view');
     // Cancel Order View
     Route::get('/cancel/view', [OrderController::class, 'cancelView'])->name('my.cancel.view');
+
+    // User - Order Tracking
+    Route::post('/tracking', [OrderController::class, 'orderTrack'])->name('order.tracking');
 }); 
 
 // BLOG
@@ -404,6 +409,14 @@ Route::prefix('blog')->group(function() {
 // User - Product Review 
 Route::post('/store', [ProductReviewController::class, 'store'])->name('review.store');
 
+// PRODUCT SEARCH
+Route::post('/search', [IndexController::class, 'searchProduct'])->name('product.search');
+
+// Shop Page
+Route::prefix('shop')->group(function() {
+    Route::get('/view', [ShopController::class, 'index'])->name('shop.index');
+    Route::post('/filter', [ShopController::class, 'filter'])->name('shop.filter');
+});
 
 // Languages
 Route::get('/language/portuguese', [LanguageController::class, 'Portuguese'])->name('language.portuguese');

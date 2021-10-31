@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\MultiImages;
+use App\Models\ProductReview;
 
 class ProductDetailsController extends Controller
 {
@@ -33,6 +34,16 @@ class ProductDetailsController extends Controller
 
         $cat_related_id = $products->category_id;
         $related_prod = Product::where('category_id', $cat_related_id)->where('id', '!=', $id)->inRandomOrder()->limit(6)->get();
+
+        $reviews = ProductReview::where('status', '!=', 0)->where('product_id', $products->id)->latest()->get();
+        
+        if (ProductReview::where('status', 1)->where('product_id', $products->id)->count('id', '>=', 1)) {
+            
+            $rating_sum = $reviews->sum('rating');
+            $rating_media = $rating_sum / count($reviews);
+
+            return view('app.products.details.index', compact('products', 'images', 'category', 'product_color_en', 'product_color_pt', 'product_size_en', 'product_size_pt', 'related_prod', 'reviews', 'rating_media'));
+        }
 
         return view('app.products.details.index', compact('products', 'images', 'category', 'product_color_en', 'product_color_pt', 'product_size_en', 'product_size_pt', 'related_prod'));
     }

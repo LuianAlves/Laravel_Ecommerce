@@ -17,15 +17,15 @@
     $reviews = App\Models\ProductReview::where('status', 0)->get();
 
     $orders = App\Models\Order::orderBy('id', 'DESC')
-        ->limit(3)
+        ->limit(5)
         ->get();
 
     $products = App\Models\Product::where('product_qty', '<=', 0)
         ->orderBy('product_name_en', 'ASC')
-        ->limit(10)
-        ->get();
+        ->simplePaginate(5);
 
-    $reviews = App\Models\ProductReview::where('status', 0)->latest()->limit(5)->get();
+    $count_reviews = App\Models\ProductReview::where('status', 0)->get();
+    $reviews = App\Models\ProductReview::where('status', 0)->latest()->simplePaginate(5);
     @endphp
 
 
@@ -115,7 +115,7 @@
                             </div>
                             <div>
                                 <p class="text-mute mt-20 mb-0 font-size-16">Pending Reviews</p>
-                                <h3 class="text-white mb-0 font-weight-500">{{ count($reviews) }} <a
+                                <h3 class="text-white mb-0 font-weight-500">{{ count($count_reviews) }} <a
                                         href="{{ route('review.pedding') }}" class="text-warning font-size-16">
                                         Review(s)</a></h3>
                             </div>
@@ -229,7 +229,7 @@
                     <div class="box">
                         <div class="box-header">
                             <h4 class="box-title align-items-start flex-column">
-                                Product Stock Out
+                                Product Stock Out <span class="badge badge-success badge-pill"> {{ count($products) }}
                             </h4>
                         </div>
                         <div class="box-body">
@@ -274,6 +274,9 @@
                                     </tbody>
                                 </table>
                             </div>
+                        </div>
+                        <div class="box-footer">
+                            {{ $products->links() }}
                         </div>
                     </div>
                 </div>
@@ -336,6 +339,9 @@
                                     </tbody>
                                 </table>
                             </div>
+                        </div>
+                        <div class="box-footer">
+                            {{ $reviews->links() }}
                         </div>
                     </div>
                 </div>

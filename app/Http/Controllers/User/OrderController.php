@@ -94,4 +94,27 @@ class OrderController extends Controller
 
         return view('app.profile.my_orders.cancel_orders.index', compact('orders'));
     }
+
+    // Order Tracking
+
+    public function orderTrack(Request $request) {
+
+        $invoice = $request->code;
+
+        $track = Order::where('invoice_no', $invoice)->first();
+        $products = OrderItem::where('order_id', $track->id)->get();
+
+        if($track) {
+
+            return view('app.profile.my_orders.tracking.track_order', compact('track', 'products'));
+        } else {
+
+            $noti = [
+                'message' => 'Invoice Code is Invalid!',
+                'alert-type' => 'error'
+            ];
+
+            return redirect()->back()->with($noti);
+        }
+    }
 }

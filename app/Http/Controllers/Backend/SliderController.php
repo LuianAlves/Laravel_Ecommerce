@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Slider;
 use Carbon\Carbon;
 use Image;
+use File;
 
 class SliderController extends Controller
 {
@@ -41,6 +42,10 @@ class SliderController extends Controller
     public function store(Request $request)
     {   
         $request->validate(['slider_image' => 'required']);
+
+        if (!File::exists('upload/sliders')) {
+            File::makeDirectory('upload/sliders/', 0777, true, true);
+        }
 
             $image = $request->file('slider_image');
             $name_gen = hexdec(uniqid()). '.' . $image->getClientOriginalExtension();

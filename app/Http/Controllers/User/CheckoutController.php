@@ -34,7 +34,7 @@ class CheckoutController extends Controller
                     'alert-type' => 'error'
                 ];
     
-                return redirect()->back()->with($noti);
+                return redirect('/')->with($noti);
             }
 
         } else {

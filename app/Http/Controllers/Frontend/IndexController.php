@@ -108,4 +108,13 @@ class IndexController extends Controller
                 return redirect()->back();
             }
     }
+
+    public function searchProduct(Request $request) {
+        $item = $request->search;
+
+        $products = Product::where('status', 1)->orderBy('id', 'DESC')->limit(6)->get();
+        $subcategory = SubCategory::orderBy('category_name_en', 'ASC')->get();
+
+        return view('app.products.search.index', compact('products', 'category'));
+    }
 }

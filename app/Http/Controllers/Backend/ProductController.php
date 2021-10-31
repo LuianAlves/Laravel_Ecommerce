@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Image;
+use File; 
 
 use App\Models\Brand;
 use App\Models\Product;
@@ -37,6 +38,9 @@ class ProductController extends Controller
     public function store(Request $request)
     {   
         // Thumb
+        if (!File::exists('upload/products/thumbnail')) {
+            File::makeDirectory('upload/products/thumbnail/', 0777, true, true);
+        }
 
         $image = $request->file('product_thumnail');
         $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
@@ -79,6 +83,10 @@ class ProductController extends Controller
             ]);
 
             // Multi Images
+            if (!File::exists('upload/products/multi_images')) {
+                File::makeDirectory('upload/products/multi_images/', 0777, true, true);
+            }
+
             $images = $request->file('multi_images');
 
             foreach ($images as $img) {
@@ -237,6 +245,11 @@ class ProductController extends Controller
     public function storeImages(Request $request) {
 
         $product_id = $request->id;
+
+        if (!File::exists('upload/products/multi_images')) {
+            File::makeDirectory('upload/products/multi_images/', 0777, true, true);
+        }
+
         $images = $request->file('multi_images');
 
         foreach ($images as $img) {
@@ -262,6 +275,7 @@ class ProductController extends Controller
     // Update
     public function updateThumnail(Request $request) {
         $product_id = $request->id;
+
         $old_image = $request->old_img;
         unlink($old_image);
 

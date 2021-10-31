@@ -9,22 +9,25 @@
                             <li><a href="{{ route('wishlist.index') }}"><i class="icon fa fa-heart"></i> @if (session()->get('language') == 'portuguese') Favoritos @else Wishlist @endif</a></li>
                         @endauth
                         <li><a href="{{ route('myCart.index') }}"><i class="icon fa fa-shopping-cart"></i> @if (session()->get('language') == 'portuguese') Carrinho @else My Cart @endif</a></li>
+                        
+                        @auth  
                         <li><a href="{{ route('checkout.index') }}"><i class="icon fa fa-check"></i>@if (session()->get('language') == 'portuguese') Finalizar @else Checkout @endif</a></li>
-
-                        @auth
-                            <li><a href="{{ url('/user/profile') }}"><i class="icon fa fa-user"></i>{{ session()->get('language') == 'portuguese' ? 'Minha Conta' : 'My Account' }}</a>
-                            </li>
-                            <li><a href="{{ url('/user/logout') }}">{{ session()->get('language') == 'portuguese' ? 'Deslogar' : 'Logout' }}</a>
-                            </li>
+                        <li><a href="" type="button" data-toggle="modal" data-target="#orderTrack"><i class="icon fa fa-check"></i>{{ session()->get('language') == 'portuguese' ? 'Rastrear Pedido' : 'Order Tracking' }}</a></li>
+        
+                        <li>
+                            <a href="{{ url('/user/profile') }}"><i class="icon fa fa-user"></i>{{ session()->get('language') == 'portuguese' ? 'Minha Conta' : 'My Account' }}</a>
+                        </li>
+                        <li>
+                            <a href="{{ url('/user/logout') }}">{{ session()->get('language') == 'portuguese' ? 'Deslogar' : 'Logout' }}</a>
+                        </li>
                         @else
-                            <li><a href="{{ url('/login') }}"><i
-                                        class="icon fa fa-lock"></i>{{ session()->get('language') == 'portuguese' ? 'Entrar / Registrar' : 'Login / Register' }}</a>
-                            </li>
+                        <li><a href="{{ url('/login') }}"><i
+                            class="icon fa fa-lock"></i>{{ session()->get('language') == 'portuguese' ? 'Entrar / Registrar' : 'Login / Register' }}</a>
+                        </li>
                         @endauth
 
                     </ul>
                 </div>
-                <!-- /.cnt-account -->
 
                 <div class="cnt-block">
                     <ul class="list-unstyled list-inline">
@@ -52,15 +55,12 @@
                     </ul>
                     <!-- /.list-unstyled -->
                 </div>
-                <!-- /.cnt-cart -->
                 <div class="clearfix"></div>
             </div>
-            <!-- /.header-top-inner -->
         </div>
-        <!-- /.container -->
     </div>
-    <!-- /.header-top -->
-    <!-- ============================================== TOP MENU : END ============================================== -->
+
+    <!-- ============================================== Barra de Pesquisa ============================================== -->
     <div class="main-header">
         <div class="container">
             <div class="row">
@@ -89,10 +89,11 @@
                     <!-- /.contact-row -->
                     <!-- ============================================================= SEARCH AREA ============================================================= -->
                     <div class="search-area">
-                        <form>
+                        <form action="{{ route('product.search') }}" method="post">
+                            @csrf
                             <div class="control-group">
-                                <input class="search-field" placeholder="{{ session()->get('language') == 'portuguese' ? 'Pesquisar aqui...' : 'Search here...' }}" />
-                                <a class="search-button" href="#"></a>
+                                <input name="search" class="search-field" placeholder="{{ session()->get('language') == 'portuguese' ? 'Pesquisar aqui...' : 'Search here...' }}" />
+                                <button class="search-button" type="submit"></button>
                             </div>
                         </form>
                     </div>
@@ -132,8 +133,11 @@
                                         <span class='price' id="cartSubTotal"></span> 
                                     </div>
                                     <div class="clearfix"></div>
-                                    <a href="checkout.html"
-                                        class="btn btn-upper btn-primary btn-block m-t-20">{{ session()->get('language') == 'portuguese' ? 'Finalizar' : 'Checkout' }}</a>
+                                    @auth  
+                                        <a href="{{ route('checkout.index') }}" class="btn btn-upper btn-primary btn-block m-t-20">{{ session()->get('language') == 'portuguese' ? 'Finalizar' : 'Checkout' }}</a>
+                                    @else
+                                        <a href="{{ route('login') }}" class="btn btn-upper btn-primary btn-block m-t-20">Login</a>
+                                    @endauth
                                 </div>
                             </li>
                         </ul>
@@ -218,6 +222,7 @@
                                         </ul>
                                     </li>
                                 @endforeach
+                                <li> <a href="{{ url('/shop/view') }}">{{ session()->get('language') == 'portuguese' ? 'Compras' : 'Shop'}}</a> </li>
                                 <li class="dropdown  navbar-right special-menu"> <a href="#">{{ session()->get('language') == 'portuguese' ? 'Ofertas de Hoje' : 'Todays offer'}}</a> </li>
                                 <li class="dropdown  navbar-right special-menu"> <a href="{{ route('blog.home') }}">Blog</a> </li>
                             </ul>
@@ -236,7 +241,43 @@
         <!-- /.container-class -->
 
     </div>
-    <!-- /.header-nav -->
-    <!-- ============================================== NAVBAR : END ============================================== -->
+
+
+    {{-- ============ MODAL ORDER TRACKING ============ --}}
+    <div class="modal fade" id="orderTrack" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{ session()->get('language') == 'portuguese' ? 'Rastreie seu Pedido' : 'Track Your Order' }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                
+                <form action="{{ route('order.tracking') }}" method="post">
+                    @csrf
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>{{ session()->get('language') == 'portuguese' ? 'Código do Pedido' : 'Invoice Code' }} <span class="text-danger"> *</span></label>
+                            <input class="form-control" type="text" name="code" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <button class="btn btn-md btn-success" type="submit">{{ session()->get('language') == 'portuguese' ? 'Rastrear' : 'Track' }}</button>
+                            </div>  
+                        </div>                    
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
 
 </header>

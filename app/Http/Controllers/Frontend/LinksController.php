@@ -17,8 +17,10 @@ class LinksController extends Controller
 
         $category = Category::orderBy('category_name_en', 'ASC')->get();
         $subcategory = SubCategory::inRandomOrder()->limit(10)->get();
+
+        $breadsubcat = SubCategory::with('category')->where('id', $subcat_id)->get();
         
-        return view('app.products.links.subcategory', compact('products', 'category', 'subcategory'));
+        return view('app.products.links.subcategory', compact('products', 'category', 'subcategory', 'breadsubcat'));
     }
     
     public function subSubCategory($subsubcat_id, $slug) {
@@ -26,9 +28,11 @@ class LinksController extends Controller
         
         $category = Category::orderBy('category_name_en', 'ASC')->get();
         $subcategory = SubCategory::inRandomOrder()->limit(10)->get();
-
         $subsubcategory = SubSubCategory::orderBy('sub_subcategory_name_en', 'ASC')->get();
 
-        return view('app.products.links.sub_subcategory', compact('products', 'category', 'subcategory', 'subsubcategory'));
+        $breadsubsubcat = SubSubCategory::with('category', 'subcategory')->where('id', $subsubcat_id)->get();
+
+
+        return view('app.products.links.sub_subcategory', compact('products', 'category', 'subcategory', 'subsubcategory', 'breadsubsubcat'));
     }
 }

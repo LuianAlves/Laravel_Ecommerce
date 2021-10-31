@@ -83,7 +83,7 @@ class OrderStatusController extends Controller
     public function processingUpdate($order_id) {
         $status = Order::where('id', $order_id)->update([
             'status' => 'Picked',
-            'processing_date' => Carbon::now()
+            'picked_date' => Carbon::now()
         ]);
 
         $noti = [
@@ -104,7 +104,7 @@ class OrderStatusController extends Controller
     public function pickedUpdate($order_id) {
         $status = Order::where('id', $order_id)->update([
             'status' => 'Shipped',
-            'processing_date' => Carbon::now()
+            'shipped_date' => Carbon::now()
         ]);
 
         $noti = [
@@ -126,7 +126,7 @@ class OrderStatusController extends Controller
        
         $status = Order::where('id', $order_id)->update([
             'status' => 'Delivered',
-            'processing_date' => Carbon::now()
+            'delivered_date' => Carbon::now()
         ]);
 
         $noti = [
@@ -154,7 +154,7 @@ class OrderStatusController extends Controller
     public function cancelUpdate($order_id) {
         $status = Order::where('id', $order_id)->update([
             'status' => 'Cancel',
-            'processing_date' => Carbon::now()
+            'cancel_date' => Carbon::now()
         ]);
 
         $noti = [

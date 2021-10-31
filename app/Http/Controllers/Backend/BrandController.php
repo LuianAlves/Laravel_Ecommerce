@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Brand;
+use File;
 use Image;
 
 class BrandController extends Controller
@@ -43,6 +44,10 @@ class BrandController extends Controller
             'brand_name_pt' => 'required',
             'brand_image' => 'required',
         ]);
+
+        if (!File::exists('upload/brand')) {
+            File::makeDirectory('upload/brand/', 0777, true, true);
+        } 
 
         $image = $request->file('brand_image');
         $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();

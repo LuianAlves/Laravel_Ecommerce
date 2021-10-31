@@ -17,6 +17,7 @@ use Laravel\Fortify\Features;
 use Laravel\Fortify\Fortify;
 use Laravel\Fortify\Http\Requests\LoginRequest;
 
+
 class AdminController extends Controller
 {
     /**
@@ -100,7 +101,7 @@ class AdminController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Laravel\Fortify\Contracts\LogoutResponse
      */
-    public function destroy(Request $request): LogoutResponse
+    public function destroy(Request $request)
     {
         $this->guard->logout();
 
@@ -108,7 +109,7 @@ class AdminController extends Controller
 
         $request->session()->regenerateToken();
 
-        return app(LogoutResponse::class);
+        return redirect()->route('admin.login');
     }
 }
 

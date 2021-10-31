@@ -10,8 +10,13 @@
     <div class="container">
         <div class="breadcrumb-inner">
             <ul class="list-inline list-unstyled">
-                <li><a href="#">Home</a></li>
-                <li class='active'>Product Tags</li>
+                <li><a href="{{ url('/') }}">Home</a></li>
+                @foreach($breadsubcat as $bread)
+                    <li class='active'>{{ session()->get('language') == 'portuguese' ? $bread->category->category_name_pt : $bread->category->category_name_en }}</li>
+                @endforeach
+                @foreach($breadsubcat as $bread)
+                    <li class='active'>{{ session()->get('language') == 'portuguese' ? $bread->subcategory_name_pt : $bread->subcategory_name_en }}</li>
+                @endforeach
             </ul>
         </div>
     </div>
@@ -175,6 +180,20 @@
                     </div>
                 </div>
 
+                @foreach($breadsubcat as $bread)
+                    <span class="badge badge-danger">
+                        {{ session()->get('language') == 'portuguese' ? $bread->category->category_name_pt : $bread->category->category_name_en }}
+                    </span>
+                @endforeach
+
+                    /
+
+                @foreach($breadsubcat as $bread)
+                    <span class="badge badge-info" style="background: cadetblue;">
+                        {{ session()->get('language') == 'portuguese' ? $bread->subcategory_name_pt : $bread->subcategory_name_en }}
+                    </span>
+                @endforeach
+
                 <div class="clearfix filters-container m-t-10">
                     <div class="row">
                         <div class="col col-sm-6 col-md-2">
@@ -229,30 +248,14 @@
                                             </ul>
                                         </div>
                                     </div>
-                                    <!-- /.fld -->
                                 </div>
-                                <!-- /.lbl-cnt -->
                             </div>
-                            <!-- /.col -->
                         </div>
-                        <!-- /.col -->
+                        {{-- Paginate --}}
                         <div class="col col-sm-6 col-md-4 text-right">
-                            <div class="pagination-container">
-                                <ul class="list-inline list-unstyled">
-                                    <li class="prev"><a href="#"><i class="fa fa-angle-left"></i></a></li>
-                                    <li><a href="#">1</a></li>
-                                    <li class="active"><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li><a href="#">4</a></li>
-                                    <li class="next"><a href="#"><i class="fa fa-angle-right"></i></a></li>
-                                </ul>
-                                <!-- /.list-inline -->
-                            </div>
-                            <!-- /.pagination-container -->
+                            {{ $products->links('app.custom_paginate.custom') }}
                         </div>
-                        <!-- /.col -->
                     </div>
-                    <!-- /.row -->
                 </div>
 
                 <div class="search-result-container ">
@@ -328,19 +331,23 @@
                                                     <div class="cart clearfix animate-effect">
                                                         <div class="action">
                                                             <ul class="list-unstyled">
+                                                                {{-- Add to Cart --}}
                                                                 <li class="add-cart-button btn-group">
-                                                                    <button class="btn btn-primary icon"
-                                                                        data-toggle="dropdown" type="button"> <i
-                                                                            class="fa fa-shopping-cart"></i> </button>
-                                                                    <button class="btn btn-primary cart-btn"
-                                                                        type="button">Add to cart</button>
+                                                                    <button class="btn btn-primary icon" type="button" data-toggle="modal" data-target="#addCart" id="{{$grid_prod->id}}" onclick="productView(this.id)"> 
+                                                                        <i class="fa fa-shopping-cart"></i>
+                                                                    </button>
+                                                                    <button class="btn btn-primary cart-btn" type="button">{{ session()->get('language') == 'portuguese' ? 'Carrinho' : 'Add to cart' }}</button>
                                                                 </li>
-                                                                <li class="lnk wishlist"> <a class="add-to-cart"
-                                                                        href="detail.html" title="Wishlist"> <i
-                                                                            class="icon fa fa-heart"></i> </a> </li>
-                                                                <li class="lnk"> <a class="add-to-cart"
-                                                                        href="detail.html" title="Compare"> <i
-                                                                            class="fa fa-signal"></i> </a> </li>
+        
+                                                                {{-- Add to Wishlist --}}
+                                                                <li> 
+                                                                    <button class="btn btn-primary icon" type="button" id="{{$grid_prod->id}}" onclick="addWishlist(this.id)"> 
+                                                                        <i class="icon fa fa-heart"></i> 
+                                                                    </button> 
+                                                                </li>
+        
+                                                                <li class="lnk"> <a class="add-to-cart" href="detail.html" > <i class="fa fa-signal" aria-hidden="true"></i> </a>
+                                                                </li>
                                                             </ul>
                                                         </div>
                                                         <!-- /.action -->
@@ -412,16 +419,26 @@
                                                             <div class="cart clearfix animate-effect">
                                                                 <div class="action">
                                                                     <ul class="list-unstyled">
+                                                                        {{-- Add to Cart --}}
                                                                         <li class="add-cart-button btn-group">
-                                                                            <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i>
+                                                                            <button class="btn btn-primary icon" type="button" data-toggle="modal" data-target="#addCart" id="{{$list_prod->id}}" onclick="productView(this.id)"> 
+                                                                                <i class="fa fa-shopping-cart"></i>
                                                                             </button>
-                                                                            <button class="btn btn-primary cart-btn" type="button">{{ session()->get('language') == 'portuguese' ? 'Carrinho' : 'Add to cart' }} </button>
+                                                                            <button class="btn btn-primary cart-btn" type="button">{{ session()->get('language') == 'portuguese' ? 'Carrinho' : 'Add to cart' }}</button>
                                                                         </li>
-                                                                        <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a>
+                
+                                                                        {{-- Add to Wishlist --}}
+                                                                        <li> 
+                                                                            <button class="btn btn-primary icon" type="button" id="{{$list_prod->id}}" onclick="addWishlist(this.id)"> 
+                                                                                <i class="icon fa fa-heart"></i> 
+                                                                            </button> 
                                                                         </li>
-                                                                        <li class="lnk"> <a class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal"></i> </a> </li>
+                
+                                                                        <li class="lnk"> <a class="add-to-cart" href="detail.html" > <i class="fa fa-signal" aria-hidden="true"></i> </a>
+                                                                        </li>
                                                                     </ul>
                                                                 </div>
+                                                                <!-- /.action -->
                                                             </div>
                                                         </div>
                                                     </div>
@@ -453,21 +470,10 @@
                                 @endforeach    
                             </div>
                         </div>
-                        
-
-
                     </div>
-
+                    
                     {{-- Paginate --}}
-                    <div class="clearfix filters-container">
-                        <div class="text-right">
-                            <div class="pagination-container">
-                                <ul class="list-inline list-unstyled">
-                                    {{ $products->links() }}
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                    {{ $products->links('app.custom_paginate.custom') }}
 
                 </div>
 

@@ -37,7 +37,7 @@ class ProductReviewController extends Controller
             'alert-type' => 'success'
         ];
 
-        return redirect()->route('review.publish')->with($noti);
+        return redirect()->back()->with($noti);
     }
 
     public function recuse($id) {
@@ -51,8 +51,9 @@ class ProductReviewController extends Controller
             'alert-type' => 'error'
         ];
 
-        return redirect()->route('review.pedding')->with($noti);
+        return redirect()->back()->with($noti);
     }
+
     // ==========================
 
     // Form no Frontend
@@ -65,6 +66,7 @@ class ProductReviewController extends Controller
         ProductReview::insert([
             'product_id' => $product,
             'user_id' => Auth::id(),
+            'rating' => $request->quality,
             'comment' => $request->comment,
             'summary' => $request->summary,
             'created_at' => Carbon::now()
@@ -77,4 +79,5 @@ class ProductReviewController extends Controller
 
         return redirect()->back()->with($noti);
     }
+  
 }

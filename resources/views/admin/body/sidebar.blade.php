@@ -178,19 +178,6 @@ $route = Route::current()->getName();
                 </ul>
             </li>
 
-            <li class="treeview {{ $prefix == '/stock' ? 'active' : '' }}">
-                <a href="#">
-                    <i data-feather="speaker"></i>
-                    <span>Product Stock</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-right pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li class="{{ $route == 'product.stock' ? 'active' : '' }}"><a href="{{route('product.stock')}}"><i class="ti-more"></i>Product Stock</a></li>
-                </ul>
-            </li>
-
             <li class="treeview {{ $prefix == '/registered/user' ? 'active' : '' }}">
                 <a href="#">
                     <i data-feather="user"></i>
@@ -222,20 +209,19 @@ $route = Route::current()->getName();
             </li>
 
             {{-- ----------------------- --}}
-            <li class="header nav-small-cap">Configuration</li>
+            <li class="header nav-small-cap">Admin Control</li>
 
-            {{-- Settings Site --}}
-            <li class="treeview {{ $prefix == '/setting' ? 'active' : '' }}">
+            {{-- Stock Control --}}
+            <li class="treeview {{ $prefix == '/stock' ? 'active' : '' }}">
                 <a href="#">
-                    <i data-feather="cpu"></i>
-                    <span>Settings</span>
+                    <i data-feather="speaker"></i>
+                    <span>Product Stock</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-right pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li class="{{ $route == 'setting.site.index' ? 'active' : '' }}"><a href="{{route('setting.site.index')}}"><i class="ti-more"></i>Setting Footer</a></li>
-                    <li class="{{ $route == 'setting.site.index' ? 'active' : '' }}"><a href="{{route('setting.site.index')}}"><i class="ti-more"></i>Setting SEO</a></li>
+                    <li class="{{ $route == 'product.stock' ? 'active' : '' }}"><a href="{{route('product.stock')}}"><i class="ti-more"></i>Product Stock</a></li>
                 </ul>
             </li>
 
@@ -269,40 +255,22 @@ $route = Route::current()->getName();
                 </ul>
             </li>
 
-            {{-- <li class="treeview">
+            {{-- ----------------------- --}}
+            <li class="header nav-small-cap">Settigns</li>
+
+            {{-- Settings Site --}}
+            <li class="treeview {{ $prefix == '/setting' ? 'active' : '' }}">
                 <a href="#">
-                    <i data-feather="layers"></i>
-                    <span>Multilevel</span>
+                    <i data-feather="cpu"></i>
+                    <span>Settings</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-right pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="#">Level One</a></li>
-                    <li class="treeview">
-                        <a href="#">Level One
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-right pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li><a href="#">Level Two</a></li>
-                            <li class="treeview">
-                                <a href="#">Level Two
-                                    <span class="pull-right-container">
-                                        <i class="fa fa-angle-right pull-right"></i>
-                                    </span>
-                                </a>
-                                <ul class="treeview-menu">
-                                    <li><a href="#">Level Three</a></li>
-                                    <li><a href="#">Level Three</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li><a href="#">Level One</a></li>
+                    <li class="{{ $route == 'setting.site.index' ? 'active' : '' }}"><a href="{{route('setting.site.index')}}"><i class="ti-more"></i>Setting Footer</a></li>
                 </ul>
-            </li> --}}
+            </li>
 
             <li>
                 <a href="{{ route('admin.logout') }}">
