@@ -7,6 +7,7 @@
 <p><a href="#admin"># Login Admin</a></p>
 <p><a href="#tinker"># Caso tenha erro com o Login Admin</a></p>
 <p><a href="#erros"># Possíveis erros ou bugs</a></p>
+<p><a href="#download"># Download das Imagens Utilizadas</a></p>
 
 <hr>
 
@@ -73,6 +74,10 @@
 </p>
     
 <hr>
+
+<p id="download">
+        https://drive.google.com/u/0/uc?id=1qCV0ndlxFjbdsLS_0F9pxGy18nl6jm7I&export=download
+</p>
 
 <p id="desenvolvido">
 
