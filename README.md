@@ -75,11 +75,15 @@
     
 <hr>
 
+## Download das Imagens
+
 <p id="download">
         https://drive.google.com/u/0/uc?id=1qCV0ndlxFjbdsLS_0F9pxGy18nl6jm7I&export=download
 </p>
 
 <p id="desenvolvido">
+
+<hr>
 
 ## Até o momento:
 
