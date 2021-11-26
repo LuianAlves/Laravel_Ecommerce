@@ -166,6 +166,6 @@
 
 ## Possíveis Erros/Bugs 
 
-* Ao criar uma categoria/sub-categoria/sub-sub-categoria ocorre algum bug com caracteres especiais (Será corrigido em breve)
+* Até o momento nenhum bug foi encontrado.
 </p>
 
