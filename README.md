@@ -1,8 +1,8 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
-## Projeto ainda em desenvolvimento!
+## Projeto Finalizado. Podendo ter novas Atualizações!
 
-<p><a href="#desenvolvido"># Desenvolvido até o momento</a></p>
+<p><a href="#desenvolvido"># Desenvolvido no Projeto</a></p>
 <p><a href="#config"># Configuração Inicial do Projeto</a></p>
 <p><a href="#admin"># Login Admin</a></p>
 <p><a href="#tinker"># Caso tenha erro com o Login Admin</a></p>
