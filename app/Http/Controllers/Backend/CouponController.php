@@ -43,7 +43,7 @@ class CouponController extends Controller
         //$request->validate([]);
 
         Coupon::insert([
-            'coupon_name' => strtoupper($request->coupon_name),
+            'coupon_name' => $request->coupon_name,
             'coupon_discount' => $request->coupon_discount,
             'coupon_validity' => $request->coupon_validity,
             'created_at' => Carbon::now()
@@ -93,7 +93,7 @@ class CouponController extends Controller
         // $request->validate([]);
 
         Coupon::findOrFail($id)->update([
-            'coupon_name' => strtoupper($request->coupon_name),
+            'coupon_name' => $request->coupon_name,
             'coupon_discount' => $request->coupon_discount,
             'coupon_validity' => $request->coupon_validity,
             'updated_at' => Carbon::now()

@@ -57,8 +57,8 @@ class BrandController extends Controller
         Brand::insert([
             'brand_name_en' => $request->brand_name_en,
             'brand_name_pt' => $request->brand_name_pt,
-            'brand_slug_en' => strtolower(str_replace(' ', '-', $request->brand_name_en)),
-            'brand_slug_pt' => strtolower(str_replace(' ', '-', $request->brand_name_pt)),
+            'brand_slug_en' => str_replace(' ', '-', $request->brand_name_en),
+            'brand_slug_pt' => str_replace(' ', '-', $request->brand_name_pt),
             'brand_image' => $save_url,
         ]);
 
@@ -121,8 +121,8 @@ class BrandController extends Controller
                 Brand::findOrFail($brand_id)->update([
                     'brand_name_en' => $request->brand_name_en,
                     'brand_name_pt' => $request->brand_name_pt,
-                    'brand_slug_en' => strtolower(str_replace(' ', '-', $request->brand_name_en)),
-                    'brand_slug_pt' => strtolower(str_replace(' ', '-', $request->brand_name_pt)),
+                    'brand_slug_en' => str_replace(' ', '-', $request->brand_name_en),
+                    'brand_slug_pt' => str_replace(' ', '-', $request->brand_name_pt),
                     'brand_image' => $save_url,
                 ]);
 
@@ -131,8 +131,8 @@ class BrandController extends Controller
                 Brand::findOrFail($brand_id)->update([
                     'brand_name_en' => $request->brand_name_en,
                     'brand_name_pt' => $request->brand_name_pt,
-                    'brand_slug_en' => strtolower(str_replace(' ', '-', $request->brand_name_en)),
-                    'brand_slug_pt' => strtolower(str_replace(' ', '-', $request->brand_name_pt)),
+                    'brand_slug_en' => str_replace(' ', '-', $request->brand_name_en),
+                    'brand_slug_pt' => str_replace(' ', '-', $request->brand_name_pt),
                 ]);
             }
 

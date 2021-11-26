@@ -154,6 +154,7 @@
 * Criado uma Página de Compras
 * Configurando filtro de categorias e marcas na página de compras
 
+* Corrigido o erro de Caracteres Especiais após remover o 'strtolower' antes de inserir no banco de dados
 
 
 

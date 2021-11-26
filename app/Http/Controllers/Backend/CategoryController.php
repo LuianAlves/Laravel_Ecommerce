@@ -46,8 +46,8 @@ class CategoryController extends Controller
         Category::insert([
             'category_name_en' => $request->category_name_en,
             'category_name_pt' => $request->category_name_pt,
-            'category_slug_en' => strtolower(str_replace(' ', '-', $request->category_name_en)),
-            'category_slug_pt' => strtolower(str_replace(' ', '_', $request->category_name_pt)),
+            'category_slug_en' => str_replace(' ', '-', $request->category_name_en),
+            'category_slug_pt' => str_replace(' ', '_', $request->category_name_pt),
             'category_icon'    => $request->category_icon
         ]);
 
@@ -97,8 +97,8 @@ class CategoryController extends Controller
         Category::findOrFail($category_id)->update([
             'category_name_en' => $request->category_name_en,
             'category_name_pt' => $request->category_name_pt,
-            'category_slug_en' => strtolower(str_replace(' ', '-', $request->category_name_en)),
-            'category_slug_pt' => strtolower(str_replace(' ', '_', $request->category_name_pt)),
+            'category_slug_en' => str_replace(' ', '-', $request->category_name_en),
+            'category_slug_pt' => str_replace(' ', '_', $request->category_name_pt),
             'category_icon'    => $request->category_icon
         ]);
 

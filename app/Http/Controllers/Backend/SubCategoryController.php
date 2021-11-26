@@ -53,8 +53,8 @@ class SubCategoryController extends Controller
             'category_id' => $request->category_id,
             'subcategory_name_en' => $request->subcategory_name_en,
             'subcategory_name_pt' => $request->subcategory_name_pt,
-            'subcategory_slug_en' => strtolower(str_replace(' ', '-', $request->subcategory_name_en)),
-            'subcategory_slug_pt' => strtolower(str_replace(' ', '_', $request->subcategory_name_pt)),
+            'subcategory_slug_en' => str_replace(' ', '-', $request->subcategory_name_en),
+            'subcategory_slug_pt' => str_replace(' ', '_', $request->subcategory_name_pt),
         ]);
 
         $noti = array (
@@ -111,8 +111,8 @@ class SubCategoryController extends Controller
             'category_id' => $request->category_id,
             'subcategory_name_en' => $request->subcategory_name_en,
             'subcategory_name_pt' => $request->subcategory_name_pt,
-            'subcategory_slug_en' => strtolower(str_replace(' ', '-', $request->subcategory_name_en)),
-            'subcategory_slug_pt' => strtolower(str_replace(' ', '_', $request->subcategory_name_pt)),
+            'subcategory_slug_en' => str_replace(' ', '-', $request->subcategory_name_en),
+            'subcategory_slug_pt' => str_replace(' ', '_', $request->subcategory_name_pt),
         ]);
 
         $noti = array (
