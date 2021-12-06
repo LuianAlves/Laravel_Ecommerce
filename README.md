@@ -62,7 +62,7 @@
 #Definindo os dados de login
 
         $user->name = 'Teste';
-        $user->email = 'teste@admin.com';
+        $user->email = 'admin@gmail.com';
         $user->password = bcrypt('teste123');
 
 #Adicionando ao Banco de Dados
