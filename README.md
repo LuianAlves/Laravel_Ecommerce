@@ -157,6 +157,7 @@
 * Corrigido o erro de Caracteres Especiais após remover o 'strtolower' antes de inserir no banco de dados
 
 
+** ** Criado um Procfile para Hospedar a Aplicação no Heroku
 
 </p>
      
